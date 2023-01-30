@@ -97,7 +97,6 @@ const Navbar = ({setToggle, toggle}) => {
   const reloadPage = () => {
     window.location.reload(false);
   };
-  //grid md:grid-cols-11 col-start-3 col-end-12
   return (
     <div className=" ">
       <header className=" border-b border-border fixed w-full bg-white z-10">
@@ -127,25 +126,25 @@ const Navbar = ({setToggle, toggle}) => {
             <div className="flex items-center text-primary dropdown relative">
               <button className="nav-icon" title="Refresh" onClick={reloadPage}>
                 {" "}
-                <MdRefresh className="link-icon-styles text-gray-900" />
+                <MdRefresh className="navbar-icon" />
               </button>
               {/* grid and list view icons  */}
               <button className={`${bookmarkView === "grid" ? "block " : "hidden"} flex justify-center items-center nav-icon`} title="List View" onClick={handleBookmarkView}>
-                <BsViewList className="link-icon-styles" />
+                <BsViewList className="navbar-icon" />
               </button>
               <button className={`${bookmarkView === "grid" ? "hidden" : "block"} flex justify-center items-center nav-icon`} title="Grid View" onClick={handleBookmarkView}>
-                <FiGrid className="link-icon-styles" />
+                <FiGrid className="navbar-icon" />
               </button>
               {/* light and darkmode icons  */}
 
               <button className={`${theme === "dark" ? "hidden" : "block"} flex justify-center items-center nav-icon`} title="Dark Mode" onClick={() => themeModeChange("dark")}>
-                <MdOutlineDarkMode className="link-icon-styles" />
+                <MdOutlineDarkMode className="navbar-icon" />
               </button>
               <button className={`${theme !== "light" ? "block" : "hidden"} flex justify-center items-center nav-icon`} title="Light Mode" onClick={() => themeModeChange("light")}>
-                <MdLightMode className="link-icon-styles" />
+                <MdLightMode className="navbar-icon" />
               </button>
               {/* <button className="nav-icon dropdown-toggle" title="Settings" id="dropdownMenuButton1" aria-expanded="false" onClick={() => setDropModal(true)} ref={ref}>
-              <IoSettingsOutline className="link-icon-styles" />
+              <IoSettingsOutline className="navbar-icon" />
             </button> */}
             </div>
             <div className="justify-end text-fill w-44 bg-white border-l p-2"></div>

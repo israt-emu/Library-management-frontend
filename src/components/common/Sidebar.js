@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {BsFillBookmarkCheckFill} from "react-icons/bs";
+import {AiTwotoneStar} from "react-icons/ai";
 import {FaWindowRestore} from "react-icons/fa";
 import {MdOutlineArchive} from "react-icons/md";
 import {FaRegTrashAlt} from "react-icons/fa";
@@ -26,27 +26,8 @@ const Sidebar = ({toggle}) => {
           <ul className="pt-2 pb-4 space-y-1 text-sm">
             <li className={`${active === "bookmarks" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/bookmarks" className="link-styles">
-                <BsFillBookmarkCheckFill className="link-icon-styles" title="Bookmarks" />
-                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Bookmarks</span>
-              </Link>
-            </li>
-            <li className={`${active === "store" ? "link-active" : "link-hover"}`}>
-              <Link to="/dashboard/store" className="link-styles">
-                <FaWindowRestore title="Store" className="link-icon-styles" />
-                <span className={`link-text ${toggle && "hidden"}`}>Store</span>
-              </Link>
-            </li>
-
-            <li className={`${active === "archive" ? "link-active" : "link-hover"}`}>
-              <Link to="/dashboard/archive" className="link-styles">
-                <MdOutlineArchive title="Archive" className="link-icon-styles" />
-                <span className={`link-text ${toggle && "hidden"}`}>Archive</span>
-              </Link>
-            </li>
-            <li className={`${active === "trash" ? "link-active" : "link-hover"}`}>
-              <Link to="/dashboard/trash" className="link-styles">
-                <FaRegTrashAlt title="Trash" className="link-icon-styles" />
-                <span className={`link-text ${toggle && "hidden"}`}>Trash</span>
+                <AiTwotoneStar className="sidebar-icon" title="Top Books!" />
+                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Top Books</span>
               </Link>
             </li>
           </ul>

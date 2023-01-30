@@ -27,9 +27,9 @@
     --outline-color: rgb(174, 221, 191);
     --grey-color: rgb(241, 243, 244);
     --link-icon-color: rgb(34, 34, 34);
-    --link-hover-color: rgb(241, 243, 244);
+    --link-hover-color: rgb(3, 47, 51);
     --placeholder-text-color: rgb(75 85 99);
-    /* --modal-bg-color: rgb(241, 243, 244); */
+    --modal-bg-color: rgb(241, 243, 244);
   }
 
   h1 {
@@ -44,34 +44,32 @@
   .bookmarkPlaceholderStyles::placeholder {
     @apply text-gray-400 font-semibold;
   }
-  /* .link-hover:hover {
+  .link-hover:hover {
     @apply bg-link_hover rounded-r;
-  } */
+  }
   .link-active {
     @apply bg-main rounded-r;
   }
   .nav-icon {
     @apply hover:bg-link_hover rounded-full flex justify-center items-center md:w-10 md:h-10 w-5 h-5 mr-2;
   }
-  .bookmark-icon {
-    @apply hover:bg-link_hover rounded-full flex justify-center items-center w-9 h-9 mr-2;
-  }
+
   .link-styles {
     @apply flex items-center py-3 px-3;
   }
   .link-text {
     @apply font-semibold ml-6;
   }
-  .bookmarkInput {
-    @apply bookmarkPlaceholderStyles bg-fill focus:outline-none py-3 block w-full;
-  }
   .custom-shadow {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   }
 }
 @layer components {
-  .link-icon-styles {
+  .sidebar-icon {
     @apply md:w-6 md:h-6 w-4 h-4 text-fill;
+  }
+  .navbar-icon {
+    @apply md:w-6 md:h-6 w-4 h-4 text-black;
   }
 }
 

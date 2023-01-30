@@ -85,15 +85,15 @@ const Dashboard = () => {
   return (
     <div className={`${theme === "dark" ? "theme-dark" : "theme-light"} bg-fill`}>
       <Navbar setToggle={setToggle} toggle={toggle} />
-      <div className="grid md:grid-cols-11 gap-2 ">
-        <div className={`col-span-1 h-screen fixed ${toggle ? "-left-96 md:left-0 w-14" : "left-0 w-44"} top-[52px]  shadow-md  z-50  transition-all duration-300 bg-main`}>
+      <div className="flex justify-between">
+        <div className={`h-screen fixed ${toggle ? "-left-96 md:left-0 w-14" : "left-0 w-44"} top-[52px]  shadow-md  z-50  transition-all duration-300 bg-main`}>
           {" "}
           <Sidebar toggle={toggle} setToggle={setToggle} />
         </div>
-        <div className={`text-primary  ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 px-8"} col-end-9 h-screen mt-24 z-0`}>
+        <div className={`text-primary ${toggle ? " px-4 transition-all duration-300" : " transition-all duration-300 px-8"} h-screen mt-24 z-0`}>
           <Outlet />
         </div>
-        <div className={`col-start-10 col-end-12 h-screen fixed top-[52px]  shadow-md  z-50  transition-all duration-300 bg-main`}></div>
+        <div className={`h-screen fixed top-[52px]  shadow-md w-44 z-50  transition-all duration-300 bg-main right-0`}></div>
       </div>
     </div>
   );
