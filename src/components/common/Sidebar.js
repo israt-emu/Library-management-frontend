@@ -30,6 +30,12 @@ const Sidebar = ({toggle}) => {
                 <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Top Books</span>
               </Link>
             </li>
+            <li className={`${active === "bookmarks" ? "link-active" : "link-hover"}`}>
+              <Link to="/dashboard/books" className="link-styles">
+                <AiTwotoneStar className="sidebar-icon" title="Top Books!" />
+                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Books</span>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
