@@ -13,6 +13,7 @@ import Store from "./components/store/Store";
 import Archive from "./components/archive/Archive";
 import Trash from "./components/trash/Trash";
 import ShowSearchedCard from "./components/common/ShowSearchedCard";
+import Book from "./components/book/Book";
 
 const router = createBrowserRouter([
   {
@@ -40,49 +41,50 @@ const router = createBrowserRouter([
       // </PrivateRoute>
     ),
     children: [
+  
       {
-        path: "/dashboard/bookmarks",
+        path: "/dashboard/books",
         element: (
-          <BookMarks />
+          <Book />
           // <PrivateRoute>
           //   <BookMarks />
           // </PrivateRoute>
         ),
       },
-      {
-        path: "/dashboard/store",
-        element: (
-          <Store />
-          // <PrivateRoute>
-          //   <Store />
-          // </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/archive",
-        element: (
-          <Archive />
-          // <PrivateRoute>
-          //   <Archive />
-          // </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/trash",
-        element: (
-          <PrivateRoute>
-            <Trash />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/search",
-        element: (
-          <PrivateRoute>
-            <ShowSearchedCard />
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "/dashboard/store",
+      //   element: (
+      //     <Store />
+      //     // <PrivateRoute>
+      //     //   <Store />
+      //     // </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/dashboard/archive",
+      //   element: (
+      //     <Archive />
+      //     // <PrivateRoute>
+      //     //   <Archive />
+      //     // </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/dashboard/trash",
+      //   element: (
+      //     <PrivateRoute>
+      //       <Trash />
+      //     </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/dashboard/search",
+      //   element: (
+      //     <PrivateRoute>
+      //       <ShowSearchedCard />
+      //     </PrivateRoute>
+      //   ),
+      // },
     ],
   },
   {
