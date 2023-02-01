@@ -17,6 +17,7 @@ import Book from "./components/book/Book";
 import BookDetails from "./components/book/BookDetails";
 import Analytics from "./components/analytics/Analytics";
 import UserDashboard from "./components/user/UserDashboard";
+import BookRequest from "./components/book/BookRequest";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/bookRequest",
+        element: (
+          <PrivateRoute>
+            <BookRequest />
           </PrivateRoute>
         ),
       },
