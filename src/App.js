@@ -18,6 +18,8 @@ import BookDetails from "./components/book/BookDetails";
 import Analytics from "./components/analytics/Analytics";
 import UserDashboard from "./components/user/UserDashboard";
 import BookRequest from "./components/book/BookRequest";
+import Articles from "./components/articles/Articles";
+import ArticleDetails from "./components/articles/ArticleDetails";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +84,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/articles",
+        element: (
+          <PrivateRoute>
+            <Articles />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/articles/:id",
+        element: (
+          <PrivateRoute>
+            <ArticleDetails />
           </PrivateRoute>
         ),
       },

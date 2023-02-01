@@ -36,7 +36,6 @@ const Sidebar = ({ toggle }) => {
                     toggle && "hidden"
                   }`}
                 >
-
                   Dashboard
                 </span>
               </Link>
@@ -70,6 +69,22 @@ const Sidebar = ({ toggle }) => {
                   }`}
                 >
                   Requested Books
+                </span>
+              </Link>
+            </li>
+            <li
+              className={`${
+                active === "bookmarks" ? "link-active" : "link-hover"
+              }`}
+            >
+              <Link to="/dashboard/articles" className="link-styles">
+                <BsBookHalf className="sidebar-icon" title="Books!" />
+                <span
+                  className={`link-text transition-all duration-300 ${
+                    toggle && "hidden"
+                  }`}
+                >
+                  Articles
                 </span>
               </Link>
             </li>
