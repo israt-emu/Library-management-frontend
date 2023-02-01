@@ -33,7 +33,7 @@ const BookCard = ({book}) => {
   return (
     <div>
     <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border ">
-      <Link to={"/"}>
+      <Link to={`/dashboard/books/${bookId}`}>
         <div>
           <img className="w-full"  alt="book mark" />
           <div className="px-6 pt-2">
@@ -80,7 +80,7 @@ const BookCard = ({book}) => {
         </div> */}
         <div>
           {" "}
-          <span className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2">
+          <span className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2 text-white">
             {" "}
             <Moment format="D MMM YYYY" withTitle>
               {createdAt}
