@@ -46,26 +46,27 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/books",
         element: (
-          <Book />
-          // <PrivateRoute>
-          //   <BookMarks />
-          // </PrivateRoute>
+          <PrivateRoute>
+            <Book />
+          </PrivateRoute>
         ),
-       
       },
       {
         path: "/dashboard/books/:id",
-        element: <BookDetails />,
+        element: (
+          <PrivateRoute>
+            <BookDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/analytics",
         element: (
-          <Analytics />
-          // <PrivateRoute>
-          //   <BookMarks />
-          // </PrivateRoute>
+          <PrivateRoute>
+            {" "}
+            <Analytics />
+          </PrivateRoute>
         ),
-       
       },
       // {
       //   path: "/dashboard/store",

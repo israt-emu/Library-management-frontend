@@ -8,6 +8,7 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState(false);
   const [repetPassword, setRepetPassword] = useState("");
   const [error, setError] = useState("");
   const [signUp, { data: responseData, isLoading, error: responseError }] =
@@ -22,7 +23,7 @@ const SignUp = () => {
       setError(responseError.data);
     }
     if (responseData?.status === "success" && responseData?.user) {
-      navigate("/");
+      navigate("/dashboard/books");
     }
   }, [responseData, responseError, navigate]);
   //signUp user
@@ -47,12 +48,13 @@ const SignUp = () => {
         name,
         email,
         password,
+        role:role?"teacher":"student",
       };
-
+      console.log(data);
       signUp(data);
     }
   };
-
+ 
   return (
     <div
       className="bg-green-400 h-screen flex"
@@ -66,7 +68,7 @@ const SignUp = () => {
       {/*  signUp form  */}
       <div className=" flex flex-col justify-center items-center w-full backdrop-blur-sm bg-green-400/[0.8] ">
         <div className="bg-green-50 shadow-lg py-10 md:w-1/3 flex flex-col justify-center items-center rounded ">
-          <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10  text-gray-800 w-full">
+          <div className="flex flex-col  p-6 rounded-md sm:p-10  text-gray-800 w-full">
             <div className="mb-8 text-center">
               <h1 className="my-3 text-4xl font-bold uppercase">
                 Create Account
@@ -182,7 +184,7 @@ const SignUp = () => {
                   </span>
                 </div>
                 <div>
-                  <div className="flex justify-between mt-2">
+                  <div className="flex justify-between mt-2 flex-col">
                     <div className="">
                       {" "}
                       <input
@@ -197,6 +199,23 @@ const SignUp = () => {
                         htmlFor="flexCheckDefault"
                       >
                         I agree all statements in
+                        <span className="underline ml-1">Terms of service</span>
+                      </label>
+                    </div>
+                    <div className="">
+                      {" "}
+                      <input
+                        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-green-600 checked:border-green-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        onChange={(e) => setRole(!role)}
+                      />
+                      <label
+                        className="form-check-label inline-block text-gray-800 font-semibold"
+                        htmlFor="flexCheckDefault"
+                      >
+                        Register as a Teacher ?
                         <span className="underline ml-1">Terms of service</span>
                       </label>
                     </div>
