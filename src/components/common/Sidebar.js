@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {AiTwotoneStar} from "react-icons/ai";
-import {FaWindowRestore} from "react-icons/fa";
-import {MdOutlineArchive} from "react-icons/md";
+import {BsBookHalf} from "react-icons/bs";
+import {MdAnalytics} from "react-icons/md";
 import {FaRegTrashAlt} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -25,15 +25,22 @@ const Sidebar = ({toggle}) => {
           {/* sidebar link  */}
           <ul className="pt-2 pb-4 space-y-1 text-sm">
             <li className={`${active === "bookmarks" ? "link-active" : "link-hover"}`}>
+              <Link to="/dashboard/books" className="link-styles">
+                <BsBookHalf className="sidebar-icon" title="Books!" />
+                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Books</span>
+              </Link>
+            </li>
+            <li className={`${active === "bookmarks" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/bookmarks" className="link-styles">
                 <AiTwotoneStar className="sidebar-icon" title="Top Books!" />
                 <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Top Books</span>
               </Link>
             </li>
+
             <li className={`${active === "bookmarks" ? "link-active" : "link-hover"}`}>
-              <Link to="/dashboard/books" className="link-styles">
-                <AiTwotoneStar className="sidebar-icon" title="Top Books!" />
-                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Books</span>
+              <Link to="/dashboard/analytics" className="link-styles">
+                <MdAnalytics className="sidebar-icon" title="Analytics!" />
+                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Analytics</span>
               </Link>
             </li>
           </ul>

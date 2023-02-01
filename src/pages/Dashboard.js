@@ -5,11 +5,7 @@ import {Outlet, useLocation} from "react-router-dom";
 import Navbar from "../components/common/Navbar";
 import Sidebar from "../components/common/Sidebar";
 import {userLoggedOut} from "../features/auth/authSlice";
-import {useGetBookmarksQuery} from "../features/bookmark/bookmarkAPI";
-import {loadingBookmarks, settingBookmarks, settingError} from "../features/bookmark/bookmarkSlice";
 import {pathChange, resetSearch} from "../features/filter/filterSlice";
-import {useGetStoresQuery} from "../features/store/storeApi";
-import {loadingStores, settingStoreError, settingStores} from "../features/store/storeSlice";
 import {jwtVerify} from "../utils/jwtVerify";
 
 const Dashboard = () => {
@@ -85,20 +81,12 @@ const Dashboard = () => {
   return (
     <div className={`${theme === "dark" ? "theme-dark" : "theme-light"} bg-fill`}>
       <Navbar setToggle={setToggle} toggle={toggle} />
-      <div className="grid md:grid-cols-11 gap-2 ">
-        <div
-          className={`col-span-1 h-screen fixed ${
-            toggle ? "-left-96 md:left-0 w-14" : "left-0 w-60"
-          } top-16  shadow-md  z-50  transition-all duration-300 bg-main`}
-        >
+      <div className="grid md:grid-cols-12 ">
+        <div className={`col-span-1 h-screen fixed ${toggle ? "-left-96 md:left-0 w-14" : "left-0 w-44"} top-[52px]  shadow-md  z-50  transition-all duration-300 bg-main`}>
           {" "}
-          <Sidebar toggle={toggle} setToggle={setToggle}/>
+          <Sidebar toggle={toggle} setToggle={setToggle} />
         </div>
-        <div
-          className={`text-primary  ${
-            toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 px-8"
-          } col-end-12 h-screen mt-24 z-0`}
-        >
+        <div className={`text-primary  ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 pr-8"} col-end-13 h-full mt-20 z-0`}>
           <Outlet />
         </div>
       </div>

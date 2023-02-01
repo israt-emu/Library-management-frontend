@@ -18,6 +18,7 @@
     --placeholder-text-color: rgb(229 231 235);
     --modal-bg-color: rgb(17 24 39);
   }
+
   .theme-light {
     --text-color: rgb(32, 33, 36);
     --main-color: rgb(2, 55, 60);
@@ -30,6 +31,9 @@
     --link-hover-color: rgb(3, 47, 51);
     --placeholder-text-color: rgb(75 85 99);
     --modal-bg-color: rgb(241, 243, 244);
+  }
+  body {
+    background-color: var(--background-color);
   }
 
   h1 {
@@ -62,6 +66,12 @@
   }
   .custom-shadow {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  }
+  .banner {
+    background-image: linear-gradient(rgba(2, 55, 60, 0.7), rgba(68, 147, 66, 0.6)), url("./assets/images/image.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }
 @layer components {

@@ -1,22 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ImImage } from "react-icons/im";
-import { FaWindowRestore } from "react-icons/fa";
-import { BiPaint } from "react-icons/bi";
-import {
-  useAddBookmarkMutation,
-  useGetGroupsQuery,
-} from "../../features/bookmark/bookmarkAPI";
-import { useSelector } from "react-redux";
+import React, {useEffect, useRef, useState} from "react";
+import libraryImg from "../../assets/images/image.jpg";
+import bookIcon from "../../assets/images/icons8-open-book-100.png";
+import {FaWindowRestore} from "react-icons/fa";
+import {BiPaint} from "react-icons/bi";
+import {useSelector} from "react-redux";
 import Error from "../ui/Error";
 
-import { useAddStoreMutation } from "../../features/store/storeApi";
-import { useNavigate } from "react-router-dom";
-import { useGetBooksQuery } from "../../features/book/bookAPI";
+import {useNavigate} from "react-router-dom";
+import {useGetBooksQuery} from "../../features/book/bookAPI";
 import CardSkeletonLoader from "../ui/CardSkeletonLoader";
 import BookCard from "./BookCard";
 
 const Book = () => {
-  const { data: booksData, isError, error, isLoading } = useGetBooksQuery();
+  const {data: booksData, isError, error, isLoading} = useGetBooksQuery();
   // const [showModal, setShowModal] = useState(false);
   // const [focusTnput, setFocusTnput] = useState(false);
   // const [group, setGroup] = useState("");
@@ -130,19 +126,25 @@ const Book = () => {
   }
   if (!isError && isLoading) {
     content = (
-      <div className="grid grid-cols-1 md:grid-cols-3 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
         <CardSkeletonLoader />
       </div>
     );
   }
-  if (!isError && !isLoading) {
+  if (!isError && !isLoading && booksData?.books?.length > 0) {
     content = (
-      <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4 mt-8 pb-8">
-        {booksData?.books?.map((b) => (
-          <BookCard book={b}/>
-        ))}
+      <div>
+        <h2 className="text-main mt-6 font-medium text-2xl">Books In the Library:</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-4 mt-8 pb-8 mx-auto">
+          {booksData?.books?.map((b) => (
+            <BookCard book={b} />
+          ))}
+        </div>
       </div>
     );
+  }
+  if (!isError && !isLoading && booksData?.books?.length === 0) {
+    content = <div className="grid grid-cols-1 justify-center items-center gap-4 mt-8 pb-8 w-11/12 mx-auto">No Books Found!</div>;
   }
   // if (!bookmarkData?.isError && !bookmarkData?.isLoading && bookmarksByState?.length > 0 && bookmarkView === "list") {
   //   content = groupData?.groups?.map((group, i) => (
@@ -165,59 +167,14 @@ const Book = () => {
   console.log(booksData?.books);
   return (
     <section className="overflow-y-scroll no-scrollbar h-full">
-      {/* //input box for bookmark  */}
-      {/* <div className="flex justify-center items-center mb-8">
-        {/*  */}
-      {/* {!focusTnput && (
-          <div className="px-5 bg-fill flex items-center border border-border custom-shadow rounded-md md:w-3/5 " onClick={() => setFocusTnput((prev) => !prev)} ref={inputRef}>
-            <input type="text" placeholder="Bookmark a group..." className="bookmarkInput" />
-            <button className="mr-4">
-              <BiPaint className="w-5 h-5 text-link" />
-            </button>
-            <button className="">
-              <ImImage className="w-5 h-5 text-link" />
-            </button>
-          </div>
-        )} */}
-      {/*  */}
-      {/* {focusTnput && (
-          <div className="md:w-3/5">
-            <div className="pt-2 px-5 bg-fill flex flex-col border border-border custom-shadow rounded-md" ref={ref}>
-              <div>
-                <input type="url" onChange={(e) => setUrl(e.target.value)} placeholder="URL" className="bookmarkInput" autoFocus />
-                <input type="text" placeholder="Title" className="bookmarkInput" onChange={(e) => setTitle(e.target.value)} />
-                <input type="text" placeholder="Group" className="bookmarkInput" onChange={(e) => setGroup(e.target.value)} />
-
-                <div className="bookmarkInput flex justify-between items-center">
-                  <div className="flex justify-start">
-                    <button className="bookmark-icon">
-                      <ImImage className="w-4 h-4 text-link" />
-                    </button>
-                    <button className="bookmark-icon" title="Add to Store" onClick={handleAddStore}>
-                      <FaWindowRestore className="w-4 h-4 text-link" />
-                    </button>
-                    {/* <button className="bookmark-icon">
-                      <MdOutlineArchive className="w-5 h-5 text-link" />
-                    </button> */}
-      {/* </div>
-                  <div> */}
-      {/* <button type="button" className="px-4 py-2 rounded-md bg-grey mr-2 font-medium" onClick={handleAddBookmark}>
-                      Add
-                    </button>
-                    <button className="px-4 py-2 rounded-md hover:bg-grey font-medium" onClick={() => handleClose()}>
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="pt-2 bg-fill rounded-md">{error ? <Error message={error} /> : null}</div>
-          </div>
-        )} 
-      </div> */}
       {/* //cards  */}
-      // {content}
-      
+      <div className="banner pt-16 py-20 text-center">
+        <h3 className=" text-fill font-semibold w-2/4 mx-auto text-3xl pt-6 pb-6">Seminar Library of Department of Applied Mathematics</h3>
+        <img src={bookIcon} alt="" className="w-11 h-11 mx-auto" />
+      </div>
+
+      {content}
+
       {/* <BookMarkModal showModal={showModal} setShowModal={setShowModal} /> */}
     </section>
   );
