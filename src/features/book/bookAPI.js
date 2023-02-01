@@ -9,6 +9,13 @@ export const bookApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
+    getBookDetails: builder.query({
+      query: ({id}) => ({
+        url: `/book/getSingleBook/${id}`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
 
     // deleteBookmark: builder.mutation({
     //   query: ({id, userId}) => ({
@@ -166,4 +173,4 @@ export const bookApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useGetBooksQuery, } = bookApi;
+export const {useGetBooksQuery,useGetBookDetailsQuery } = bookApi;
