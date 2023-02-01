@@ -1,42 +1,42 @@
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {useLoginMutation} from "../../features/auth/authApi";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../features/auth/authApi";
 import Error from "../ui/Error";
 
 const LoginForm = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [error, setError] = useState("");
-  // const [login, { data, isLoading, error: responseError }] = useLoginMutation();
-  // const navigate = useNavigate();
-  // //
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [login, { data, isLoading, error: responseError }] = useLoginMutation();
+  const navigate = useNavigate();
+  //
 
-  // useEffect(() => {
-  //   if (!data?.status) {
-  //     setError(data?.message);
-  //   }
-  //   if (responseError?.data) {
-  //     setError(responseError?.data?.message);
-  //   }
-  //   if (data?.token && data?.user) {
-  //     navigate("/dashboard/bookmarks");
-  //   }
-  // }, [data, responseError, navigate]);
-  // //login
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setError("");
-  //   const emailValidation = /\S+@\S+\.\S+/.test(email);
-  //   const passValidation = /(?=.{8,})/.test(password);
-  //   if (emailValidation && passValidation) {
-  //     login({
-  //       email,
-  //       password,
-  //     });
-  //   } else {
-  //     setError("Please enter a valid email or password !");
-  //   }
-  // };
+  useEffect(() => {
+    if (!data?.status) {
+      setError(data?.message);
+    }
+    if (responseError?.data) {
+      setError(responseError?.data?.message);
+    }
+    if (data?.token && data?.user) {
+      navigate("/dashboard/");
+    }
+  }, [data, responseError, navigate]);
+  //login
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+    const emailValidation = /\S+@\S+\.\S+/.test(email);
+    const passValidation = /(?=.{8,})/.test(password);
+    if (emailValidation && passValidation) {
+      login({
+        email,
+        password,
+      });
+    } else {
+      setError("Please enter a valid email or password !");
+    }
+  };
   return (
     <div className=" flex flex-col justify-center items-center md:col-span-3 md:fixed md:top-5 md:right-5 px-4 order-first mt-5 md:mt-0">
       {/* login form  */}
@@ -45,9 +45,11 @@ const LoginForm = () => {
         <h2 className="font-bold text-center">Logo</h2>
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Sign in</h1>
-          <p className="text-sm text-gray-600">Sign in to access your account</p>
+          <p className="text-sm text-gray-600">
+            Sign in to access your account
+          </p>
         </div>
-        {/* <form
+        <form
           className=" ng-untouched ng-pristine ng-valid"
           onSubmit={handleSubmit}
         >
@@ -141,11 +143,14 @@ const LoginForm = () => {
             </div>
           </div>
           <div className="mt-2">{error && <Error message={error} />}</div>
-        </form> */}
+        </form>
       </div>
       <p className="md:px-6 text-sm text-center text-gray-600 align-bottom mt-8">
         Don't have an account yet?
-        <Link to="/signup" className="hover:underline text-green-600 ml-1 font-bold">
+        <Link
+          to="/signup"
+          className="hover:underline text-green-600 ml-1 font-bold"
+        >
           Quick Sign up here
         </Link>
         .
