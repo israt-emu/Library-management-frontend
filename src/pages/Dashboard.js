@@ -97,7 +97,7 @@ const Dashboard = () => {
         <div
           className={`text-primary  ${
             toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 px-8"
-          } col-end-12 h-screen mt-24 z-0`}
+          } col-end-12 h-full mt-24 z-0`}
         >
           <Outlet />
         </div>
