@@ -18,6 +18,7 @@
     --placeholder-text-color: rgb(229 231 235);
     --modal-bg-color: rgb(17 24 39);
   }
+
   .theme-light {
     --text-color: rgb(32, 33, 36);
     --main-color: rgb(2, 55, 60);
@@ -30,6 +31,9 @@
     --link-hover-color: rgb(3, 47, 51);
     --placeholder-text-color: rgb(75 85 99);
     --modal-bg-color: rgb(241, 243, 244);
+  }
+  body {
+    background-color: var(--background-color);
   }
 
   h1 {

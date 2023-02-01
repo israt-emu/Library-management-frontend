@@ -86,7 +86,7 @@ const Dashboard = () => {
           {" "}
           <Sidebar toggle={toggle} setToggle={setToggle} />
         </div>
-        <div className={`text-primary  ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 pr-8"} col-end-13 h-screen mt-20 z-0`}>
+        <div className={`text-primary  ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 pr-8"} col-end-13 h-full mt-20 z-0`}>
           <Outlet />
         </div>
       </div>
