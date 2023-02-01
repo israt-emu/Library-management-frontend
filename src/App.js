@@ -16,6 +16,7 @@ import ShowSearchedCard from "./components/common/ShowSearchedCard";
 import Book from "./components/book/Book";
 import BookDetails from "./components/book/BookDetails";
 import Analytics from "./components/analytics/Analytics";
+import UserDashboard from "./components/user/UserDashboard";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +38,9 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <Dashboard />
-      // <PrivateRoute>
-      //   <Dashboard />
-      // </PrivateRoute>
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
     ),
     children: [
       {
@@ -68,15 +68,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "/dashboard/store",
-      //   element: (
-      //     <Store />
-      //     // <PrivateRoute>
-      //     //   <Store />
-      //     // </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/user",
+        element: (
+          <PrivateRoute>
+            <UserDashboard />
+          </PrivateRoute>
+        ),
+      },
       // {
       //   path: "/dashboard/archive",
       //   element: (
