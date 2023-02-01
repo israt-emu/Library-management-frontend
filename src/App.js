@@ -15,6 +15,7 @@ import Trash from "./components/trash/Trash";
 import ShowSearchedCard from "./components/common/ShowSearchedCard";
 import Book from "./components/book/Book";
 import BookDetails from "./components/book/BookDetails";
+import Analytics from "./components/analytics/Analytics";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,16 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/books/:id",
         element: <BookDetails />,
+      },
+      {
+        path: "/dashboard/analytics",
+        element: (
+          <Analytics />
+          // <PrivateRoute>
+          //   <BookMarks />
+          // </PrivateRoute>
+        ),
+       
       },
       // {
       //   path: "/dashboard/store",
