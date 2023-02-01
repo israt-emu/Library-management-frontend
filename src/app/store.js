@@ -6,6 +6,7 @@ import themeReducer from "../features/theme/themeSlice";
 import activeLinkReducer from "../features/activeLink/activeLinkSlice";
 import filterReducer from "../features/filter/filterSlice";
 import storeReducer from "../features/store/storeSlice";
+import borrowedBookReducer from "../features/boorowedBook/borrowedBookSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     active: activeLinkReducer,
     filter: filterReducer,
     store: storeReducer,
+    borrowedBook: borrowedBookReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddlewares) => getDefaultMiddlewares().concat(apiSlice.middleware),
