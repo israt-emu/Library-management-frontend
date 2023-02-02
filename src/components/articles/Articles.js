@@ -6,7 +6,7 @@ const Articles = () => {
     <div>
       <section className="px-5 py-10  text-gray-800">
         <div className="flex justify-between items-center">
-          <h1>Article</h1>
+          <h1 className="font-bold my-4">Article</h1>
           <div>
             <button
               className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2 text-white"

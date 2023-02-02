@@ -93,13 +93,13 @@ const BookRequest = () => {
                   <p>10</p>
                 </td>
                 <td className="p-3">
-                  <span className="px-3 py-1 font-semibold rounded-md bg-purple-600 text-gray-50">
+                  <button className="px-3 py-1 font-semibold rounded-md bg-purple-600 text-gray-50">
                     <span>Request</span>
-                  </span>
+                  </button>
                 </td>
                 <td className="p-3">
-                  <span className="px-3 py-1 font-semibold rounded-md bg-blue-600 text-gray-50">
-                    <span>Pending</span>
+                  <span className="px-3 py-1 font-semibold rounded-md bg-green-600 text-gray-50">
+                    <span>Accepted</span>
                   </span>
                 </td>
               </tr>

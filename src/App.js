@@ -20,6 +20,7 @@ import UserDashboard from "./components/user/UserDashboard";
 import BookRequest from "./components/book/BookRequest";
 import Articles from "./components/articles/Articles";
 import ArticleDetails from "./components/articles/ArticleDetails";
+import Notice from "./components/notice/Notice";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ArticleDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/notice",
+        element: (
+          <PrivateRoute>
+            <Notice />
           </PrivateRoute>
         ),
       },

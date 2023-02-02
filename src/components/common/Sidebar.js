@@ -94,6 +94,23 @@ const Sidebar = ({ toggle }) => {
                 active === "bookmarks" ? "link-active" : "link-hover"
               }`}
             >
+              <Link to="/dashboard/notice" className="link-styles">
+                <MdAnalytics className="sidebar-icon" title="Analytics!" />
+                <span
+                  className={`link-text transition-all duration-300 ${
+                    toggle && "hidden"
+                  }`}
+                >
+                  Notice
+                </span>
+              </Link>
+            </li>
+
+            <li
+              className={`${
+                active === "bookmarks" ? "link-active" : "link-hover"
+              }`}
+            >
               <Link to="/dashboard/analytics" className="link-styles">
                 <MdAnalytics className="sidebar-icon" title="Analytics!" />
                 <span
@@ -105,6 +122,7 @@ const Sidebar = ({ toggle }) => {
                 </span>
               </Link>
             </li>
+       
           </ul>
         </div>
       </div>
