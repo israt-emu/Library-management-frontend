@@ -19,7 +19,7 @@ const LoginForm = () => {
       setError(responseError?.data?.message);
     }
     if (data?.token && data?.user) {
-      navigate("/dashboard/");
+      navigate("/dashboard/user");
     }
   }, [data, responseError, navigate]);
   //login
