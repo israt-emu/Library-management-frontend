@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {userLoggedIn, userLoggedOut} from "../features/auth/authSlice";
-import { bookmarkViewChange } from "../features/bookmark/bookmarkSlice";
+import {bookmarkViewChange} from "../features/bookmark/bookmarkSlice";
 import {themeChange} from "../features/theme/themeSlice";
 import {jwtVerify} from "../utils/jwtVerify";
 
@@ -12,11 +12,11 @@ export const useAuthCheck = () => {
   useEffect(() => {
     const theme = JSON.parse(localStorage.getItem("theme"));
     const bookmarkView = JSON.parse(localStorage.getItem("bookmarkView"));
-    // check theme initially 
+    // check theme initially
     if (theme) {
       dispatch(themeChange(theme?.mode));
     }
-     // check bookmark view initially 
+    // check bookmark view initially
     if (bookmarkView) {
       dispatch(bookmarkViewChange(bookmarkView?.view));
     }
