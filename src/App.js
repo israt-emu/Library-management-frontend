@@ -18,7 +18,7 @@ import Articles from "./components/articles/Articles";
 import ArticleDetails from "./components/articles/ArticleDetails";
 import Notice from "./components/notice/Notice";
 import TopBooks from "./components/topBooks/TopBooks";
-
+import AdminDashboard from "./components/user/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +83,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin",
+        element: (
+          <PrivateRoute>
+            <AdminDashboard />
           </PrivateRoute>
         ),
       },

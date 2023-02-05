@@ -1,8 +1,11 @@
 import React, {useEffect} from "react";
 import {AiTwotoneStar} from "react-icons/ai";
+import {AiTwotoneNotification} from "react-icons/ai";
 import {BsBookHalf} from "react-icons/bs";
+import {TbBookUpload} from "react-icons/tb";
 import {MdAnalytics} from "react-icons/md";
 import {MdDashboard} from "react-icons/md";
+import {MdArticle} from "react-icons/md";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {sidebarActiveChange} from "../../features/activeLink/activeLinkSlice";
@@ -30,6 +33,12 @@ const Sidebar = ({toggle}) => {
                 <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Dashboard</span>
               </Link>
             </li>
+            <li className={`${active === "admin" ? "link-active" : "link-hover"}`}>
+              <Link to="/dashboard/admin" className="link-styles">
+                <MdDashboard className="sidebar-icon" title="Top Books!" />
+                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Admin Dashboard</span>
+              </Link>
+            </li>
 
             <li className={`${active === "books" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/books" className="link-styles">
@@ -39,20 +48,20 @@ const Sidebar = ({toggle}) => {
             </li>
             <li className={`${active === "bookRequest" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/bookRequest" className="link-styles">
-                <BsBookHalf className="sidebar-icon" title="Books!" />
+                <TbBookUpload className="sidebar-icon" title="Books!" />
                 <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Requested Books</span>
               </Link>
             </li>
             <li className={`${active === "articles" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/articles" className="link-styles">
-                <BsBookHalf className="sidebar-icon" title="Books!" />
+                <MdArticle className="sidebar-icon" title="Books!" />
                 <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Articles</span>
               </Link>
             </li>
 
-            <li className={`${active === "bookmarks" ? "link-active" : "link-hover"}`}>
+            <li className={`${active === "notice" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/notice" className="link-styles">
-                <MdAnalytics className="sidebar-icon" title="Analytics!" />
+                <AiTwotoneNotification className="sidebar-icon" title="Analytics!" />
                 <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Notice</span>
               </Link>
             </li>

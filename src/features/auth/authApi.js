@@ -74,7 +74,13 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "/user/allUsers",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const {useSignUpMutation, useLoginMutation, useUpdateMutation} = authApi;
+export const {useSignUpMutation, useLoginMutation, useUpdateMutation, useGetAllUsersQuery} = authApi;
