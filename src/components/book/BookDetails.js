@@ -30,27 +30,8 @@ const BookDetails = () => {
       thumbnail: "https://picsum.photos/id/1019/250/150/",
     },
   ];
-  const { data: bookDetails } = useGetBookDetailsQuery({ id: id });
-  const [addBorrowedBook, { data, isSuccess, isError }] =
-    useAddBorrowedBookMutation();
-  const {
-    name,
-    writer,
-    publications,
-    pdfLink,
-    totalViews,
-    status,
-    edition,
-    bookId,
-    category,
-    description,
-    totalStock,
-    remainingStock,
-    bookLocation,
-    createdAt,
-    totalBorrowed,
-    addedBy,
-  } = bookDetails?.book || {};
+  const {data: bookDetails} = useGetBookDetailsQuery({id: id});
+  const {name, writer, publications, pdfLink, totalViews, status, edition, bookId, category, description, totalStock, remainingStock, bookLocation, createdAt, totalBorrowed, addedBy} = bookDetails?.book || {};
 
   console.log(id, bookDetails);
   const [addBorrowedBook, {data, isSuccess, isError}] = useAddBorrowedBookMutation();
@@ -155,31 +136,19 @@ const BookDetails = () => {
           </p>
         </div>
         <div className="flex flex-wrap py-6  space-x-2 border-t border-dashed border-gray-600 justify-between">
-          <p className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">
-            Category: {category}
-          </p>
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50"
-          >
+          <p className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">Category: {category}</p>
+          <a rel="noopener noreferrer" href="#" className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">
             {status}
           </a>
         </div>
 
         <div className="space-y-2">
           <h4 className="text-lg font-semibold">Book Location</h4>
-          <button className="px-3 py-1 rounded-sm hover:underline">
-            {" "}
-            {bookLocation}
-          </button>
+          <button className="px-3 py-1 rounded-sm hover:underline"> {bookLocation}</button>
           <div className="mt-2">{error !== "" && <Error message={error} />}</div>
           <div className="mt-2">{success !== "" && <Success message={success} />}</div>
         </div>
-        <button
-          className="inline-block bg-main w-full rounded px-3 py-2 mt-8 text-sm font-semibold text-primary mr-2 mb-2 text-white"
-          onClick={() => handleBorrowBook()}
-        >
+        <button className="inline-block bg-main w-full rounded px-3 py-2 mt-8 text-sm font-semibold text-primary mr-2 mb-2 text-white" onClick={() => handleBorrowBook()}>
           Borrow Book
         </button>
       </div>
