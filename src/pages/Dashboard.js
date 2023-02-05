@@ -56,13 +56,13 @@ const Dashboard = () => {
     }
   }, [location, dispatch]);
   //auth checking on route change
-  // useEffect(() => {
-  //   const jwtExpired = jwtVerify();
-  //   if (jwtExpired) {
-  //     dispatch(userLoggedOut());
-  //     localStorage.clear();
-  //   }
-  // }, [location, dispatch]);
+  useEffect(() => {
+    const jwtExpired = jwtVerify();
+    if (jwtExpired) {
+      dispatch(userLoggedOut());
+      localStorage.clear();
+    }
+  }, [location, dispatch]);
 
   // // closing navigation on clicking outside
   // const ref = useRef();

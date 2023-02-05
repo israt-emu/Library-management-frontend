@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-  sidebarActive: "bookmarks",
+  sidebarActive: "books",
 };
 export const activeLinkSlice = createSlice({
   name: "activeLink",

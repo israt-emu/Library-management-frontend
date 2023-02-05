@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../features/auth/authApi";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useLoginMutation} from "../../features/auth/authApi";
 import Error from "../ui/Error";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [login, { data, isLoading, error: responseError }] = useLoginMutation();
+  const [login, {data, isLoading, error: responseError}] = useLoginMutation();
   const navigate = useNavigate();
   //
 
@@ -19,7 +19,8 @@ const LoginForm = () => {
       setError(responseError?.data?.message);
     }
     if (data?.token && data?.user) {
-      navigate("/dashboard/user");
+
+      navigate("/dashboard/books");
     }
   }, [data, responseError, navigate]);
   //login
@@ -38,119 +39,61 @@ const LoginForm = () => {
     }
   };
   return (
-    <div className=" flex flex-col justify-center items-center md:col-span-3 md:fixed md:top-5 md:right-5 px-4 order-first mt-5 md:mt-0">
+    <div className=" flex flex-col justify-center items-center px-4 mt-5 md:mt-0">
       {/* login form  */}
 
       <div className="flex flex-col md:p-6 rounded-md sm:p-10 text-gray-800 w-full">
         <h2 className="font-bold text-center">Logo</h2>
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Sign in</h1>
-          <p className="text-sm text-gray-600">
-            Sign in to access your account
-          </p>
+          <p className="text-sm text-gray-600">Sign in to access your account</p>
         </div>
-        <form
-          className=" ng-untouched ng-pristine ng-valid"
-          onSubmit={handleSubmit}
-        >
-          <div className="">
+        <form className=" ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit}>
+          <div className="w-4/6 mx-auto">
             <div className="flex mb-6">
-              <input
-                type="email"
-                className="rounded-none rounded-l-lg bg-green-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5"
-                placeholder="Email"
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input type="email" className="rounded-none rounded-l-lg bg-green-50 border text-gray-900  focus:border-main block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5" placeholder="Email" value={email} required onChange={(e) => setEmail(e.target.value)} />
               <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-l-0 border-gray-300 ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
                 </svg>
               </span>
             </div>
             <div className="flex">
-              <input
-                type="password"
-                required
-                className="rounded-none rounded-l-lg bg-green-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5"
-                placeholder="*****"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <input type="password" required className="rounded-none rounded-l-lg bg-green-50 border text-gray-900  focus:border-main block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5" placeholder="*****" value={password} onChange={(e) => setPassword(e.target.value)} />
               <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-l-0 border-gray-300">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
               </span>
             </div>
             <div>
-              <div className="flex justify-between mt-2">
+              <div className="flex justify-between mt-2 ">
                 <div className="">
                   {" "}
-                  <input
-                    className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-green-600 checked:border-green-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                  <label
-                    className="form-check-label inline-block text-gray-800 font-semibold"
-                    htmlFor="flexCheckDefault"
-                  >
+                  <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-main checked:border-main focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault" />
+                  <label className="form-check-label inline-block text-gray-800 font-semibold" htmlFor="flexCheckDefault">
                     Remember Me
                   </label>
                 </div>
-                <Link
-                  to="/"
-                  className="text-xs hover:underline text-gray-600 mt-2 font-semibold"
-                >
+                <Link to="/" className="text-xs hover:underline text-gray-600 mt-2 font-semibold">
                   Forgot password?
                 </Link>
               </div>
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 w-4/6 mx-auto">
             <div>
-              <button
-                type="submit"
-                className="w-full px-8 py-3 font-semibold rounded-md bg-green-400 text-gray-50 mt-8"
-                disabled={isLoading}
-              >
+              <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-second text-fill mt-8" disabled={isLoading}>
                 Login
               </button>
             </div>
           </div>
-          <div className="mt-2">{error && <Error message={error} />}</div>
+          <div className="mt-2 w-4/6 mx-auto">{error && <Error message={error} />}</div>
         </form>
       </div>
-      <p className="md:px-6 text-sm text-center text-gray-600 align-bottom mt-8">
+      <p className="md:px-6 text-sm text-center text-gray-600 align-bottom mt-8 w-4/6 mx-auto">
         Don't have an account yet?
-        <Link
-          to="/signup"
-          className="hover:underline text-green-600 ml-1 font-bold"
-        >
+        <Link to="/signup" className="hover:underline text-second ml-1 font-bold">
           Quick Sign up here
         </Link>
         .

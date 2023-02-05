@@ -40,11 +40,9 @@ const Sidebar = ({ toggle }) => {
                 </span>
               </Link>
             </li>
-            <li
-              className={`${
-                active === "bookmarks" ? "link-active" : "link-hover"
-              }`}
-            >
+
+            <li className={`${active === "books" ? "link-active" : "link-hover"}`}>
+
               <Link to="/dashboard/books" className="link-styles">
                 <BsBookHalf className="sidebar-icon" title="Books!" />
                 <span
@@ -106,11 +104,14 @@ const Sidebar = ({ toggle }) => {
               </Link>
             </li>
 
-            <li
-              className={`${
-                active === "bookmarks" ? "link-active" : "link-hover"
-              }`}
-            >
+            <li className={`${active === "topBooks" ? "link-active" : "link-hover"}`}>
+              <Link to="/dashboard/topBooks" className="link-styles">
+                <AiTwotoneStar className="sidebar-icon" title="Top Books!" />
+                <span className={`link-text transition-all duration-300 ${toggle && "hidden"}`}>Top Books</span>
+              </Link>
+            </li>
+
+            <li className={`${active === "analytics" ? "link-active" : "link-hover"}`}>
               <Link to="/dashboard/analytics" className="link-styles">
                 <MdAnalytics className="sidebar-icon" title="Analytics!" />
                 <span

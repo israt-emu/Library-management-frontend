@@ -1,13 +1,21 @@
 import React from "react";
 import ReactImageGallery from "react-image-gallery";
-import { useParams } from "react-router-dom";
-import { useGetBookDetailsQuery } from "../../features/book/bookAPI";
+import {useParams} from "react-router-dom";
+import {useGetBookDetailsQuery} from "../../features/book/bookAPI";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Moment from "react-moment";
-import { useAddBorrowedBookMutation } from "../../features/boorowedBook/borrowedBookApi";
+import {useAddBorrowedBookMutation} from "../../features/boorowedBook/borrowedBookApi";
+import {useSelector} from "react-redux";
+import {useState} from "react";
+import {useId} from "react";
+import {useEffect} from "react";
+import Error from "../ui/Error";
+import Success from "../ui/Success";
 
 const BookDetails = () => {
-  const { id } = useParams();
+  const {id} = useParams();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const images = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",
@@ -43,27 +51,34 @@ const BookDetails = () => {
     totalBorrowed,
     addedBy,
   } = bookDetails?.book || {};
+
+  console.log(id, bookDetails);
+  const [addBorrowedBook, {data, isSuccess, isError}] = useAddBorrowedBookMutation();
+  const {_id: userId, name: userName} = useSelector((state) => state?.auth?.user);
+  //borrowing books
   const handleBorrowBook = () => {
-    console.log("hi");
     addBorrowedBook({
       name,
       bookId,
       category,
-      borrowerId: 1234,
-      borrowerName: "Emu",
+      borrowerId: userId,
+      borrowerName: userName,
     });
   };
-
-  console.log(id, bookDetails);
+  useEffect(() => {
+    if (data?.status !== "success" && !isSuccess && isError) {
+      setError("Sorry! we are having a trouble..");
+      setSuccess("");
+    } else if (data?.status === "success" && isSuccess) {
+      setSuccess("You Borrowed this book successfully..");
+      setError("");
+    }
+  }, [data, isSuccess, isError]);
   return (
     <div className=" mx-auto space-y-12 grid grid-cols-2">
       <article className="space-y-8 text-gray-900">
         <div className="space-y-6 px-3">
-          <ReactImageGallery
-            showNav={false}
-            showPlayButton={false}
-            items={images}
-          />
+          <ReactImageGallery showNav={false} showPlayButton={false} items={images} />
         </div>
         <div className="space-y-3">
           <h4 className="text-lg font-semibold">Book Description</h4>
@@ -119,16 +134,17 @@ const BookDetails = () => {
         </div>
       </article>
       <div className="pl-4">
-        <h1 className="text-4xl font-bold md:tracking-tight md:text-5xl">
-          {name}
-        </h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-4xl font-bold md:tracking-tight md:text-5xl">{name}</h1>
+          {status === "In Stock" && (
+            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill" onClick={handleBorrowBook}>
+              Borrow Book
+            </button>
+          )}
+        </div>
         <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center text-gray-600">
           <div className="flex items-center md:space-x-2">
-            <img
-              src="https://source.unsplash.com/75x75/?portrait"
-              alt=""
-              className="w-4 h-4 border rounded-full bg-gray-500 border-gray-300"
-            />
+            <img src="https://source.unsplash.com/75x75/?portrait" alt="" className="w-4 h-4 border rounded-full bg-gray-500 border-gray-300" />
             <p className="text-sm my-2">{writer} </p>
           </div>
           <p className="flex-shrink-0 mt-3 text-sm md:mt-0">
@@ -157,6 +173,8 @@ const BookDetails = () => {
             {" "}
             {bookLocation}
           </button>
+          <div className="mt-2">{error !== "" && <Error message={error} />}</div>
+          <div className="mt-2">{success !== "" && <Success message={success} />}</div>
         </div>
         <button
           className="inline-block bg-main w-full rounded px-3 py-2 mt-8 text-sm font-semibold text-primary mr-2 mb-2 text-white"

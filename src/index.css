@@ -49,13 +49,13 @@
     @apply text-gray-400 font-semibold;
   }
   .link-hover:hover {
-    @apply bg-link_hover rounded-r;
+    @apply bg-link_hover;
   }
   .link-active {
     @apply bg-main rounded-r;
   }
   .nav-icon {
-    @apply hover:bg-link_hover rounded-full flex justify-center items-center md:w-10 md:h-10 w-5 h-5 mr-2;
+    @apply hover:bg-fill rounded-full flex justify-center items-center md:w-10 md:h-10 w-5 h-5 mr-2;
   }
 
   .link-styles {
@@ -69,7 +69,7 @@
   }
   .banner {
     background-image: linear-gradient(rgba(2, 55, 60, 0.7), rgba(68, 147, 66, 0.6)), url("./assets/images/image.jpg");
-    background-position: center;
+    background-position: 0%;
     background-repeat: no-repeat;
     background-size: cover;
   }
