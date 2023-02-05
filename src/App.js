@@ -12,7 +12,13 @@ import SignUp from "./pages/SignUp";
 import Book from "./components/book/Book";
 import BookDetails from "./components/book/BookDetails";
 import Analytics from "./components/analytics/Analytics";
+import UserDashboard from "./components/user/UserDashboard";
+import BookRequest from "./components/book/BookRequest";
+import Articles from "./components/articles/Articles";
+import ArticleDetails from "./components/articles/ArticleDetails";
+import Notice from "./components/notice/Notice";
 import TopBooks from "./components/topBooks/TopBooks";
+
 
 const router = createBrowserRouter([
   {
@@ -71,6 +77,72 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
+      {
+        path: "/dashboard/user",
+        element: (
+          <PrivateRoute>
+            <UserDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/bookRequest",
+        element: (
+          <PrivateRoute>
+            <BookRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/articles",
+        element: (
+          <PrivateRoute>
+            <Articles />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/articles/:id",
+        element: (
+          <PrivateRoute>
+            <ArticleDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/notice",
+        element: (
+          <PrivateRoute>
+            <Notice />
+          </PrivateRoute>
+        ),
+      },
+      // {
+      //   path: "/dashboard/archive",
+      //   element: (
+      //     <Archive />
+      //     // <PrivateRoute>
+      //     //   <Archive />
+      //     // </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/dashboard/trash",
+      //   element: (
+      //     <PrivateRoute>
+      //       <Trash />
+      //     </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/dashboard/search",
+      //   element: (
+      //     <PrivateRoute>
+      //       <ShowSearchedCard />
+      //     </PrivateRoute>
+      //   ),
+      // },
     ],
   },
   {

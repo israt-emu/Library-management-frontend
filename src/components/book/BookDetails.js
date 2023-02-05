@@ -3,6 +3,7 @@ import ReactImageGallery from "react-image-gallery";
 import {useParams} from "react-router-dom";
 import {useGetBookDetailsQuery} from "../../features/book/bookAPI";
 import "react-image-gallery/styles/css/image-gallery.css";
+import Moment from "react-moment";
 import {useAddBorrowedBookMutation} from "../../features/boorowedBook/borrowedBookApi";
 import {useSelector} from "react-redux";
 import {useState} from "react";
@@ -29,8 +30,28 @@ const BookDetails = () => {
       thumbnail: "https://picsum.photos/id/1019/250/150/",
     },
   ];
-  const {data: bookDetails} = useGetBookDetailsQuery({id: id});
-  const {name, writer, publications, pdfLink, totalViews, status, edition, bookId, category, description, totalStock, remainingStock, bookLocation, createdAt} = bookDetails?.book || {};
+  const { data: bookDetails } = useGetBookDetailsQuery({ id: id });
+  const [addBorrowedBook, { data, isSuccess, isError }] =
+    useAddBorrowedBookMutation();
+  const {
+    name,
+    writer,
+    publications,
+    pdfLink,
+    totalViews,
+    status,
+    edition,
+    bookId,
+    category,
+    description,
+    totalStock,
+    remainingStock,
+    bookLocation,
+    createdAt,
+    totalBorrowed,
+    addedBy,
+  } = bookDetails?.book || {};
+
   console.log(id, bookDetails);
   const [addBorrowedBook, {data, isSuccess, isError}] = useAddBorrowedBookMutation();
   const {_id: userId, name: userName} = useSelector((state) => state?.auth?.user);
@@ -59,6 +80,58 @@ const BookDetails = () => {
         <div className="space-y-6 px-3">
           <ReactImageGallery showNav={false} showPlayButton={false} items={images} />
         </div>
+        <div className="space-y-3">
+          <h4 className="text-lg font-semibold">Book Description</h4>
+          <p>
+            {" "}
+            <span>Title:</span> {name}
+          </p>
+
+          <p>
+            {" "}
+            <span>Book Id:</span> {bookId}
+          </p>
+          <p>
+            {" "}
+            <span>Category:</span> {category}
+          </p>
+          <p>
+            {" "}
+            <span>Writer:</span> {writer}
+          </p>
+          <p>
+            {" "}
+            <span>Publications:</span> {publications}
+          </p>
+          <p>
+            {" "}
+            <span>Edition:</span> {edition}
+          </p>
+          <p>
+            {" "}
+            <span>Total Copy:</span> {totalStock}
+          </p>
+          <p>
+            {" "}
+            <span>Total Borrowed:</span> {totalBorrowed} times
+          </p>
+          <p>
+            {" "}
+            <span>Available Copy:</span> {remainingStock}
+          </p>
+          <p>
+            {" "}
+            <span>Details:</span> {description}
+          </p>
+          <p>
+            {" "}
+            <span>pdf Link:</span> {pdfLink}
+          </p>
+          <p>
+            {" "}
+            <span>Added By:</span> {addedBy}
+          </p>
+        </div>
       </article>
       <div className="pl-4">
         <div className="flex justify-between items-center">
@@ -75,44 +148,40 @@ const BookDetails = () => {
             <p className="text-sm my-2">{writer} </p>
           </div>
           <p className="flex-shrink-0 mt-3 text-sm md:mt-0">
-            {createdAt} • {totalViews} views
+            <Moment format="D MMM YYYY" withTitle>
+              {createdAt}
+            </Moment>
+            • {totalViews} views
           </p>
         </div>
-        <div className="flex flex-wrap py-6  space-x-2 border-t border-dashed border-gray-600">
-          <a rel="noopener noreferrer" href="#" className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">
+        <div className="flex flex-wrap py-6  space-x-2 border-t border-dashed border-gray-600 justify-between">
+          <p className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">
+            Category: {category}
+          </p>
+          <a
+            rel="noopener noreferrer"
+            href="#"
+            className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50"
+          >
             {status}
           </a>
         </div>
-        <div className="flex flex-wrap py-6 border-gray-600">
-          <a rel="noopener noreferrer" href="#" className="px-3 py-1 mr-2 rounded-sm hover:underline bg-blue-600 text-gray-50">
-            {category}
-          </a>
-          <a rel="noopener noreferrer" href="#" className="px-3 py-1 rounded-sm hover:underline bg-blue-600 text-gray-50">
-            {status}
-          </a>
-        </div>
+
         <div className="space-y-2">
-          <h4 className="text-lg font-semibold">Book Description</h4>
-          <ul className="ml-4 space-y-1 list-disc">
-            <li>
-              <a rel="noopener noreferrer" href="#" className="hover:underline">
-                Nunc id magna mollis
-              </a>
-            </li>
-            <li>
-              <a rel="noopener noreferrer" href="#" className="hover:underline">
-                Duis molestie, neque eget pretium lobortis
-              </a>
-            </li>
-            <li>
-              <a rel="noopener noreferrer" href="#" className="hover:underline">
-                Mauris nec urna volutpat, aliquam lectus sit amet
-              </a>
-            </li>
-          </ul>
+          <h4 className="text-lg font-semibold">Book Location</h4>
+          <button className="px-3 py-1 rounded-sm hover:underline">
+            {" "}
+            {bookLocation}
+          </button>
           <div className="mt-2">{error !== "" && <Error message={error} />}</div>
           <div className="mt-2">{success !== "" && <Success message={success} />}</div>
         </div>
+        <button
+          className="inline-block bg-main w-full rounded px-3 py-2 mt-8 text-sm font-semibold text-primary mr-2 mb-2 text-white"
+          onClick={() => handleBorrowBook()}
+        >
+          Borrow Book
+        </button>
       </div>
     </div>
   );

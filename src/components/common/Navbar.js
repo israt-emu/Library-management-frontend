@@ -1,17 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
-import {FaSearch} from "react-icons/fa";
-import {FaBars} from "react-icons/fa";
-import {MdRefresh} from "react-icons/md";
-import {BsViewList} from "react-icons/bs";
-import {FiGrid} from "react-icons/fi";
-import {IoSettingsOutline} from "react-icons/io5";
-import {MdOutlineDarkMode} from "react-icons/md";
-import {MdLightMode} from "react-icons/md";
-import {MdDisabledByDefault} from "react-icons/md";
-import {useDispatch, useSelector} from "react-redux";
-import {userLoggedOut} from "../../features/auth/authSlice";
-import DropModal from "../ui/DropModal";
 
+import React, { useEffect, useRef, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import { MdRefresh } from "react-icons/md";
+import { BsViewList } from "react-icons/bs";
+import { FiGrid } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { BsFillBellFill } from "react-icons/bs";
+import { MdLightMode } from "react-icons/md";
+import { MdDisabledByDefault } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { userLoggedOut } from "../../features/auth/authSlice";
+import DropModal from "../ui/DropModal";
 import {themeChange} from "../../features/theme/themeSlice";
 import {bookmarkViewChange} from "../../features/bookmark/bookmarkSlice";
 import {searched} from "../../features/filter/filterSlice";
@@ -141,9 +142,28 @@ const Navbar = ({setToggle, toggle}) => {
                 <MdLightMode className="navbar-icon" />
               </button>
             </div>
-            <div className="justify-end text-fill w-44 bg-white border-l p-2">
-              <button className="nav-icon dropdown-toggle" title="Settings" id="dropdownMenuButton1" aria-expanded="false" onClick={() => setDropModal(true)} ref={ref}>
+
+            <div className="justify-end text-fill w-44 bg-white border-l p-2 flex  items-center">
+              <button
+                className="nav-icon dropdown-toggle"
+                title="Settings"
+                id="dropdownMenuButton1"
+                aria-expanded="false"
+                onClick={() => setDropModal(true)}
+                ref={ref}
+              >
                 <IoSettingsOutline className="navbar-icon" />
+              </button>
+              <button
+                className="nav-icon dropdown-toggle relative"
+                title="Settings"
+                id="dropdownMenuButton1"
+                aria-expanded="false"
+                onClick={() => setDropModal(true)}
+                ref={ref}
+              >
+                <BsFillBellFill className="navbar-icon" />
+                <span className="absolute bg-red-600 h-2 w-2 rounded-full top-2 -right-[.01px]" />
               </button>
             </div>
           </div>
