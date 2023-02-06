@@ -3,7 +3,7 @@ import {apiSlice} from "../api/apiSlice";
 export const bookApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: (data) => ({
+      query: () => ({
         url: `/book/getAllBooks`,
         method: "GET",
         // body: data,
@@ -173,4 +173,4 @@ export const bookApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useGetBooksQuery,useGetBookDetailsQuery } = bookApi;
+export const {useGetBooksQuery, useGetBookDetailsQuery} = bookApi;

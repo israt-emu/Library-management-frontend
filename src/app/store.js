@@ -7,6 +7,7 @@ import activeLinkReducer from "../features/activeLink/activeLinkSlice";
 import filterReducer from "../features/filter/filterSlice";
 import storeReducer from "../features/store/storeSlice";
 import borrowedBookReducer from "../features/boorowedBook/borrowedBookSlice";
+import paginationReducer from "../features/pagination/paginationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     filter: filterReducer,
     store: storeReducer,
     borrowedBook: borrowedBookReducer,
+    pagination: paginationReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddlewares) => getDefaultMiddlewares().concat(apiSlice.middleware),
