@@ -25,11 +25,11 @@ const BooksTable = ({data}) => {
   return (
     <div>
       <div className="">
-        <div className="flex justify-between items-center w-11/12">
+        <div className="flex justify-between items-center">
           <h1 className="text-2xl font-medium mb-3">Books:</h1>
           <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Add Book</button>
         </div>
-        <div className="text-gray-800 w-11/12" style={{height: "200px"}}>
+        <div className="text-gray-800" style={{height: "200px"}}>
           <div className="overflow-x-auto">
             <table className="w-full p-6 text-sm text-left whitespace-nowrap">
               <thead>
@@ -72,7 +72,7 @@ const BooksTable = ({data}) => {
       </div>
 
       {data?.length > 0 ? (
-        <div className="w-11/12 my-6">
+        <div className=" my-6">
           <TablePagination currentPage={currentPage} totalPage={totalPage} setCurrentPage={setCurrentPage} />
         </div>
       ) : null}

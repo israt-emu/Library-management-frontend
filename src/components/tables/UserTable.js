@@ -32,7 +32,7 @@ const UserTable = ({data, role}) => {
       {role === "student" && (
         <div>
           <h1 className="text-2xl font-medium mb-3">Students:</h1>
-          <div className="text-gray-800 w-11/12" style={{height: "200px"}}>
+          <div className="text-gray-800 " style={{height: "200px"}}>
             <div className="overflow-x-auto">
               <table className="w-full p-6 text-sm text-left whitespace-nowrap">
                 <thead>
@@ -94,7 +94,7 @@ const UserTable = ({data, role}) => {
       {role === "teacher" && (
         <div>
           <h1 className="text-2xl font-medium mb-3">Teachers:</h1>
-          <div className="text-gray-800 w-11/12" style={{height: "200px"}}>
+          <div className="text-gray-800" style={{height: "200px"}}>
             <div className="overflow-x-auto">
               <table className="w-full p-6 text-sm text-left whitespace-nowrap">
                 <thead>
@@ -128,9 +128,15 @@ const UserTable = ({data, role}) => {
                       </td>
 
                       <td className="px-3 py-2 text-center">
-                        <button type="button" className="p-1 rounded-full hover:bg-green-100 text-lg text-second">
-                          <MdOutlineAdminPanelSettings />
-                        </button>
+                        {d?.admin ? (
+                          <button type="button" className="p-1 rounded-full hover:bg-green-100 text-lg text-second">
+                            <MdOutlineAdminPanelSettings />
+                          </button>
+                        ) : (
+                          <button type="button" className="p-1 rounded-full text-lg text-gray-600 hover:bg-gray-300">
+                            <MdOutlineAdminPanelSettings />
+                          </button>
+                        )}
                       </td>
                       <td className="px-3 py-2 text-center">
                         {" "}
@@ -150,7 +156,7 @@ const UserTable = ({data, role}) => {
       {role === "stuff" && (
         <div>
           <h1 className="text-2xl font-medium mb-3">Stuffs:</h1>
-          <div className="text-gray-800 w-11/12" style={{height: "200px"}}>
+          <div className="text-gray-800 " style={{height: "200px"}}>
             <div className="overflow-x-auto">
               <table className="w-full p-6 text-sm text-left whitespace-nowrap">
                 <thead>
@@ -200,7 +206,7 @@ const UserTable = ({data, role}) => {
       )}
 
       {data?.length > 0 ? (
-        <div className="w-11/12 my-6">
+        <div className=" my-6">
           <TablePagination currentPage={currentPage} totalPage={totalPage} setCurrentPage={setCurrentPage} />
         </div>
       ) : null}

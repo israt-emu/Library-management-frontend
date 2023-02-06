@@ -20,8 +20,8 @@ const TablePagination = ({currentPage, totalPage, setCurrentPage}) => {
         <button className="px-1 py-1 rounded hover:bg-white disabled:cursor-not-allowed" disabled={currentPage === 1} onClick={() => handlePage(currentPage - 1)} title="Previous">
           <GrFormPrevious />
         </button>
-        {[...Array(buttonNum)?.keys()].map((num) => (
-          <div className={`${currentPage === num + 1 ? "bg-second text-white" : "bg-white text-second"}  px-2 py-[2px] rounded cursor-pointer text-sm`} onClick={() => handlePage(num + 1)}>
+        {[...Array(buttonNum)?.keys()].map((num, i) => (
+          <div key={i} className={`${currentPage === num + 1 ? "bg-second text-white" : "bg-white text-second"}  px-2 py-[2px] rounded cursor-pointer text-sm`} onClick={() => handlePage(num + 1)}>
             {num + 1}
           </div>
         ))}
