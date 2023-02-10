@@ -19,6 +19,7 @@ import ArticleDetails from "./components/articles/ArticleDetails";
 import Notice from "./components/notice/Notice";
 import TopBooks from "./components/topBooks/TopBooks";
 import AdminDashboard from "./components/user/AdminDashboard";
+import AddBook from "./components/book/AddBook";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addbook",
+        element: (
+          <PrivateRoute>
+            <AddBook />
           </PrivateRoute>
         ),
       },

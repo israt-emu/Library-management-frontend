@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import TablePagination from "../ui/TablePagination";
-import {MdDelete} from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
-const BooksTable = ({data}) => {
+const BooksTable = ({ data }) => {
   const limit = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -27,9 +28,13 @@ const BooksTable = ({data}) => {
       <div className="mt-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-medium mb-3">Books:</h1>
-          <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Add Book</button>
+          <Link to={"/dashboard/addbook"}>
+            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">
+              Add Book
+            </button>
+          </Link>
         </div>
-        <div className="text-gray-800" style={{height: "200px"}}>
+        <div className="text-gray-800" style={{ height: "200px" }}>
           <div className="overflow-x-auto">
             <table className="w-full p-6 text-sm text-left whitespace-nowrap">
               <thead>
@@ -59,7 +64,11 @@ const BooksTable = ({data}) => {
 
                     <td className="px-3 py-2 text-center">
                       {" "}
-                      <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete">
+                      <button
+                        type="button"
+                        className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
+                        title="Delete"
+                      >
                         <MdDelete />
                       </button>
                     </td>
@@ -73,7 +82,11 @@ const BooksTable = ({data}) => {
 
       {data?.length > 0 ? (
         <div className=" my-6">
-          <TablePagination currentPage={currentPage} totalPage={totalPage} setCurrentPage={setCurrentPage} />
+          <TablePagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       ) : null}
     </div>
