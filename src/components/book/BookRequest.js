@@ -1,4 +1,5 @@
 import React from "react";
+import RequestedBookTable from "../tables/RequestedBookTable";
 
 const BookRequest = () => {
   return (
@@ -16,7 +17,7 @@ const BookRequest = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-xs">
+          {/* <table className="min-w-full text-xs">
             <thead className="bg-gray-300">
               <tr className="text-left">
                 <th className="p-3">Title</th>
@@ -129,7 +130,8 @@ const BookRequest = () => {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
+          <RequestedBookTable />
         </div>
       </div>
     </div>

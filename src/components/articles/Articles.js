@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SingeArticles from "./SingeArticles";
 
 const Articles = () => {
@@ -8,12 +9,14 @@ const Articles = () => {
         <div className="flex justify-between items-center">
           <h1 className="font-bold my-4">Article</h1>
           <div>
-            <button
-              className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2 text-white"
-            //   onClick={() => handleBorrowBook()}
-            >
-              Add Article
-            </button>
+            <Link to={"/dashboard/addarticle"}>
+              <button
+                className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2 text-white"
+                //   onClick={() => handleBorrowBook()}
+              >
+                Add Article
+              </button>
+            </Link>
           </div>
         </div>
         <div className="grid grid-cols-12 mx-auto gap-y-6 md:gap-10">
