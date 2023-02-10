@@ -24,7 +24,7 @@ const BooksTable = ({data}) => {
   }, [currentPage, data, limit]);
   return (
     <div>
-      <div className="">
+      <div className="mt-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-medium mb-3">Books:</h1>
           <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Add Book</button>

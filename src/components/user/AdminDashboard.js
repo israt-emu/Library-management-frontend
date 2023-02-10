@@ -73,9 +73,7 @@ const AdminDashboard = () => {
         </div>
       </section>
       {/* ///tables  */}
-      <UserTable data={data?.users?.filter((u) => u?.role === "student")} role="student" />
-      <UserTable data={data?.users?.filter((u) => u?.role === "teacher")} role="teacher" />
-      <UserTable data={data?.users?.filter((u) => u?.role === "stuff")} role="stuff" />
+      <UserTable data={data?.users} />
       <BooksTable data={bookData?.books} />
     </div>
   );

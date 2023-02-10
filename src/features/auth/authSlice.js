@@ -16,11 +16,11 @@ export const authSlice = createSlice({
       state.accessToken = undefined;
       state.user = undefined;
     },
-    getUpdatedUser: (state,action) => {
+    getUpdatedUser: (state, action) => {
       state.user = action.payload;
     },
   },
 });
 
-export const {userLoggedIn, userLoggedOut,getUpdatedUser} = authSlice.actions;
+export const {userLoggedIn, userLoggedOut, getUpdatedUser} = authSlice.actions;
 export default authSlice.reducer;
