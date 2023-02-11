@@ -16,6 +16,7 @@ const AdminDashboard = () => {
   const {data} = useGetAllUsersQuery();
   const {data: bookData} = useGetBooksQuery();
   const {data: borrowedBooks} = useGetBorrwedBooksQuery();
+  console.log(data);
   return (
     <div className="px-6">
       <h1 className="text-3xl font-medium">Welcome Admin!</h1>
