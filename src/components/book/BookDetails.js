@@ -148,9 +148,6 @@ const BookDetails = () => {
           <div className="mt-2">{error !== "" && <Error message={error} />}</div>
           <div className="mt-2">{success !== "" && <Success message={success} />}</div>
         </div>
-        <button className="inline-block bg-main w-full rounded px-3 py-2 mt-8 text-sm font-semibold text-primary mr-2 mb-2 text-white" onClick={() => handleBorrowBook()}>
-          Borrow Book
-        </button>
       </div>
     </div>
   );

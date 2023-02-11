@@ -19,22 +19,60 @@ const UserTable = ({data}) => {
   const [statusUpdate, setStatusUpdate] = useState(false);
   const [statusUpdateData, setStatusUpdateData] = useState({});
   const [deleteData, setDeleteData] = useState({});
-
+  const [filteredData, setFilteredData] = useState([]);
+  const [status, setStatus] = useState("");
+  const [role, setRole] = useState("");
+  const [search, setSearch] = useState("");
+  //filtering data by status,role,search
   useEffect(() => {
-    if (data?.length > 0) {
-      setTotalPage(Math.ceil(data?.length / limit));
+    if (status === "" && role === "" && search === "") {
+      setFilteredData(data);
+    } //
+    else if (role !== "" && status === "" && search === "") {
+      const filter = data?.filter((d, i) => d?.role === role);
+      setFilteredData(filter);
+    } //
+    else if (role === "" && status !== "" && search === "") {
+      const filter = data?.filter((d, i) => d?.status === status);
+      setFilteredData(filter);
+    } //
+    else if (role !== "" && status !== "" && search === "") {
+      const filter = data?.filter((d, i) => d?.role === role && d?.status === status);
+      setFilteredData(filter);
+    } //
+    else if (role !== "" && status === "" && search !== "") {
+      const filter = data?.filter((d, i) => d?.role === role && d?.name?.toLowerCase()?.includes(search) && d?.email?.toLowerCase()?.includes(search));
+      setFilteredData(filter);
+    } //
+    else if (role === "" && status !== "" && search !== "") {
+      const filter = data?.filter((d, i) => d?.status === status && d?.name?.toLowerCase()?.includes(search) && d?.email?.toLowerCase()?.includes(search));
+      setFilteredData(filter);
+    } //
+    else if (role === "" && status === "" && search !== "") {
+      const filter = data?.filter((d, i) => d?.name?.toLowerCase()?.includes(search) && d?.email?.toLowerCase()?.includes(search));
+      setFilteredData(filter);
+    } //
+    else {
+      const filter = data?.filter((d, i) => d?.role === role && d?.status === status && d?.name?.toLowerCase()?.includes(search) && d?.email?.toLowerCase()?.includes(search));
+      setFilteredData(filter);
     }
-  }, [data, limit]);
+  }, [data, status, role, search]);
+  ///
+  useEffect(() => {
+    if (filteredData?.length > 0) {
+      setTotalPage(Math.ceil(filteredData?.length / limit));
+    }
+  }, [filteredData, limit]);
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    const dataPerPage = data?.filter((v, i) => {
+    const dataPerPage = filteredData?.filter((v, i) => {
       const start = limit * (currentPage - 1);
       const end = start + limit;
       return i >= start && i < end;
     });
     setUsersData(dataPerPage);
-  }, [currentPage, data, limit]);
+  }, [currentPage, filteredData, limit]);
   //onclicking delete button
   const deleteModal = (d) => {
     setConfirmDelete(true);
@@ -58,18 +96,18 @@ const UserTable = ({data}) => {
           <h1 className="text-2xl font-medium">Users:</h1>
           <div className="flex items-center">
             <p className="mr-2 font-medium">Filtered By:</p>
-            <select className="px-2 py-1 rounded mr-2">
+            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setRole(e.target.value)}>
               <option value="">Role</option>
               <option value="teacher">Teacher</option>
               <option value="student">Student</option>
               <option value="stuff">Stuff</option>
             </select>
-            <select className="px-2 py-1 rounded mr-2">
+            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>
               <option value="">Status</option>
               <option value="active">Active</option>
               <option value="block">Block</option>
             </select>
-            <input type="search" name="" id="" className="px-2 py-1 rounded" placeholder="Search" />
+            <input type="search" name="" id="" className="px-2 py-1 rounded" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
           </div>
         </div>
         <div className="text-gray-800 " style={{height: "250px"}}>
