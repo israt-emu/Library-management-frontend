@@ -18,7 +18,11 @@ import Articles from "./components/articles/Articles";
 import ArticleDetails from "./components/articles/ArticleDetails";
 import Notice from "./components/notice/Notice";
 import TopBooks from "./components/topBooks/TopBooks";
-
+import AdminDashboard from "./components/user/AdminDashboard";
+import AddBook from "./components/book/AddBook";
+import AddRequestedBook from "./components/book/AddRequestedBook";
+import AddArticle from "./components/articles/AddArticle";
+import AddNotice from "./components/notice/AddNotice";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +74,38 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/addbook",
+        element: (
+          <PrivateRoute>
+            <AddBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addrequestedbook",
+        element: (
+          <PrivateRoute>
+            <AddRequestedBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addarticle",
+        element: (
+          <PrivateRoute>
+            <AddArticle />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addnotice",
+        element: (
+          <PrivateRoute>
+            <AddNotice />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/analytics",
         element: (
           <PrivateRoute>
@@ -83,6 +119,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin",
+        element: (
+          <PrivateRoute>
+            <AdminDashboard />
           </PrivateRoute>
         ),
       },

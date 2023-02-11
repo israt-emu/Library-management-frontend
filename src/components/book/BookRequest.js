@@ -1,22 +1,15 @@
 import React from "react";
+import { useGetRequestedBooksQuery } from "../../features/book/bookAPI";
+import RequestedBookTable from "../tables/RequestedBookTable";
 
 const BookRequest = () => {
+  const { data: requestedBookData } = useGetRequestedBooksQuery();
+  console.log(requestedBookData);
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 text-gray-800">
-        <div className="flex justify-between my-2">
-          <h2 className="mb-4 text-2xl font-semibold leading-tight">
-            Requested Books
-          </h2>
-          <div className="flex items-center justify-center space-x-3">
-            <h4>Request a Book</h4>
-            <button className="text-xxl bg-main w-8 h-8 flex items-center justify-center text-white rounded-full p-3">
-              +
-            </button>
-          </div>
-        </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-xs">
+          {/* <table className="min-w-full text-xs">
             <thead className="bg-gray-300">
               <tr className="text-left">
                 <th className="p-3">Title</th>
@@ -129,7 +122,8 @@ const BookRequest = () => {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
+          <RequestedBookTable data={requestedBookData?.books} />
         </div>
       </div>
     </div>
