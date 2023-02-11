@@ -10,7 +10,7 @@ const MakeAdminModal = ({makeAdmin, setMakeAdmin, data}) => {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const handleChangeAdmin = () => {
-    dispatch(changeAdmin({email, admin}));
+    changeAdmin({email, admin});
   };
   useEffect(() => {
     if (updateData?.status === "success" && isSuccess) {

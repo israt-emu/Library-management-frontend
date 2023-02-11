@@ -9,10 +9,13 @@ import {FaUserGraduate} from "react-icons/fa";
 import {FaChalkboardTeacher} from "react-icons/fa";
 import {BsBookHalf} from "react-icons/bs";
 import {BsFillPeopleFill} from "react-icons/bs";
+import AdminBorrowedBookTable from "../tables/AdminBorrowedBookTable";
+import {useGetBorrwedBooksQuery} from "../../features/boorowedBook/borrowedBookApi";
 
 const AdminDashboard = () => {
-  const {data, isSuccess, isError} = useGetAllUsersQuery();
+  const {data} = useGetAllUsersQuery();
   const {data: bookData} = useGetBooksQuery();
+  const {data: borrowedBooks} = useGetBorrwedBooksQuery();
   return (
     <div className="px-6">
       <h1 className="text-3xl font-medium">Welcome Admin!</h1>
@@ -75,6 +78,7 @@ const AdminDashboard = () => {
       {/* ///tables  */}
       <UserTable data={data?.users} />
       <BooksTable data={bookData?.books} />
+      <AdminBorrowedBookTable data={borrowedBooks?.borrowedBooks} />
     </div>
   );
 };

@@ -10,7 +10,7 @@ const StatusUpdateModal = ({statusUpdate, setStatusUpdate, data}) => {
   const [updateStatus, {data: updateData, isSuccess, isError}] = useUpdateStatusMutation();
   const [error, setError] = useState("");
   const handleUpdate = () => {
-    dispatch(updateStatus({email, status}));
+    updateStatus({email, status});
   };
   useEffect(() => {
     if (updateData?.status === "success" && isSuccess) {

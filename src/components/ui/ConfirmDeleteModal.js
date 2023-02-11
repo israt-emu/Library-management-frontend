@@ -9,7 +9,7 @@ const ConfirmDeleteModal = ({setConfirmDelete, confirmDelete, data}) => {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const handleDelete = () => {
-    dispatch(deleteUser(data?.email));
+    deleteUser(data?.email);
   };
   useEffect(() => {
     if (deletedData?.status === "success" && isSuccess) {
