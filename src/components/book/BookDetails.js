@@ -4,18 +4,19 @@ import {useParams} from "react-router-dom";
 import {useGetBookDetailsQuery} from "../../features/book/bookAPI";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Moment from "react-moment";
-import {useAddBorrowedBookMutation} from "../../features/boorowedBook/borrowedBookApi";
-import {useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
 import {useState} from "react";
-import {useId} from "react";
-import {useEffect} from "react";
+// import {useId} from "react";
+// import {useEffect} from "react";
 import Error from "../ui/Error";
 import Success from "../ui/Success";
+import BorrowedBookModal from "../modals/BorrowedBookModal";
 
 const BookDetails = () => {
   const {id} = useParams();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [borrowed, setBorrowed] = useState(false);
   const images = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",
@@ -34,27 +35,16 @@ const BookDetails = () => {
   const {name, writer, publications, pdfLink, totalViews, status, edition, bookId, category, description, totalStock, remainingStock, bookLocation, createdAt, totalBorrowed, addedBy} = bookDetails?.book || {};
 
   console.log(id, bookDetails);
-  const [addBorrowedBook, {data, isSuccess, isError}] = useAddBorrowedBookMutation();
-  const {_id: userId, name: userName} = useSelector((state) => state?.auth?.user);
-  //borrowing books
-  const handleBorrowBook = () => {
-    addBorrowedBook({
-      name,
-      bookId,
-      category,
-      borrowerId: userId,
-      borrowerName: userName,
-    });
-  };
-  useEffect(() => {
-    if (data?.status !== "success" && !isSuccess && isError) {
-      setError("Sorry! we are having a trouble..");
-      setSuccess("");
-    } else if (data?.status === "success" && isSuccess) {
-      setSuccess("You Borrowed this book successfully..");
-      setError("");
-    }
-  }, [data, isSuccess, isError]);
+
+  // useEffect(() => {
+  //   if (data?.status !== "success" && !isSuccess && isError) {
+  //     setError("Sorry! we are having a trouble..");
+  //     setSuccess("");
+  //   } else if (data?.status === "success" && isSuccess) {
+  //     setSuccess("You Borrowed this book successfully..");
+  //     setError("");
+  //   }
+  // }, [data, isSuccess, isError]);
   return (
     <div className=" mx-auto space-y-12 grid grid-cols-2">
       <article className="space-y-8 text-gray-900">
@@ -118,7 +108,7 @@ const BookDetails = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold md:tracking-tight md:text-5xl">{name}</h1>
           {status === "In Stock" && (
-            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill" onClick={handleBorrowBook}>
+            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill" onClick={() => setBorrowed(true)}>
               Borrow Book
             </button>
           )}
@@ -149,6 +139,7 @@ const BookDetails = () => {
           <div className="mt-2">{success !== "" && <Success message={success} />}</div>
         </div>
       </div>
+      {borrowed && <BorrowedBookModal borrowed={borrowed} setBorrowed={setBorrowed} data={bookDetails?.book} setError={setError} setSuccess={setSuccess} />}
     </div>
   );
 };
