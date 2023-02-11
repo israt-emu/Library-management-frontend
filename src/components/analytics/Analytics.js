@@ -66,12 +66,8 @@ const Analytics = () => {
         <h1 className="bg-main text-white p-2 rounded inline-block ">Top Five Requested Books</h1>
         <TopBooksTable />
       </div>
-      <div className="my-12">
+      <div className="my-12 px-4">
         <TopBorrowedBooksTable data={topBorrowedBooks?.borrowedBooks} />
-      </div>
-      <div className="my-12">
-        <h1 className="bg-main text-white p-2 rounded inline-block ">Top Five Visited Books</h1>
-        <TopBooksTable />
       </div>
     </div>
   );
