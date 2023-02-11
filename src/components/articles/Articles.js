@@ -1,8 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useGetArticlesQuery } from "../../features/article/articleApi";
+import CardSkeletonLoader from "../ui/CardSkeletonLoader";
+import Error from "../ui/Error";
 import SingeArticles from "./SingeArticles";
 
 const Articles = () => {
+  const {
+    data: articlesData,
+    isError,
+    error,
+    isLoading,
+  } = useGetArticlesQuery();
+  console.log(articlesData);
+
+  let content = null;
+
+  if (isError) {
+    content = (
+      <div className="mt-10">
+        <Error message={error} />
+      </div>
+    );
+  }
+  if (!isError && isLoading) {
+    content = (
+      <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
+        <CardSkeletonLoader />
+      </div>
+    );
+  }
+  if (!isError && !isLoading && articlesData?.article?.length > 0) {
+    content = (
+      <div>
+        <div className="grid grid-cols-2 space-y-3 space-x-2">
+          {articlesData?.article?.map((b) => (
+            <SingeArticles />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (!isError && !isLoading && articlesData?.article?.length === 0) {
+    content = (
+      <div className="grid grid-cols-1 justify-center items-center gap-4 mt-8 pb-8 w-11/12 mx-auto">
+        No Articles Found!
+      </div>
+    );
+  }
   return (
     <div>
       <section className="px-5 py-10  text-gray-800">
@@ -21,12 +66,7 @@ const Articles = () => {
         </div>
         <div className="grid grid-cols-12 mx-auto gap-y-6 md:gap-10">
           <div className=" py-2 xl:col-span-9 lg:col-span-9 md:hidden lg:block  ">
-            <div className="grid grid-cols-2 space-y-3 space-x-2">
-              <SingeArticles />
-              <SingeArticles />
-              <SingeArticles />
-              <SingeArticles />
-            </div>
+            {content}
           </div>
 
           <div className="hidden py-2 xl:col-span-3 lg:col-span-4 md:hidden lg:block">
