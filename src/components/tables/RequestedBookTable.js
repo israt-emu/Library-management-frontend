@@ -23,7 +23,7 @@ const RequestedBookTable = ({ data }) => {
     });
     setBooksData(dataPerPage);
   }, [currentPage, data, limit]);
- 
+  console.log(data);
   return (
     <div>
       <div className="mt-4">
@@ -41,9 +41,10 @@ const RequestedBookTable = ({ data }) => {
               <thead>
                 <tr className="bg-main text-white">
                   <th className="p-3">Name</th>
+                  <th className="p-3">Writer</th>
                   <th className="p-3">Category</th>
                   <th className="p-3">Status</th>
-                  <th className="p-3">Total Views</th>
+                  <th className="p-3">Request Count</th>
                   <th className="p-3 text-center">Action</th>
                 </tr>
               </thead>
@@ -54,13 +55,16 @@ const RequestedBookTable = ({ data }) => {
                       <p>{d?.name}</p>
                     </td>
                     <td className="px-3 py-2">
-                      <p className="text-gray-600">{d?.catgory}</p>
+                      <p className="text-gray-600">{d?.writer}</p>
+                    </td>
+                    <td className="px-3 py-2">
+                      <p className="text-gray-600">{d?.category}</p>
                     </td>
                     <td className="px-3 py-2">
                       <p>{d?.status}</p>
                     </td>
                     <td className="px-3 py-2">
-                      <p>{d?.totalViews}</p>
+                      <p>{d?.requestCount}</p>
                     </td>
 
                     <td className="px-3 py-2 text-center">
