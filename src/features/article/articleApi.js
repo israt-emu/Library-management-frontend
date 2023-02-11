@@ -9,13 +9,13 @@ export const articleApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
-    // getDetails: builder.query({
-    //   query: ({id}) => ({
-    //     url: `/borrowedBook/getSingleBorrowedBook/${id}`,
-    //     method: "GET",
-    //     // body: data,
-    //   }),
-    // }),
+    getArticleDetails: builder.query({
+      query: ({id}) => ({
+        url: `/article/getSingleArticle/${id}`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
     addArticle: builder.mutation({
       query: (data) => ({
         url: `/article/addArticle`,
@@ -27,4 +27,4 @@ export const articleApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useAddArticleMutation,useGetArticlesQuery} = articleApi;
+export const {useAddArticleMutation,useGetArticlesQuery,useGetArticleDetailsQuery} = articleApi;

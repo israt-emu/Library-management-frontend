@@ -35,7 +35,7 @@ const Articles = () => {
       <div>
         <div className="grid grid-cols-2 space-y-3 space-x-2">
           {articlesData?.article?.map((b) => (
-            <SingeArticles />
+            <SingeArticles data={b} />
           ))}
         </div>
       </div>
