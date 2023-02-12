@@ -1,21 +1,30 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useAddNoticeMutation } from "../../features/notice/noticeApi";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useAddNoticeMutation} from "../../features/notice/noticeApi";
 
 const AddNotice = () => {
-  const { user } = useSelector((state) => state.auth);
-
-  const [addNotice, { data, error, isLoading, isError }] =
-    useAddNoticeMutation();
+  const {user} = useSelector((state) => state.auth);
+  const [error, setError] = useState("");
+  const [addNotice, {data, isSuccess, isError}] = useAddNoticeMutation();
   const [noticeData, setNoticeData] = useState({});
   const handleOnchange = (e) => {
     noticeData[e.target.name] = e.target.value;
-    setNoticeData({ ...noticeData });
+    setNoticeData({...noticeData});
   };
   const handleSubmit = () => {
     addNotice(noticeData);
   };
-  console.log(data);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (data?.status === "success" && isSuccess) {
+      navigate("/dashboard/notice");
+      setError("");
+    } else if (!isSuccess && isError) {
+      setError("There was an error occured!");
+    }
+  }, [data, isSuccess, isError, error, navigate]);
 
   return (
     <div>
@@ -28,65 +37,31 @@ const AddNotice = () => {
             <div className="">
               <label className="block mb-1">
                 <span className="my-2">Title</span>
-                <input
-                  onChange={handleOnchange}
-                  name="title"
-                  type="text"
-                  placeholder="Title"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <input onChange={handleOnchange} name="title" type="text" placeholder="Title" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
 
               <label className="block mb-1">
                 <span className="my-2">Category</span>
-                <input
-                  onChange={handleOnchange}
-                  name="category"
-                  type="text"
-                  placeholder="Category"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <input onChange={handleOnchange} name="category" type="text" placeholder="Category" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
               <label className="block mb-1">
                 <span className="my-2">Description</span>
-                <textarea
-                  onChange={handleOnchange}
-                  name="description"
-                  type="text"
-                  placeholder="Description"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <textarea onChange={handleOnchange} name="description" type="text" placeholder="Description" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
 
               <label className="block mb-1">
                 <span className="my-2">Image Link</span>
-                <input
-                  onChange={handleOnchange}
-                  name="image"
-                  type="text"
-                  placeholder="Image Link"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <input onChange={handleOnchange} name="image" type="text" placeholder="Image Link" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
               <label className="block mb-1">
                 <span className="my-2">File Link</span>
-                <input
-                  onChange={handleOnchange}
-                  name="fileLink"
-                  type="text"
-                  placeholder="File Link"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <input onChange={handleOnchange} name="fileLink" type="text" placeholder="File Link" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
             </div>
           </div>
         </div>
         <div className="flex justify-center">
-          <button
-            onClick={handleSubmit}
-            type="button"
-            className=" px-8 py-2 text-lg rounded bg-main text-white"
-          >
+          <button onClick={handleSubmit} type="button" className=" px-8 py-2 text-lg rounded bg-main text-white">
             Submit
           </button>
         </div>
