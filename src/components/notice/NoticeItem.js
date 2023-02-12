@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
-const NoticeItem = () => {
+const NoticeItem = ({ data }) => {
   const [collapse, setCollapse] = useState(false);
+  const { title, description, createdAt } = data || {};
+  // console.log(createdAt);
+  const dateCreated = new Date(createdAt).toDateString();
+  const todayDate = new Date().toDateString();
+
   return (
     <div>
       <div
@@ -9,13 +14,12 @@ const NoticeItem = () => {
         role="alert"
         onClick={() => setCollapse(!collapse)}
       >
-        <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
-          New
-        </span>
-        <span className="font-semibold mr-2 text-left flex-auto">
-          Attention Library Members: Our library management website will be
-          undergoing maintenance on Wednesday.
-        </span>
+        {dateCreated == todayDate && (
+          <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+            New
+          </span>
+        )}
+        <span className="font-semibold mr-2 text-left flex-auto">{title}</span>
         <svg
           className="fill-current opacity-75 h-4 w-4"
           xmlns="http://www.w3.org/2000/svg"
@@ -30,14 +34,7 @@ const NoticeItem = () => {
           !collapse ? "hidden h-0" : "h-auto block"
         }`}
       >
-        <p className="text-lg">
-          February 8th from 9:00 AM to 5:00 PM. During this time, access to
-          online resources, including the catalog and digital collections, will
-          be unavailable. We apologize for any inconvenience and appreciate your
-          understanding as we work to improve our website for you. If you have
-          any questions, please contact us at [library contact information].
-          Thank you."
-        </p>
+        <p className="text-lg">{description}</p>
       </div>
     </div>
   );
