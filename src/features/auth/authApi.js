@@ -80,6 +80,13 @@ export const authApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getFilteredUsers: builder.query({
+      query: (data) => ({
+        url: "/user/filteredUsers",
+        method: "POST",
+        body: data,
+      }),
+    }),
     updateStatus: builder.mutation({
       query: (data) => ({
         url: "/user/statusUpdate",
@@ -103,4 +110,4 @@ export const authApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useSignUpMutation, useLoginMutation, useUpdateMutation, useGetAllUsersQuery, useDeleteUserMutation, useUpdateStatusMutation, useChangeAdminMutation} = authApi;
+export const {useSignUpMutation, useLoginMutation, useUpdateMutation, useGetAllUsersQuery, useDeleteUserMutation, useUpdateStatusMutation, useChangeAdminMutation, useGetFilteredUsersQuery} = authApi;

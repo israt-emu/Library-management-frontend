@@ -1,6 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useAddBookMutation, useAddRequestedBookMutation} from "../../features/book/bookAPI";
+import Error from "../ui/Error";
 
 const AddRequestedBook = () => {
+  const {user} = useSelector((state) => state.auth);
+  const [addRequestedBook, {data, isSuccess, isError}] = useAddRequestedBookMutation();
+  const [bookData, setBookData] = useState({});
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const handleOnchange = (e) => {
+    bookData[e.target.name] = e.target.value;
+    setBookData({...bookData});
+  };
+  const handleSubmit = () => {
+    bookData.requestedBy = user?._id;
+    addRequestedBook(bookData);
+  };
+  console.log(data);
+  useEffect(() => {
+    if (data?.status === "success" && isSuccess) {
+      navigate("/dashboard/bookRequest");
+      setError("");
+    } else if (!isSuccess && isError) {
+      setError("There was an error occured!");
+    }
+  }, [data, isSuccess, isError, error, navigate]);
   return (
     <div>
       <section className="py-6 bg-gray-100 text-gray-900">
@@ -12,67 +38,41 @@ const AddRequestedBook = () => {
             <div className="">
               <label className="block mb-1">
                 <span className="my-2">Book Title</span>
-                <input
-                  type="text"
-                  placeholder="Book Title"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <input type="text" onChange={handleOnchange} name="name" placeholder="Book Title" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
 
               <label className="block mb-1">
                 <span className="my-2">Category</span>
-                <input
-                  type="number"
-                  placeholder="Give an unique Id"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <input type="text" onChange={handleOnchange} name="category" placeholder="Category" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
               <label className="block mb-1">
                 <span className="my-2">Description</span>
-                <textarea
-                  type="text"
-                  placeholder="Description"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
+                <textarea type="text" onChange={handleOnchange} name="description" placeholder="Description" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
               </label>
             </div>
           </div>
           <div className="py-6 md:py-0 md:px-6">
             <label className="block mb-1">
               <span className="my-2">Writer</span>
-              <input
-                type="text"
-                placeholder="Writer"
-                className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-              />
+              <input type="text" onChange={handleOnchange} name="writer" placeholder="Writer" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
             </label>
             <label className="block mb-1">
               <span className="my-2">Publications</span>
-              <input
-                type="number"
-                placeholder="Publication"
-                className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-              />
+              <input type="text" onChange={handleOnchange} name="publications" placeholder="Publication" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
             </label>
 
             <label className="block mb-1">
               <span className="my-2">Image Link</span>
-              <input
-                type="text"
-                placeholder="Book Image Link"
-                className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-              />
+              <input type="text" onChange={handleOnchange} name="image" placeholder="Book Image Link" className="block w-full rounded-md shadow-sm bg-white py-2 px-2" />
             </label>
           </div>
         </div>
         <div className="flex justify-center">
-          <button
-            type="button"
-            className=" px-8 py-2 text-lg rounded bg-main text-white"
-          >
+          <button type="button" onClick={handleSubmit} className=" px-8 py-2 text-lg rounded bg-main text-white">
             Submit
           </button>
         </div>
+        {error !== "" && <Error message={error} />}
       </section>
     </div>
   );

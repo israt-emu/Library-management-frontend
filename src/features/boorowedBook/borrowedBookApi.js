@@ -64,98 +64,14 @@ export const borrowedBookApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    // updateBookmark: builder.mutation({
-    //   query: ({id, data}) => ({
-    //     url: `bookmark/updateBookmark/${id}`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   async onQueryStarted({id, data}, {queryFulfilled, dispatch}) {
-    //     try {
-    //       const result = await queryFulfilled;
-    //       const updatedBookmark = result?.data?.bookmark;
-    //       const {title, group, url} = updatedBookmark;
-
-    //       // update bookmark cache
-    //       if (result?.data?.status === "success") {
-    //         dispatch(
-    //           apiSlice.util.updateQueryData("getBookmarks", {userId: data?.userId}, (draft) => {
-    //             const bookmark = draft?.bookmarks?.find((d) => d._id === id);
-    //             const updatedDate = new Date().toISOString();
-    //             bookmark.title = title;
-    //             bookmark.url = url;
-    //             bookmark.group = group;
-    //             bookmark.updatedAt = updatedDate;
-    //           })
-    //         );
-    //       }
-    //     } catch (err) {
-    //       //nothing to do
-    //       console.log(err);
-    //     }
-    //   },
-    // }),
-    // updateBookmarkByState: builder.mutation({
-    //   query: ({id, data, state}) => ({
-    //     url: `bookmark/updateBookmark/${id}`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   async onQueryStarted({id, data, state}, {queryFulfilled, dispatch}) {
-    //     try {
-    //       const result = await queryFulfilled;
-    //       const updatedBookmark = result?.data?.bookmark;
-    //       // update bookmark cache
-    //       if (result?.data?.status === "success") {
-    //         //updating groups
-    //         dispatch(
-    //           apiSlice.util.updateQueryData("getGroups", {state: data?.state, userId: data?.userId}, (draft) => {
-    //             if (!draft?.groups?.includes(data?.group)) {
-    //               draft?.groups?.push(data?.group);
-    //             }
-    //           })
-    //         );
-
-    //         // dispatch(
-    //         //   apiSlice.util.updateQueryData("getGroups", {state: state, userId: data?.userId}, (draft) => {
-    //         //     console.log(JSON.stringify(draft?.groups));
-    //         //     dispatch(
-    //         //       apiSlice.util.updateQueryData("getBookmarks", {userId: data?.userId}, (bookmarkDraft) => {
-    //         //         const filterDraft = bookmarkDraft?.bookmarks?.filter((b) => b?.state === state && b?.group === data?.group);
-    //         //         if (filterDraft?.length === 1) {
-    //         //           // g?.group?.toLowerCase() !== data?.group?.toLowerCase()
-    //         //           const filterGroup = draft?.groups?.filter((g) => g !== data?.group);
-    //         //           return {
-    //         //             ...draft,
-    //         //             groups: filterGroup,
-    //         //           };
-    //         //         }
-    //         //       })
-    //         //     );
-    //         //   })
-    //         // );
-    //         //updating draft data after state change
-    //         dispatch(
-    //           apiSlice.util.updateQueryData("getBookmarks", {userId: data?.userId}, (draft) => {
-    //             // eslint-disable-next-line eqeqeq
-    //             const bookmark = draft?.bookmarks?.find((b) => b._id === id);
-    //             bookmark.state = data?.state;
-    //           })
-    //         );
-    //       }
-    //     } catch (err) {
-    //       //nothing to do
-    //       console.log(err);
-    //     }
-    //   },
-    // }),
-    // getGroups: builder.query({
-    //   query: ({state, userId}) => ({
-    //     url: `/bookmark/getBookmarksGroup?state=${state}&userId=${userId}`,
-    //     method: "POST",
-    //   }),
-    // }),
+    getFilteredBorrowedBooks: builder.query({
+      query: (data) => ({
+        url: `borrowedBook/filteredBorrowedBook`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const {useGetBorrowedBookDetailsQuery, useGetBorrwedBooksQuery, useReturnBorrowedBookMutation, useAddBorrowedBookMutation, useFindBorrowedBookByUserIdQuery, useGetTopBorrowedBooksQuery} = borrowedBookApi;
+export const {useGetBorrowedBookDetailsQuery, useGetBorrwedBooksQuery, useReturnBorrowedBookMutation, useAddBorrowedBookMutation, useFindBorrowedBookByUserIdQuery, useGetTopBorrowedBooksQuery, useGetFilteredBorrowedBooksQuery} = borrowedBookApi;

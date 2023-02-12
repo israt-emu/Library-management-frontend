@@ -2,35 +2,61 @@ import React, {useEffect, useState} from "react";
 import TablePagination from "../ui/TablePagination";
 import {MdDelete} from "react-icons/md";
 import {Link} from "react-router-dom";
+import {useGetFilteredBooksQuery} from "../../features/book/bookAPI";
 
 const BooksTable = ({data}) => {
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-
+  //filtering data by search and stATE
+  const [search, setSearch] = useState("");
+  const [skip, setSkip] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  const [status, setStatus] = useState("");
+  const {data: newData} = useGetFilteredBooksQuery({status, search}, {skip: skip}) || {};
   useEffect(() => {
-    if (data?.length > 0) {
-      setTotalPage(Math.ceil(data?.length / limit));
+    if (status === "" && search === "") {
+      setFilteredData(data);
+    } else {
+      setSkip(false);
+      if (newData?.books) {
+        setFilteredData(newData?.books);
+      }
     }
-  }, [data, limit]);
+  }, [data, status, search, newData]);
+  // content for pagination
+  useEffect(() => {
+    if (filteredData?.length > 0) {
+      setTotalPage(Math.ceil(filteredData?.length / limit));
+    }
+  }, [filteredData, limit]);
   const [booksData, setBooksData] = useState([]);
 
   useEffect(() => {
-    const dataPerPage = data?.filter((v, i) => {
+    const dataPerPage = filteredData?.filter((v, i) => {
       const start = limit * (currentPage - 1);
       const end = start + limit;
       return i >= start && i < end;
     });
     setBooksData(dataPerPage);
-  }, [currentPage, data, limit]);
+  }, [currentPage, filteredData, limit]);
   return (
     <div>
       <div className="mt-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-medium mb-3">Books:</h1>
-          <Link to={"/dashboard/addbook"}>
-            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Add Book</button>
-          </Link>
+          <div className="flex items-center">
+            <p className="mr-2 font-medium">Filtered By:</p>
+            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>
+              <option value="">Status</option>
+              <option value="In Stock">In Stock</option>
+              <option value="Stock Out">Stock Out</option>
+            </select>
+            <input type="search" name="" id="" className="px-2 py-1 rounded mr-2" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
+            <Link to={"/dashboard/addbook"}>
+              <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Add Book</button>
+            </Link>
+          </div>
         </div>
         <div className="text-gray-800" style={{height: "250px"}}>
           <div className="overflow-x-auto">

@@ -6,9 +6,9 @@ import UserBorrowedBookTable from "../tables/UserBorrowedBookTable";
 import {useFindBorrowedBookByUserIdQuery} from "../../features/boorowedBook/borrowedBookApi";
 
 const UserDashboard = () => {
-  const {user} = useSelector((state) => state.auth);
+  const {user} = useSelector((state) => state?.auth);
   console.log(user);
-  const {name, role, email, createdAt, updatedAt, _id: id} = user || {};
+  const {name, role, email, createdAt, updatedAt, _id: id, status} = user || {};
   const {data: borrowedBooks} = useFindBorrowedBookByUserIdQuery(id);
 
   const series = [65, 35];
@@ -51,11 +51,11 @@ const UserDashboard = () => {
   };
 
   return (
-    <div>
-      <h1>User Dashboard</h1>
+    <div className="my-5">
+      <h1 className="font-medium">Dashboard</h1>
 
-      <div className="container mx-auto my-5 p-5">
-        <div className="md:flex no-wrap md:-mx-2 ">
+      <div className="container mx-auto py-5">
+        <div className="md:flex no-wrap md:-mx-2">
           {/* <!-- Left Side --> */}
           <div className="w-full md:w-4/12 md:mx-2">
             {/* <!-- Profile Card --> */}
@@ -64,13 +64,13 @@ const UserDashboard = () => {
                 <img className="h-auto w-full mx-auto" src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg" alt="" />
               </div>
               <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">{name}</h1>
-              <h3 className="text-gray-600 font-lg text-semibold leading-6">{role}</h3>
+              <h3 className="text-gray-600 font-lg text-semibold leading-6">{role.toUpperCase()}</h3>
 
               <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                 <li className="flex items-center py-3">
                   <span>Status</span>
                   <span className="ml-auto">
-                    <span className="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</span>
+                    <span className="bg-green-500 py-1 px-2 rounded text-white text-sm">{status.toUpperCase()}</span>
                   </span>
                 </li>
                 <li className="flex items-center py-3">
@@ -123,7 +123,7 @@ const UserDashboard = () => {
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Current Address</div>
-                    <div className="px-4 py-2">Noakhali,Chattogram,Bangladesh</div>
+                    <div className="px-4 py-2 break-words">Noakhali,Chattogram,Bangladesh</div>
                   </div>
                   <div className="grid grid-cols-2">
                     <div className="px-4 py-2 font-semibold">Permanant Address</div>
@@ -206,7 +206,7 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
-        <UserBorrowedBookTable data={borrowedBooks?.borrowedBooks} />
+        <UserBorrowedBookTable data={borrowedBooks?.borrowedBooks} id={id} />
       </div>
     </div>
   );

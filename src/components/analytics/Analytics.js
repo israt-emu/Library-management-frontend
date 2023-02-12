@@ -1,13 +1,13 @@
 import React from "react";
 import Chart from "react-apexcharts";
-import { useGetRequestedBooksQuery } from "../../features/book/bookAPI";
-import { useGetTopBorrowedBooksQuery } from "../../features/boorowedBook/borrowedBookApi";
-import RequestedBookTable from "../tables/RequestedBookTable";
+import {useGetRequestedBooksQuery} from "../../features/book/bookAPI";
+import {useGetTopBorrowedBooksQuery} from "../../features/boorowedBook/borrowedBookApi";
 import TopBorrowedBooksTable from "../tables/TopBorrowedBooksTable";
+import TopRequestedBooksTable from "../tables/TopRequestedBooksTable";
 import QuickAnalytics from "./QuickAnalytics";
-import TopBooksTable from "./TopBooksTable";
+import TopBooksTable from "../tables/TopBooksTable";
 const Analytics = () => {
-  const { data: topBorrowedBooks } = useGetTopBorrowedBooksQuery();
+  const {data: topBorrowedBooks} = useGetTopBorrowedBooksQuery();
   const options = {
     chart: {
       height: 200,
@@ -27,20 +27,7 @@ const Analytics = () => {
 
     xaxis: {
       position: "bottom",
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     },
     yaxis: {
       show: true,
@@ -53,48 +40,13 @@ const Analytics = () => {
         left: 0,
       },
     },
-    colors: [
-      "#33b2df",
-      "#546E7A",
-      "#d4526e",
-      "#13d8aa",
-      "#A5978B",
-      "#2b908f",
-      "#f9a3a4",
-      "#90ee7e",
-      "#f48024",
-      "#69d2e7",
-    ],
+    colors: ["#33b2df", "#546E7A", "#d4526e", "#13d8aa", "#A5978B", "#2b908f", "#f9a3a4", "#90ee7e", "#f48024", "#69d2e7"],
     legend: {
       show: true,
       showForSingleSeries: true,
-      customLegendItems: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      customLegendItems: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       markers: {
-        fillColors: [
-          "#33b2df",
-          "#546E7A",
-          "#d4526e",
-          "#13d8aa",
-          "#A5978B",
-          "#2b908f",
-          "#f9a3a4",
-          "#90ee7e",
-          "#f48024",
-          "#69d2e7",
-        ],
+        fillColors: ["#33b2df", "#546E7A", "#d4526e", "#13d8aa", "#A5978B", "#2b908f", "#f9a3a4", "#90ee7e", "#f48024", "#69d2e7"],
       },
     },
   };
@@ -104,25 +56,23 @@ const Analytics = () => {
       data: [30, 40, 45, 200, 49, 60, 70, 91, 30, 20, 30, 0],
     },
   ];
-  const { data: requestedBookData } = useGetRequestedBooksQuery();
+  const {data: requestedBookData} = useGetRequestedBooksQuery();
 
   return (
     <div>
       <QuickAnalytics />
       <div>
-        <h1 className="bg-main text-white p-2 rounded inline-block ">
-          Monthly Analytics
-        </h1>
+        <h1 className="bg-main text-white p-2 rounded inline-block ">Monthly Analytics</h1>
         <Chart options={options} series={series} type="bar" width="600" />
       </div>
-      <div className="my-12">
-        <h1 className="bg-main text-white p-2 rounded inline-block ">
-          Top Five Requested Books
-        </h1>
-        <RequestedBookTable data={requestedBookData?.books} />
-      </div>
       <div className="my-12 px-4">
+        <TopRequestedBooksTable />
+      </div>
+      <div className="my-6 px-4">
         <TopBorrowedBooksTable data={topBorrowedBooks?.borrowedBooks} />
+      </div>
+      <div className="my-6 px-4">
+        <TopBooksTable />
       </div>
     </div>
   );
