@@ -5,7 +5,7 @@ const AddRequestedBook = () => {
     <div>
       <section className="py-6 bg-gray-100 text-gray-900">
         <div className="px-5">
-          <h1 className="text-4xl font-bold my-8">Add Requested book</h1>
+          <h1 className="text-4xl font-bold my-8">Request a book</h1>
         </div>
         <div className="grid max-w-6xl grid-cols-1 px-6 mx-auto lg:px-8 md:grid-cols-2 md:divide-x mb-8">
           <div className="py-6 md:py-0 md:px-6">

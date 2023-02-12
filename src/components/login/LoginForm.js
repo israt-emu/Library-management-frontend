@@ -83,7 +83,7 @@ const LoginForm = () => {
           </div>
           <div className="space-y-2 w-4/6 mx-auto">
             <div>
-              <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-second text-fill mt-8" disabled={isLoading}>
+              <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-main text-fill mt-8" disabled={isLoading}>
                 Login
               </button>
             </div>
@@ -93,7 +93,7 @@ const LoginForm = () => {
       </div>
       <p className="md:px-6 text-sm text-center text-gray-600 align-bottom mt-8 w-4/6 mx-auto">
         Don't have an account yet?
-        <Link to="/signup" className="hover:underline text-second ml-1 font-bold">
+        <Link to="/signup" className="hover:underline text-main ml-1 font-bold">
           Quick Sign up here
         </Link>
         .

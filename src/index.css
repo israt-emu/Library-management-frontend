@@ -94,3 +94,7 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.image-gallery-slide .image-gallery-image{
+  height: 500px;
+}
