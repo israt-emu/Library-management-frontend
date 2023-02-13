@@ -51,7 +51,7 @@ const UserBorrowedBookTable = ({data, id}) => {
     <div>
       <div className="mt-14">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">My Borrowed Books:</h1>
+          <h1 className="text-2xl font-medium mb-3">Borrowed Books:</h1>
           <div className="flex items-center">
             <p className="mr-2 font-medium">Filtered By:</p>
             <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>

@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Index from "./pages/Index";
-import {useAuthCheck} from "./hooks/useAuthCheck";
+import { useAuthCheck } from "./hooks/useAuthCheck";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./pages/NotFound";
@@ -23,6 +23,8 @@ import AddBook from "./components/book/AddBook";
 import AddRequestedBook from "./components/book/AddRequestedBook";
 import AddArticle from "./components/articles/AddArticle";
 import AddNotice from "./components/notice/AddNotice";
+import UpdateUser from "./components/user/UpdateUser";
+import SingleUserDashboard from "./components/user/SingleUserDashboard";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +125,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/user/:email",
+        element: (
+          <PrivateRoute>
+            <SingleUserDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/updateuser",
+        element: (
+          <PrivateRoute>
+            <UpdateUser />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/admin",
         element: (
           <PrivateRoute>
@@ -196,7 +214,11 @@ const router = createBrowserRouter([
 ]);
 function App() {
   const authChecked = useAuthCheck();
-  return !authChecked ? <div>Checking Authentication....</div> : <RouterProvider router={router} />;
+  return !authChecked ? (
+    <div>Checking Authentication....</div>
+  ) : (
+    <RouterProvider router={router} />
+  );
 }
 
 export default App;

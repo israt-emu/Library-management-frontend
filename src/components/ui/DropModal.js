@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {MdLogout} from "react-icons/md";
 import {MdOutlineAccountCircle} from "react-icons/md";
 import {useState} from "react";
-import UpdateUserModal from "../user/UpdateUserModal";
+// import UpdateUserModal from "../user/UpdateUserModal";
 const DropModal = ({ref, logOut, btnRef}) => {
   const {user} = useSelector((state) => state.auth);
   const [showModal, setShowModal] = useState(false);
@@ -26,7 +26,7 @@ const DropModal = ({ref, logOut, btnRef}) => {
           </button>
         </li>
       </ul>
-      <UpdateUserModal btnRef={btnRef} showModal={showModal} setShowModal={setShowModal} />
+      {/* <UpdateUserModal btnRef={btnRef} showModal={showModal} setShowModal={setShowModal} /> */}
     </div>
   );
 };
