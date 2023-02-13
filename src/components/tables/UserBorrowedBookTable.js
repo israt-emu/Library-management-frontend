@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import TablePagination from "../ui/TablePagination";
-import {TbBookUpload} from "react-icons/tb";
-import {BsCheckCircleFill} from "react-icons/bs";
+import { TbBookUpload } from "react-icons/tb";
+import { BsCheckCircleFill } from "react-icons/bs";
 import ReturnBookModal from "../modals/ReturnBookModal";
-import {useGetFilteredBorrowedBooksQuery} from "../../features/boorowedBook/borrowedBookApi";
+import { useGetFilteredBorrowedBooksQuery } from "../../features/boorowedBook/borrowedBookApi";
 
-const UserBorrowedBookTable = ({data, id}) => {
+const UserBorrowedBookTable = ({ data, id }) => {
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -17,7 +17,9 @@ const UserBorrowedBookTable = ({data, id}) => {
   const [skip, setSkip] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
   const [status, setStatus] = useState("");
-  const {data: newData} = useGetFilteredBorrowedBooksQuery({status, search, id}, {skip: skip}) || {};
+  const { data: newData } =
+    useGetFilteredBorrowedBooksQuery({ status, search, id }, { skip: skip }) ||
+    {};
   useEffect(() => {
     if (status === "" && search === "") {
       setFilteredData(data);
@@ -48,22 +50,34 @@ const UserBorrowedBookTable = ({data, id}) => {
     setReturnData(d);
   };
   return (
-    <div>
-      <div className="mt-14">
+    <div className="w-full">
+      <div className="">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">My Borrowed Books:</h1>
+          <h1 className="text-xl md:text-2xl font-medium mb-3">
+            Borrowed Books:
+          </h1>
           <div className="flex items-center">
             <p className="mr-2 font-medium">Filtered By:</p>
-            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>
+            <select
+              className="px-2 py-1 rounded mr-2"
+              onChange={(e) => setStatus(e.target.value)}
+            >
               <option value="">Status</option>
               <option value="borrowed">Borrowed</option>
               <option value="returned">Returned</option>
             </select>
-            <input type="search" name="" id="" className="px-2 py-1 rounded mr-2" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
+            <input
+              type="search"
+              name=""
+              id=""
+              className="px-2 py-1 rounded mr-2"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
-        <div className="text-gray-800" style={{height: "250px"}}>
-          <div className="overflow-x-auto">
+        <div className="text-gray-800" style={{ height: "250px" }}>
+          <div className="overflow-x-auto w-full">
             <table className="w-full p-6 text-sm text-left whitespace-nowrap">
               <thead>
                 <tr className="bg-main text-white">
@@ -107,12 +121,34 @@ const UserBorrowedBookTable = ({data, id}) => {
                     <td className="px-3 py-2 text-center">
                       {" "}
                       {d?.status === "borrowed" && (
-                        <button type="button" className={`${d?.dueDate < new Date() ? "bg-red-200 text-red-500" : "bg-green-200 text-second"} p-1 rounded-full  text-lg `} title="Return Book" onClick={() => returnBookModal(d)}>
+                        <button
+                          type="button"
+                          className={`${
+                            d?.dueDate < new Date()
+                              ? "bg-red-200 text-red-500"
+                              : "bg-green-200 text-second"
+                          } p-1 rounded-full  text-lg `}
+                          title="Return Book"
+                          onClick={() => returnBookModal(d)}
+                        >
                           <TbBookUpload />
                         </button>
                       )}
                       {d?.status === "returned" && (
-                        <button type="button" className={` ${d?.dueDate < d?.returnDate ? "bg-red-200 text-red-500" : "bg-green-200 text-second"} p-1 rounded-full  text-lg`} disabled={true} title={`${d?.dueDate < d?.returnDate ? "Late returned" : "Returned in time"}`}>
+                        <button
+                          type="button"
+                          className={` ${
+                            d?.dueDate < d?.returnDate
+                              ? "bg-red-200 text-red-500"
+                              : "bg-green-200 text-second"
+                          } p-1 rounded-full  text-lg`}
+                          disabled={true}
+                          title={`${
+                            d?.dueDate < d?.returnDate
+                              ? "Late returned"
+                              : "Returned in time"
+                          }`}
+                        >
                           <BsCheckCircleFill />
                         </button>
                       )}
@@ -127,10 +163,20 @@ const UserBorrowedBookTable = ({data, id}) => {
 
       {data?.length > 0 ? (
         <div className=" my-6">
-          <TablePagination currentPage={currentPage} totalPage={totalPage} setCurrentPage={setCurrentPage} />
+          <TablePagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       ) : null}
-      {returnBook && <ReturnBookModal setReturnBook={setReturnBook} returnBook={returnBook} data={returnData} />}
+      {returnBook && (
+        <ReturnBookModal
+          setReturnBook={setReturnBook}
+          returnBook={returnBook}
+          data={returnData}
+        />
+      )}
     </div>
   );
 };

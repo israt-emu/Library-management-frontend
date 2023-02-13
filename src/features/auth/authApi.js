@@ -1,5 +1,5 @@
-import {apiSlice} from "../api/apiSlice";
-import {getUpdatedUser, userLoggedIn} from "./authSlice";
+import { apiSlice } from "../api/apiSlice";
+import { getUpdatedUser, userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +9,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
           localStorage.setItem(
@@ -37,7 +37,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
           console.log(result);
@@ -47,13 +47,13 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    update: builder.mutation({
-      query: ({email, data}) => ({
+    updateUser: builder.mutation({
+      query: ({ email, data }) => ({
         url: `/user/updateUser/${email}`,
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
           console.log(result);
@@ -107,7 +107,23 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getSingleUser: builder.query({
+      query: (email ) => ({
+        url: `/user/getSingleUser/${email}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const {useSignUpMutation, useLoginMutation, useUpdateMutation, useGetAllUsersQuery, useDeleteUserMutation, useUpdateStatusMutation, useChangeAdminMutation, useGetFilteredUsersQuery} = authApi;
+export const {
+  useSignUpMutation,
+  useLoginMutation,
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
+  useUpdateStatusMutation,
+  useChangeAdminMutation,
+  useGetFilteredUsersQuery,
+  useUpdateUserMutation,
+  useGetSingleUserQuery,
+} = authApi;
