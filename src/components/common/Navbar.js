@@ -122,7 +122,7 @@ const Navbar = ({ setToggle, toggle }) => {
           </div>
 
           {/* search input  */}
-          <div className="px-4 p-1 w-1/3 mt-2 md:mt-0">
+          {/* <div className="px-4 p-1 w-1/3 mt-2 md:mt-0">
             <div className="relative w-full justify-start items-center">
               <span className="absolute left-0 top-1 md:top-3 flex items-center pl-[1px]  md:pl-3">
                 <button
@@ -142,7 +142,7 @@ const Navbar = ({ setToggle, toggle }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="ml-auto flex">
             {/* navbar icons  */}
