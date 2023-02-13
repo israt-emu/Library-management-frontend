@@ -76,7 +76,7 @@ const UserDashboard = () => {
       <div className="container mx-auto py-5">
         <div className="md:flex no-wrap md:-mx-2">
           {/* <!-- Left Side --> */}
-          <div className="w-full md:w-4/12 md:mx-2">
+          <div className=" w-full md:w-4/12 md:mx-2">
             {/* <!-- Profile Card --> */}
             <div className="bg-white p-3 border-t-4 border-main">
               <div className="image overflow-hidden">
@@ -129,7 +129,7 @@ const UserDashboard = () => {
             {/* <!-- End of profile card --> */}
             <div className="my-4"></div>
             {/* <!-- Friends card --> */}
-            <div className="bg-white p-1 hover:shadow">
+            <div className="bg-white p-1 hover:shadow hidden md:visible">
               <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">
                 Profile
               </h1>
@@ -143,7 +143,7 @@ const UserDashboard = () => {
             {/* <!-- End of friends card --> */}
           </div>
           {/* <!-- Right Side --> */}
-          <div className="w-full md:w-8/12 mx-2 h-64">
+          <div className="w-full md:w-8/12 mx-2 h-64 mb-24">
             {/* <!-- Profile tab -->
                 <!-- About Section --> */}
             <div className="bg-white p-3 shadow-sm rounded-sm">
@@ -297,7 +297,10 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
+        <div className="mt-40 overflow-x-scroll">
         <UserBorrowedBookTable data={borrowedBooks?.borrowedBooks} id={id} />
+        </div>
+       
       </div>
     </div>
   );
