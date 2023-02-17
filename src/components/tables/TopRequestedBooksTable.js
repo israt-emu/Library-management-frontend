@@ -7,7 +7,7 @@ const TopRequestedBooksTable = () => {
     <div>
       <div className="mt-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">Top Five Requested Books:</h1>
+          <h1 className="text-2xl font-medium mb-3 text-primary">Top Five Requested Books:</h1>
         </div>
         <div className="text-gray-800" style={{height: "250px"}}>
           <div className="overflow-x-auto">

@@ -82,7 +82,7 @@ const Dashboard = () => {
     <div className={`${theme === "dark" ? "theme-dark" : "theme-light"} bg-fill`}>
       <Navbar setToggle={setToggle} toggle={toggle} />
       <div className="grid md:grid-cols-12 ">
-        <div className={`col-span-1 h-screen fixed ${toggle ? "-left-96 md:left-0 w-14" : "left-0 w-44"} top-[52px]  shadow-md  z-50  transition-all duration-300 bg-main`}>
+        <div className={`col-span-1 h-screen fixed ${toggle ? "-left-96 md:left-0 w-14" : "left-0 w-44"} top-[49px]  shadow-md  z-50  transition-all duration-300 bg-main`}>
           {" "}
           <Sidebar toggle={toggle} setToggle={setToggle} />
         </div>

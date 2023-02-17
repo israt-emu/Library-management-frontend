@@ -32,9 +32,9 @@ const AddArticle = () => {
   }, [data, isSuccess, isError, error, navigate]);
   return (
     <div>
-      <section className="py-6 bg-gray-100 text-gray-900 w-full">
+      <section className="py-6 bg-gray-100 text-gray-900 w-full mb-8">
         <div className="px-5">
-          <h1 className="text-4xl font-bold my-8">Add Article</h1>
+          <h1 className="text-4xl font-bold my-8 text-center">Add Article</h1>
         </div>
         <div className="flex   justify-center mb-8">
           <div className="py-6  w-2/3 md:py-0 md:px-6">

@@ -58,12 +58,12 @@ const BookDetails = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold md:tracking-tight md:text-5xl">{name}</h1>
           {status === "In Stock" && (
-            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill" onClick={() => setBorrowed(true)}>
+            <button className="bg-second px-3 py-1 text-sm font-medium rounded text-sidebar_text" onClick={() => setBorrowed(true)}>
               Borrow Book
             </button>
           )}
         </div>
-        <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center text-gray-600">
+        <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center text-placeholder">
           <div className="flex items-center md:space-x-2">
             <img src="https://source.unsplash.com/75x75/?portrait" alt="" className="w-4 h-4 border rounded-full bg-gray-500 border-gray-300" />
             <p className="text-sm my-2">{writer} </p>
@@ -75,7 +75,7 @@ const BookDetails = () => {
             • {totalViews} views
           </p>
         </div>
-        <div className="flex flex-wrap py-6  space-x-2 border-t border-dashed border-gray-600 justify-between">
+        <div className="flex flex-wrap py-6  space-x-2 border-t border-dashed border-placeholder justify-between">
           <p className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">Category: {category}</p>
           <button className="px-3 py-1 rounded-sm hover:underline bg-main text-gray-50">{status}</button>
         </div>

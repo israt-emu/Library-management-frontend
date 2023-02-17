@@ -20,7 +20,7 @@ const QuickAnalytics = () => {
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-green-500 text-xl text-white">
             <TbBookDownload />
           </div>
-          <div className="flex flex-col justify-center align-middle">
+          <div className="flex flex-col justify-center align-middle text-black">
             <p className="text-3xl font-semibold leading-none">{borrowedBookData?.borrowedBooks?.length}</p>
             <p className="capitalize font-medium text-lg">Borrowed</p>
           </div>
@@ -29,7 +29,7 @@ const QuickAnalytics = () => {
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-pink-500 text-xl text-white">
             <GoAlert />
           </div>
-          <div className="flex flex-col justify-center align-middle">
+          <div className="flex flex-col justify-center align-middle text-black">
             <p className="text-3xl font-semibold leading-none">{data?.users?.filter((u) => u?.role === "teacher")?.length}</p>
             <p className="capitalize font-medium text-lg">Over Due</p>
           </div>
@@ -38,7 +38,7 @@ const QuickAnalytics = () => {
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-indigo-500 text-xl text-white">
             <TbBookUpload />
           </div>
-          <div className="flex flex-col justify-center align-middle">
+          <div className="flex flex-col justify-center align-middle text-black">
             <p className="text-3xl font-semibold leading-none">{requestedBooks?.books?.length}</p>
             <p className="capitalize font-medium text-lg">Requested</p>
           </div>
@@ -47,7 +47,7 @@ const QuickAnalytics = () => {
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-yellow-500 text-xl text-white">
             <FaUserGraduate />
           </div>
-          <div className="flex flex-col justify-center align-middle">
+          <div className="flex flex-col justify-center align-middle text-black">
             <p className="text-3xl font-semibold leading-none">{data?.users?.filter((u) => u?.role === "student")?.length}</p>
             <p className="capitalize font-medium text-lg">Students</p>
           </div>

@@ -1,17 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-const TopBorrowedBooksTable = ({ data }) => {
+import {MdOutlineRemoveRedEye} from "react-icons/md";
+const TopBorrowedBooksTable = ({data}) => {
   return (
     <div>
       <div className="mt-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">
-            Top Five Borrowed Books:
-          </h1>
+          <h1 className="text-2xl font-medium mb-3 text-primary">Top Five Borrowed Books:</h1>
         </div>
-        <div className="text-gray-800" style={{ height: "250px" }}>
+        <div className="text-gray-800" style={{height: "250px"}}>
           <div className="overflow-x-auto">
             <table className="w-full p-6 text-sm text-left whitespace-nowrap">
               <thead>
