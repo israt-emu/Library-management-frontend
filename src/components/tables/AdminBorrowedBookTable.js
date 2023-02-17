@@ -50,10 +50,10 @@ const AdminBorrowedBookTable = ({data}) => {
     <div>
       <div className="mt-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">Borrowed Books:</h1>
+          <h1 className="text-2xl font-medium mb-3 text-primary">Borrowed Books:</h1>
           <div className="flex items-center">
-            <p className="mr-2 font-medium">Filtered By:</p>
-            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>
+            <p className="mr-2 font-medium text-primary">Filtered By:</p>
+            <select className="px-2 py-1 rounded mr-2 text-black" onChange={(e) => setStatus(e.target.value)}>
               <option value="">Status</option>
               <option value="borrowed">Borrowed</option>
               <option value="returned">Returned</option>
@@ -127,7 +127,7 @@ const AdminBorrowedBookTable = ({data}) => {
                         </button>
                       ) : null}
                       {d?.status === "returned" && (
-                        <button type="button" className={` ${d?.dueDate < d?.returnDate ? "bg-red-200 text-red-500" : "bg-green-200 text-second"} p-1 rounded-full  text-lg`} disabled={true} title={`${d?.dueDate < d?.returnDate ? "Late returned" : "Returned in time"}`}>
+                        <button type="button" className={` ${d?.dueDate < d?.returnDate ? "bg-red-200 text-red-500" : "bg-green-200 text-green-600"} p-1 rounded-full  text-lg`} disabled={true} title={`${d?.dueDate < d?.returnDate ? "Late returned" : "Returned in time"}`}>
                           <BsCheckCircleFill />
                         </button>
                       )}

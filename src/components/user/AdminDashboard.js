@@ -27,7 +27,7 @@ const AdminDashboard = () => {
             <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-green-500 text-xl text-white">
               <FaUserGraduate />
             </div>
-            <div className="flex flex-col justify-center align-middle">
+            <div className="flex flex-col justify-center align-middle text-black">
               <p className="text-3xl font-semibold leading-none">{data?.users?.filter((u) => u?.role === "student")?.length}</p>
               <p className="capitalize font-medium text-lg">Students</p>
             </div>
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
             <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-pink-500 text-xl text-white">
               <FaChalkboardTeacher />
             </div>
-            <div className="flex flex-col justify-center align-middle">
+            <div className="flex flex-col justify-center align-middle text-black">
               <p className="text-3xl font-semibold leading-none">{data?.users?.filter((u) => u?.role === "teacher")?.length}</p>
               <p className="capitalize font-medium text-lg">Teachers</p>
             </div>
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
             <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-indigo-500 text-xl text-white">
               <BsFillPeopleFill />
             </div>
-            <div className="flex flex-col justify-center align-middle">
+            <div className="flex flex-col justify-center align-middle text-black">
               <p className="text-3xl font-semibold leading-none">{data?.users?.filter((u) => u?.role === "stuff")?.length}</p>
               <p className="capitalize font-medium text-lg">Stuffs</p>
             </div>
@@ -54,7 +54,7 @@ const AdminDashboard = () => {
             <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 bg-yellow-500 text-xl text-white">
               <BsBookHalf />
             </div>
-            <div className="flex flex-col justify-center align-middle">
+            <div className="flex flex-col justify-center align-middle text-black">
               <p className="text-3xl font-semibold leading-none">{bookData?.books?.length}</p>
               <p className="capitalize font-medium text-lg">Books</p>
             </div>
@@ -62,12 +62,12 @@ const AdminDashboard = () => {
         </div>
       </section>
       {/* //admins  */}
-      <section className="py-6 bg-white shadow-md rounded my-4">
+      <section className="py-6 bg-white backdrop-opacity-10 shadow-md rounded my-4">
         <div className="flex flex-col items-center justify-center">
-          <p className="p-2 text-sm font-medium tracking-wider uppercase">Management team</p>
-          <h1 className="font-bold leading-none sm:text-2xl md:text-3xl">Admin's</h1>
+          <p className="p-2 text-sm font-medium tracking-wider uppercase text-black">Management team</p>
+          <h1 className="font-bold leading-none sm:text-2xl md:text-3xl text-black">Admin's</h1>
           <hr className="mx-auto w-12 h-[3px] mt-2 bg-gray-800" />
-          <div className="grid grid-cols-4 gap-4 items-center justify-center mt-8 p-4  mx-auto">
+          <div className="grid grid-cols-3 gap-4 items-center justify-center mt-8 p-4  mx-auto">
             {data?.users
               ?.filter((u) => u?.admin === true)
               ?.map((s, i) => (

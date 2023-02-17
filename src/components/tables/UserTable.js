@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, {useState} from "react";
+import {useEffect} from "react";
 import TablePagination from "../ui/TablePagination";
-import { AiFillEye } from "react-icons/ai";
-import { AiFillEyeInvisible } from "react-icons/ai";
-import { MdDelete } from "react-icons/md";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import {AiFillEye} from "react-icons/ai";
+import {AiFillEyeInvisible} from "react-icons/ai";
+import {MdDelete} from "react-icons/md";
+import {MdOutlineAdminPanelSettings} from "react-icons/md";
 import ConfirmDeleteModal from "../ui/ConfirmDeleteModal";
 import MakeAdminModal from "../ui/MakeAdminModal";
 import StatusUpdateModal from "../ui/StatusUpdateModal";
-import { useGetFilteredUsersQuery } from "../../features/auth/authApi";
-import { Link } from "react-router-dom";
+import {useGetFilteredUsersQuery} from "../../features/auth/authApi";
+import {Link} from "react-router-dom";
 
-const UserTable = ({ data }) => {
+const UserTable = ({data}) => {
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -27,8 +27,7 @@ const UserTable = ({ data }) => {
   const [role, setRole] = useState("");
   const [search, setSearch] = useState("");
   const [skip, setSkip] = useState(true);
-  const { data: newData } =
-    useGetFilteredUsersQuery({ role, status, search }, { skip: skip }) || {};
+  const {data: newData} = useGetFilteredUsersQuery({role, status, search}, {skip: skip}) || {};
   useEffect(() => {
     if (status === "" && role === "" && search === "") {
       setFilteredData(data);
@@ -75,37 +74,24 @@ const UserTable = ({ data }) => {
       {/* users table  */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <h1 className="text-2xl font-medium">Users:</h1>
+          <h1 className="text-2xl font-medium text-primary">Users:</h1>
           <div className="flex items-center">
-            <p className="mr-2 font-medium">Filtered By:</p>
-            <select
-              className="px-2 py-1 rounded mr-2"
-              onChange={(e) => setRole(e.target.value)}
-            >
+            <p className="mr-2 font-medium text-primary">Filtered By:</p>
+            <select className="px-2 py-1 rounded mr-2 text-black" onChange={(e) => setRole(e.target.value)}>
               <option value="">Role</option>
               <option value="teacher">Teacher</option>
               <option value="student">Student</option>
               <option value="stuff">Stuff</option>
             </select>
-            <select
-              className="px-2 py-1 rounded mr-2"
-              onChange={(e) => setStatus(e.target.value)}
-            >
+            <select className="px-2 py-1 rounded mr-2 text-black" onChange={(e) => setStatus(e.target.value)}>
               <option value="">Status</option>
               <option value="active">Active</option>
               <option value="block">Block</option>
             </select>
-            <input
-              type="search"
-              name=""
-              id=""
-              className="px-2 py-1 rounded"
-              placeholder="Search"
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <input type="search" name="" id="" className="px-2 py-1 rounded" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
           </div>
         </div>
-        <div className="text-gray-800 " style={{ height: "250px" }}>
+        <div className="text-gray-800 " style={{height: "250px"}}>
           <div className="overflow-x-auto">
             <table className="w-full p-6 text-sm text-left whitespace-nowrap">
               <thead>
@@ -147,59 +133,29 @@ const UserTable = ({ data }) => {
 
                     <td className="px-3 py-2 text-center">
                       {d?.status === "active" ? (
-                        <button
-                          type="button"
-                          className="p-1 rounded-full hover:bg-green-100 text-lg text-second disabled:text-gray-400 disabled:cursor-not-allowed "
-                          onClick={() => updateStatusModal(d)}
-                          disabled={
-                            d?.role === "teacher" || d?.role === "stuff"
-                          }
-                        >
+                        <button type="button" className="p-1 rounded-full hover:bg-green-100 text-lg text-second disabled:text-gray-400 disabled:cursor-not-allowed " onClick={() => updateStatusModal(d)} disabled={d?.role === "teacher" || d?.role === "stuff"}>
                           <AiFillEye />
                         </button>
                       ) : (
-                        <button
-                          type="button"
-                          className="p-1 rounded-full text-lg text-gray-600 hover:bg-gray-300"
-                          disabled={
-                            d?.role === "teacher" || d?.role === "stuff"
-                          }
-                          onClick={() => updateStatusModal(d)}
-                        >
+                        <button type="button" className="p-1 rounded-full text-lg text-gray-600 hover:bg-gray-300" disabled={d?.role === "teacher" || d?.role === "stuff"} onClick={() => updateStatusModal(d)}>
                           <AiFillEyeInvisible />
                         </button>
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">
                       {d?.admin ? (
-                        <button
-                          type="button"
-                          className="p-1 rounded-full hover:bg-green-100 text-lg text-second disabled:text-gray-400 disabled:cursor-not-allowed"
-                          disabled={d?.role === "student"}
-                        >
-                          <MdOutlineAdminPanelSettings
-                            onClick={() => makeAdminModal(d)}
-                          />
+                        <button type="button" className="p-1 rounded-full hover:bg-green-100 text-lg text-second disabled:text-gray-400 disabled:cursor-not-allowed" disabled={d?.role === "student"}>
+                          <MdOutlineAdminPanelSettings onClick={() => makeAdminModal(d)} />
                         </button>
                       ) : (
-                        <button
-                          type="button"
-                          className="p-1 rounded-full text-lg disabled:text-gray-400 disabled:cursor-not-allowed text-gray-600 hover:bg-gray-300"
-                          disabled={d?.role === "student"}
-                          onClick={() => makeAdminModal(d)}
-                        >
+                        <button type="button" className="p-1 rounded-full text-lg disabled:text-gray-400 disabled:cursor-not-allowed text-gray-600 hover:bg-gray-300" disabled={d?.role === "student"} onClick={() => makeAdminModal(d)}>
                           <MdOutlineAdminPanelSettings />
                         </button>
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">
                       {" "}
-                      <button
-                        type="button"
-                        className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
-                        title="Delete"
-                        onClick={() => deleteModal(d)}
-                      >
+                      <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete" onClick={() => deleteModal(d)}>
                         <MdDelete />
                       </button>
                     </td>
@@ -213,34 +169,12 @@ const UserTable = ({ data }) => {
 
       {data?.length > 0 ? (
         <div className=" my-6">
-          <TablePagination
-            currentPage={currentPage}
-            totalPage={totalPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <TablePagination currentPage={currentPage} totalPage={totalPage} setCurrentPage={setCurrentPage} />
         </div>
       ) : null}
-      {confirmDelete && (
-        <ConfirmDeleteModal
-          setConfirmDelete={setConfirmDelete}
-          confirmDelete={confirmDelete}
-          data={deleteData}
-        />
-      )}
-      {makeAdmin && (
-        <MakeAdminModal
-          makeAdmin={makeAdmin}
-          setMakeAdmin={setMakeAdmin}
-          data={makeAdminData}
-        />
-      )}
-      {statusUpdate && (
-        <StatusUpdateModal
-          statusUpdate={statusUpdate}
-          setStatusUpdate={setStatusUpdate}
-          data={statusUpdateData}
-        />
-      )}
+      {confirmDelete && <ConfirmDeleteModal setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} data={deleteData} />}
+      {makeAdmin && <MakeAdminModal makeAdmin={makeAdmin} setMakeAdmin={setMakeAdmin} data={makeAdminData} />}
+      {statusUpdate && <StatusUpdateModal statusUpdate={statusUpdate} setStatusUpdate={setStatusUpdate} data={statusUpdateData} />}
     </div>
   );
 };

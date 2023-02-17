@@ -44,17 +44,17 @@ const BooksTable = ({data}) => {
     <div>
       <div className="mt-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">Books:</h1>
+          <h1 className="text-2xl font-medium mb-3 text-primary">Books:</h1>
           <div className="flex items-center">
-            <p className="mr-2 font-medium">Filtered By:</p>
-            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>
+            <p className="mr-2 font-medium text-primary">Filtered By:</p>
+            <select className="px-2 py-1 rounded mr-2 text-black" onChange={(e) => setStatus(e.target.value)}>
               <option value="">Status</option>
               <option value="In Stock">In Stock</option>
               <option value="Stock Out">Stock Out</option>
             </select>
             <input type="search" name="" id="" className="px-2 py-1 rounded mr-2" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
             <Link to={"/dashboard/addbook"}>
-              <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Add Book</button>
+              <button className="bg-second px-3 py-1 text-sm font-medium rounded text-sidebar_text">Add Book</button>
             </Link>
           </div>
         </div>

@@ -54,10 +54,10 @@ const RequestedBookTable = ({data}) => {
     <div>
       <div className="mt-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3">Requested Books:</h1>
+          <h1 className="text-2xl font-medium mb-3 text-primary">Requested Books:</h1>
           <div className="flex items-center">
-            <p className="mr-2 font-medium">Filtered By:</p>
-            <select className="px-2 py-1 rounded mr-2" onChange={(e) => setStatus(e.target.value)}>
+            <p className="mr-2 font-medium text-primary">Filtered By:</p>
+            <select className="px-2 py-1 rounded mr-2 text-black" onChange={(e) => setStatus(e.target.value)}>
               <option value="">Status</option>
               <option value="pending">Pending</option>
               <option value="accepted">Accepted</option>
@@ -65,7 +65,7 @@ const RequestedBookTable = ({data}) => {
             </select>
             <input type="search" name="" id="" className="px-2 py-1 rounded mr-2" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
             <Link to={"/dashboard/addrequestedbook"}>
-              <button className="bg-second px-3 py-1 text-sm font-medium rounded text-fill">Request a Book</button>
+              <button className="bg-second px-3 py-1 text-sm font-medium rounded text-sidebar_text">Request a Book</button>
             </Link>
           </div>
         </div>
@@ -102,7 +102,7 @@ const RequestedBookTable = ({data}) => {
                       <p>{d?.requestCount}</p>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <button className="p-1 text-white bg-second rounded-full text-lg" onClick={() => handleRequest(d)}>
+                      <button className="p-1 text-white bg-green-500 rounded-full text-lg" onClick={() => handleRequest(d)}>
                         <MdBookmarkAdded />
                       </button>
                     </td>

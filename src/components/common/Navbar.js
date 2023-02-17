@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { FaBars } from "react-icons/fa";
-import { MdRefresh } from "react-icons/md";
-import { BsViewList } from "react-icons/bs";
-import { FiGrid } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
-import { MdOutlineDarkMode } from "react-icons/md";
-import { BsFillBellFill } from "react-icons/bs";
-import { MdLightMode } from "react-icons/md";
-import { MdDisabledByDefault } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { userLoggedOut } from "../../features/auth/authSlice";
+import React, {useEffect, useRef, useState} from "react";
+// import {FaSearch} from "react-icons/fa";
+import {FaBars} from "react-icons/fa";
+import {MdRefresh} from "react-icons/md";
+// import {BsViewList} from "react-icons/bs";
+// import {FiGrid} from "react-icons/fi";
+import {IoSettingsOutline} from "react-icons/io5";
+import {MdOutlineDarkMode} from "react-icons/md";
+import {BsFillBellFill} from "react-icons/bs";
+import {MdLightMode} from "react-icons/md";
+import {MdDisabledByDefault} from "react-icons/md";
+import {useDispatch, useSelector} from "react-redux";
+import {userLoggedOut} from "../../features/auth/authSlice";
 import DropModal from "../ui/DropModal";
-import { themeChange } from "../../features/theme/themeSlice";
-import { bookmarkViewChange } from "../../features/bookmark/bookmarkSlice";
-import { searched } from "../../features/filter/filterSlice";
-import { useNavigate } from "react-router-dom";
+import {themeChange} from "../../features/theme/themeSlice";
+// import { bookmarkViewChange } from "../../features/bookmark/bookmarkSlice";
+import {searched} from "../../features/filter/filterSlice";
+import {useNavigate} from "react-router-dom";
 
-const Navbar = ({ setToggle, toggle }) => {
-  const { bookmarkView } = useSelector((state) => state.bookmark);
+const Navbar = ({setToggle, toggle}) => {
+  // const {bookmarkView} = useSelector((state) => state.bookmark);
   const [dropModal, setDropModal] = useState(false);
   const dispatch = useDispatch();
   const theme = useSelector((state) => state?.theme?.themeMode);
@@ -37,10 +37,7 @@ const Navbar = ({ setToggle, toggle }) => {
   const btnRef = useRef();
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        !ref?.current?.contains(event.target) &&
-        !btnRef?.current?.contains(event.target)
-      ) {
+      if (!ref?.current?.contains(event.target) && !btnRef?.current?.contains(event.target)) {
         setDropModal(false);
       }
     };
@@ -70,53 +67,41 @@ const Navbar = ({ setToggle, toggle }) => {
     setSearch(searchText);
   }, [searchText]);
   //
-  const handleBookmarkView = () => {
-    // save to localStorage and toggle grid and list view
-    if (bookmarkView === "list") {
-      console.log(bookmarkView);
-      dispatch(bookmarkViewChange("grid"));
-      localStorage.setItem(
-        "bookmarkView",
-        JSON.stringify({
-          view: "grid",
-        })
-      );
-    }
-    if (bookmarkView === "grid") {
-      console.log(bookmarkView);
-      dispatch(bookmarkViewChange("list"));
-      localStorage.setItem(
-        "bookmarkView",
-        JSON.stringify({
-          view: "list",
-        })
-      );
-    }
-  };
+  // const handleBookmarkView = () => {
+  //   // save to localStorage and toggle grid and list view
+  //   if (bookmarkView === "list") {
+  //     console.log(bookmarkView);
+  //     dispatch(bookmarkViewChange("grid"));
+  //     localStorage.setItem(
+  //       "bookmarkView",
+  //       JSON.stringify({
+  //         view: "grid",
+  //       })
+  //     );
+  //   }
+  //   if (bookmarkView === "grid") {
+  //     console.log(bookmarkView);
+  //     dispatch(bookmarkViewChange("list"));
+  //     localStorage.setItem(
+  //       "bookmarkView",
+  //       JSON.stringify({
+  //         view: "list",
+  //       })
+  //     );
+  //   }
+  // };
   //reload page
   const reloadPage = () => {
     window.location.reload(false);
   };
   return (
     <div className=" ">
-      <header className=" border-b border-border fixed w-full bg-white z-10">
+      <header className={` border-b border-border fixed w-full ${theme === "dark" ? "bg-fill" : "bg-white"} z-10`}>
         <div className=" flex">
-          <div className="flex items-center justify-start text-fill w-44 bg-second p-2">
-            <button
-              onClick={() => setToggle(!toggle)}
-              className="nav-icon p-2 w-8 h-8"
-              title="Main Menu"
-            >
-              <FaBars
-                className={`text-lg transition-all duration-100 ${
-                  !toggle ? "hidden" : "block"
-                }`}
-              />
-              <MdDisabledByDefault
-                className={`text-lg  transition-all duration-100 ${
-                  toggle ? "hidden" : "block"
-                }`}
-              />
+          <div className={`flex items-center justify-start text-sidebar_text  w-44 bg-second p-2`}>
+            <button onClick={() => setToggle(!toggle)} className="nav-icon p-2 w-8 h-8" title="Main Menu">
+              <FaBars className={`text-lg transition-all duration-100 ${!toggle ? "hidden" : "block"}`} />
+              <MdDisabledByDefault className={`text-lg  transition-all duration-100 ${toggle ? "hidden" : "block"}`} />
             </button>
             <h2 className="text-sm">A.MATH LIBRARY</h2>
           </div>
@@ -152,7 +137,7 @@ const Navbar = ({ setToggle, toggle }) => {
                 <MdRefresh className="navbar-icon" />
               </button>
               {/* grid and list view icons  */}
-              <button
+              {/* <button
                 className={`${
                   bookmarkView === "grid" ? "block " : "hidden"
                 } flex justify-center items-center nav-icon`}
@@ -169,43 +154,19 @@ const Navbar = ({ setToggle, toggle }) => {
                 onClick={handleBookmarkView}
               >
                 <FiGrid className="navbar-icon" />
-              </button>
+              </button> */}
               {/* light and darkmode icons  */}
 
-              <button
-                className={`${
-                  theme === "dark" ? "hidden" : "block"
-                } flex justify-center items-center nav-icon`}
-                title="Dark Mode"
-                onClick={() => themeModeChange("dark")}
-              >
+              <button className={`${theme === "dark" ? "hidden" : "block"} flex justify-center items-center nav-icon`} title="Dark Mode" onClick={() => themeModeChange("dark")}>
                 <MdOutlineDarkMode className="navbar-icon" />
               </button>
-              <button
-                className={`${
-                  theme !== "light" ? "block" : "hidden"
-                } flex justify-center items-center nav-icon`}
-                title="Light Mode"
-                onClick={() => themeModeChange("light")}
-              >
+              <button className={`${theme !== "light" ? "block" : "hidden"} flex justify-center items-center nav-icon`} title="Light Mode" onClick={() => themeModeChange("light")}>
                 <MdLightMode className="navbar-icon" />
               </button>
-              <button
-                className="nav-icon dropdown-toggle"
-                title="Settings"
-                id="dropdownMenuButton1"
-                aria-expanded="false"
-                onClick={() => setDropModal(true)}
-                ref={ref}
-              >
+              <button className="nav-icon dropdown-toggle" title="Settings" id="dropdownMenuButton1" aria-expanded="false" onClick={() => setDropModal(true)} ref={ref}>
                 <IoSettingsOutline className="navbar-icon" />
               </button>
-              <button
-                className="nav-icon relative"
-                title="Notifications"
-                id="dropdownMenuButton1"
-                aria-expanded="false"
-              >
+              <button className="nav-icon relative" title="Notifications" id="dropdownMenuButton1" aria-expanded="false">
                 <BsFillBellFill className="navbar-icon" />
                 <span className="absolute bg-red-600 h-2 w-2 rounded-full top-2 -right-[.01px]" />
               </button>
