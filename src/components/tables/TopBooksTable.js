@@ -1,15 +1,18 @@
 import React from "react";
-import {useGetTopBooksQuery} from "../../features/book/bookAPI";
+import { useGetTopBooksQuery } from "../../features/book/bookAPI";
 
 const TopBooksTable = () => {
-  const {data} = useGetTopBooksQuery();
+  const { data } = useGetTopBooksQuery();
   return (
     <div>
       <div className="mt-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-medium mb-3 text-primary"> Top Five Books:</h1>
+          <h1 className="text-2xl font-medium mb-3 text-primary">
+            {" "}
+            Top Five Books:
+          </h1>
         </div>
-        <div className="text-gray-800" style={{height: "250px"}}>
+        <div className="text-gray-800" style={{ height: "250px" }}>
           <div className="overflow-x-auto">
             <table className="w-full p-6 text-sm text-left whitespace-nowrap">
               <thead>
@@ -19,7 +22,7 @@ const TopBooksTable = () => {
                   <th className="p-3 text-center">Writer</th>
                   <th className="p-3 text-center">Publications</th>
                   <th className="p-3 text-center">Status</th>
-                  <th className="p-3 text-center">Total Borrowed</th>
+                  <th className="p-3 text-center">Total Views</th>
                 </tr>
               </thead>
               <tbody className="border-b bg-gray-50 border-gray-300">
@@ -41,7 +44,7 @@ const TopBooksTable = () => {
                       <p>{d?.status}</p>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <p>{d?.totalViews}</p>
+                      <p>{d?.views}</p>
                     </td>
                   </tr>
                 ))}
