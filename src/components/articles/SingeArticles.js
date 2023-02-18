@@ -1,9 +1,10 @@
 import React from "react";
+import Moment from "react-moment";
 import { Link } from "react-router-dom";
 
 const SinleArticles = ({ data }) => {
   console.log(data);
-  const { title, category, description, image, createdAt ,_id} = data || {};
+  const { title, category, description, image, createdAt ,_id,views} = data || {};
 
   return (
     <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800">
@@ -27,7 +28,12 @@ const SinleArticles = ({ data }) => {
               className="block object-cover object-center w-full rounded-md h-72 bg-gray-500"
             />
             <div className="flex items-center text-xs">
-              <span>{createdAt}</span>
+            <p className="flex-shrink-0 mt-3 text-sm md:mt-0 font-semibold">
+            <Moment format="D MMM YYYY" withTitle>
+              {createdAt}
+            </Moment>
+            • {views} views
+          </p>
             </div>
           </div>
           <div className="space-y-2">
