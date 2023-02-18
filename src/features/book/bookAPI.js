@@ -126,13 +126,13 @@ export const bookApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    //   getRequestedBooks: builder.query({
-    //     query: () => ({
-    //       url: `/requestedBook/getAllRequestedBooks/`,
-    //       method: "GET",
-    //     }),
-    //   }),
+      getMonthCount: builder.query({
+        query: () => ({
+          url: `/month/getAllMonth/`,
+          method: "GET",
+        }),
+      }),
   }),
 });
 
-export const {useGetBooksQuery, useGetBookDetailsQuery, useGetRequestedBooksQuery, useAddBookMutation, useGetFilteredBooksQuery, useGetFilteredRequestedBooksQuery, useGetTopBooksQuery, useGetTopRequestedBooksQuery, useAddRequestedBookMutation, useUpdateRequestCountMutation} = bookApi;
+export const {useGetBooksQuery, useGetBookDetailsQuery, useGetRequestedBooksQuery, useAddBookMutation, useGetFilteredBooksQuery, useGetFilteredRequestedBooksQuery, useGetTopBooksQuery, useGetTopRequestedBooksQuery, useAddRequestedBookMutation, useUpdateRequestCountMutation,useGetMonthCountQuery} = bookApi;

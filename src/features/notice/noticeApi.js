@@ -23,7 +23,17 @@ export const noticeApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteNotice: builder.mutation({
+      query: (data) => ({
+        url: `/notice/deleteNotice/${data}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useAddNoticeMutation, useGetNoticesQuery } = noticeApi;
+export const {
+  useAddNoticeMutation,
+  useGetNoticesQuery,
+  useDeleteNoticeMutation,
+} = noticeApi;
