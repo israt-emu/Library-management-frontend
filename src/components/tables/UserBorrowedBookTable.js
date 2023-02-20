@@ -5,8 +5,11 @@ import { TbBookUpload } from "react-icons/tb";
 import { BsCheckCircleFill } from "react-icons/bs";
 import ReturnBookModal from "../modals/ReturnBookModal";
 import { useGetFilteredBorrowedBooksQuery } from "../../features/boorowedBook/borrowedBookApi";
+import { useSelector } from "react-redux";
 
 const UserBorrowedBookTable = ({ data, id }) => {
+  const { user } = useSelector((state) => state?.auth);
+  const { admin } = user || {};
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -110,7 +113,14 @@ const UserBorrowedBookTable = ({ data, id }) => {
                       </p>
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <p>
+                      <p
+                        className={`${
+                          d?.status === "borrowed" &&
+                          d?.dueDate < new Date().toISOString()
+                            ? "bg-red-100 text-red-500"
+                            : "bg-green-100 text-second"
+                        } p-1 rounded-full  text-sm `}
+                      >
                         {" "}
                         <Moment format="D MMM YYYY" withTitle>
                           {d?.dueDate}
@@ -129,7 +139,8 @@ const UserBorrowedBookTable = ({ data, id }) => {
                               : "bg-green-200 text-second"
                           } p-1 rounded-full  text-lg `}
                           title="Return Book"
-                          // onClick={() => returnBookModal(d)}
+                          disabled={!admin}
+                          onClick={() => returnBookModal(d)}
                         >
                           <TbBookUpload />
                         </button>
