@@ -9,6 +9,13 @@ export const noticeApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
+    getNotifications: builder.query({
+      query: () => ({
+        url: `/notification/getAllNotification`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
     // getDetails: builder.query({
     //   query: ({id}) => ({
     //     url: `/borrowedBook/getSingleBorrowedBook/${id}`,
@@ -16,6 +23,13 @@ export const noticeApi = apiSlice.injectEndpoints({
     //     // body: data,
     //   }),
     // }),
+    updateNotificationStatus: builder.mutation({
+      query: (data) => ({
+        url: `/notification/changeNotificationStatus/${data}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     addNotice: builder.mutation({
       query: (data) => ({
         url: `/notice/addNotice`,
@@ -36,4 +50,6 @@ export const {
   useAddNoticeMutation,
   useGetNoticesQuery,
   useDeleteNoticeMutation,
+  useGetNotificationsQuery,
+  useUpdateNotificationStatusMutation
 } = noticeApi;

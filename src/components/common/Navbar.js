@@ -1,25 +1,27 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import {FaSearch} from "react-icons/fa";
-import {FaBars} from "react-icons/fa";
-import {MdRefresh} from "react-icons/md";
+import { FaBars } from "react-icons/fa";
+import { MdRefresh } from "react-icons/md";
 // import {BsViewList} from "react-icons/bs";
 // import {FiGrid} from "react-icons/fi";
-import {IoSettingsOutline} from "react-icons/io5";
-import {MdOutlineDarkMode} from "react-icons/md";
-import {BsFillBellFill} from "react-icons/bs";
-import {MdLightMode} from "react-icons/md";
-import {MdDisabledByDefault} from "react-icons/md";
-import {useDispatch, useSelector} from "react-redux";
-import {userLoggedOut} from "../../features/auth/authSlice";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { BsFillBellFill } from "react-icons/bs";
+import { MdLightMode } from "react-icons/md";
+import { MdDisabledByDefault } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { userLoggedOut } from "../../features/auth/authSlice";
 import DropModal from "../ui/DropModal";
-import {themeChange} from "../../features/theme/themeSlice";
+import { themeChange } from "../../features/theme/themeSlice";
 // import { bookmarkViewChange } from "../../features/bookmark/bookmarkSlice";
-import {searched} from "../../features/filter/filterSlice";
-import {useNavigate} from "react-router-dom";
+import { searched } from "../../features/filter/filterSlice";
+import { useNavigate } from "react-router-dom";
+import NotificationModal from "../modals/NotificationModal";
 
-const Navbar = ({setToggle, toggle}) => {
+const Navbar = ({ setToggle, toggle }) => {
   // const {bookmarkView} = useSelector((state) => state.bookmark);
   const [dropModal, setDropModal] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(false);
   const dispatch = useDispatch();
   const theme = useSelector((state) => state?.theme?.themeMode);
   // changing theme
@@ -37,7 +39,10 @@ const Navbar = ({setToggle, toggle}) => {
   const btnRef = useRef();
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!ref?.current?.contains(event.target) && !btnRef?.current?.contains(event.target)) {
+      if (
+        !ref?.current?.contains(event.target) &&
+        !btnRef?.current?.contains(event.target)
+      ) {
         setDropModal(false);
       }
     };
@@ -96,12 +101,30 @@ const Navbar = ({setToggle, toggle}) => {
   };
   return (
     <div className=" ">
-      <header className={` border-b border-border fixed w-full ${theme === "dark" ? "bg-fill" : "bg-white"} z-10`}>
+      <header
+        className={` border-b border-border fixed w-full ${
+          theme === "dark" ? "bg-fill" : "bg-white"
+        } z-10`}
+      >
         <div className=" flex">
-          <div className={`flex items-center justify-start text-sidebar_text  w-44 bg-second p-2`}>
-            <button onClick={() => setToggle(!toggle)} className="nav-icon p-2 w-8 h-8" title="Main Menu">
-              <FaBars className={`text-lg transition-all duration-100 ${!toggle ? "hidden" : "block"}`} />
-              <MdDisabledByDefault className={`text-lg  transition-all duration-100 ${toggle ? "hidden" : "block"}`} />
+          <div
+            className={`flex items-center justify-start text-sidebar_text  w-44 bg-second p-2`}
+          >
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="nav-icon p-2 w-8 h-8"
+              title="Main Menu"
+            >
+              <FaBars
+                className={`text-lg transition-all duration-100 ${
+                  !toggle ? "hidden" : "block"
+                }`}
+              />
+              <MdDisabledByDefault
+                className={`text-lg  transition-all duration-100 ${
+                  toggle ? "hidden" : "block"
+                }`}
+              />
             </button>
             <h2 className="text-sm">A.MATH LIBRARY</h2>
           </div>
@@ -157,23 +180,51 @@ const Navbar = ({setToggle, toggle}) => {
               </button> */}
               {/* light and darkmode icons  */}
 
-              <button className={`${theme === "dark" ? "hidden" : "block"} flex justify-center items-center nav-icon`} title="Dark Mode" onClick={() => themeModeChange("dark")}>
+              <button
+                className={`${
+                  theme === "dark" ? "hidden" : "block"
+                } flex justify-center items-center nav-icon`}
+                title="Dark Mode"
+                onClick={() => themeModeChange("dark")}
+              >
                 <MdOutlineDarkMode className="navbar-icon" />
               </button>
-              <button className={`${theme !== "light" ? "block" : "hidden"} flex justify-center items-center nav-icon`} title="Light Mode" onClick={() => themeModeChange("light")}>
+              <button
+                className={`${
+                  theme !== "light" ? "block" : "hidden"
+                } flex justify-center items-center nav-icon`}
+                title="Light Mode"
+                onClick={() => themeModeChange("light")}
+              >
                 <MdLightMode className="navbar-icon" />
               </button>
-              <button className="nav-icon dropdown-toggle" title="Settings" id="dropdownMenuButton1" aria-expanded="false" onClick={() => setDropModal(true)} ref={ref}>
-                <IoSettingsOutline className="navbar-icon" />
-              </button>
-              <button className="nav-icon relative" title="Notifications" id="dropdownMenuButton1" aria-expanded="false">
+
+              <button
+                className="nav-icon"
+                title="Refresh"
+                onClick={() => setNotificationModal(!notificationModal)}
+              >
+                {" "}
                 <BsFillBellFill className="navbar-icon" />
-                <span className="absolute bg-red-600 h-2 w-2 rounded-full top-2 -right-[.01px]" />
+              </button>
+              <button
+                className="nav-icon dropdown-toggle"
+                title="Settings"
+                id="dropdownMenuButton1"
+                aria-expanded="false"
+                onClick={() => setDropModal(true)}
+                ref={ref}
+              >
+                <IoSettingsOutline className="navbar-icon" />
               </button>
             </div>
           </div>
 
           {dropModal && <DropModal ref={ref} btnRef={btnRef} logOut={logOut} />}
+          <NotificationModal
+            setNotificationModal={setNotificationModal}
+            notificationModal={notificationModal}
+          />
         </div>
       </header>
     </div>
