@@ -1,13 +1,9 @@
 import React from "react";
-import bookmarkImg from "../../assets/images/bookmark2.jpg";
-import {BsFillBookmarkCheckFill} from "react-icons/bs";
-import {MdOutlineArchive} from "react-icons/md";
-import {FaRegTrashAlt} from "react-icons/fa";
-import {FaWindowRestore} from "react-icons/fa";
+import bookImg from "../../assets/images/book.jpg";
+import {Link} from "react-router-dom";
 
 const SearchCard = ({cardContent, search}) => {
-  const {url, title, group, htmlContent, state, thumbnail} = cardContent || {};
-  const bookmark = htmlContent ? false : true;
+  const {name, category, description, image, writer, publications, _id: bookId} = cardContent || {};
 
   //searched text hightlighting
   const hightlightText = (text) => {
@@ -18,7 +14,7 @@ const SearchCard = ({cardContent, search}) => {
       return textArray.map((str, i) => {
         if (regex?.test(str)) {
           return (
-            <span className="bg-sky-800 text-white" key={i}>
+            <span className="bg-sky-600 text-white" key={i}>
               {str}
             </span>
           );
@@ -29,53 +25,33 @@ const SearchCard = ({cardContent, search}) => {
       return text;
     }
   };
-  ///state
-  let currentState;
-  if (state === "normal") {
-    currentState = "Normal";
-  } else if (state === "trash") {
-    currentState = "Trashed";
-  } else if (state === "archive") {
-    currentState = "Archived";
-  }
+  //{hightlightText(title)}
+
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border h-full">
-      <a href={url} target="_blank" rel="noreferrer">
-        <div className="relative">
-          <img className="w-full" src={thumbnail ? `data:image/jpeg;base64,${thumbnail}` : bookmarkImg} alt="book mark" />
-          {bookmark ? (
-            <div className="absolute w-10 h-10 rounded-full top-2 right-2 bg-main flex justify-center items-center" title="Bookmark Card">
+    <div>
+      <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border ">
+        <Link to={`/dashboard/books/${bookId}`}>
+          <div>
+            <img src={bookImg} className="w-full" alt="book mark" />
+            <div className="px-6 pt-2">
+              <h2 className="font-bold text-base mb-2 capitalize">{hightlightText(name)}</h2>
+            </div>
+            <div className="px-6 ">
               {" "}
-              <BsFillBookmarkCheckFill className="text-primary" />
+              <p className="text-base capitalize">{hightlightText(category)}</p>
+              <p className="text-sm capitalize">{hightlightText(description)}</p>
+              <p className="capitalize">
+                <span className="font-semibold">Writer:</span>
+                {hightlightText(writer)}
+              </p>
+              <p className="capitalize">
+                <span className="font-semibold">Publications:</span>
+                {hightlightText(publications)}
+              </p>
             </div>
-          ) : null}
-          {!bookmark ? (
-            <div className="absolute w-10 h-10 rounded-full top-2 right-2 bg-main flex justify-center items-center" title="Store Card">
-              <FaWindowRestore className="text-primary" />
-            </div>
-          ) : null}
-          <div className="px-6 pt-2">
-            <h2 className="font-bold text-xl mb-2">{hightlightText(title)}</h2>
           </div>
-          <div className="px-6 ">
-            {" "}
-            <h3 className="font-medium text-lg">{hightlightText(group)}</h3>
-          </div>
-          <div className="px-6 ">
-            {" "}
-            <p className="">{hightlightText(url)}</p>
-          </div>
-        </div>
-      </a>
-      <div className="flex items-center justify-between px-4 pt-4 pb-2">
-        <div className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2">
-          <span className="flex items-center justify-between">
-            {state === "normal" && <BsFillBookmarkCheckFill className="mr-1" />}
-            {state === "archive" && <MdOutlineArchive className="mr-1 text-lg" />}
-            {state === "trash" && <FaRegTrashAlt className="mr-1" />}
-            {currentState}
-          </span>
-        </div>
+        </Link>
+        <div className="flex items-center justify-between px-4 pt-4 pb-2"></div>
       </div>
     </div>
   );

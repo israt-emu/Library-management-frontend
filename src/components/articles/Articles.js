@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useGetArticlesQuery} from "../../features/article/articleApi";
+import {useGetArticlesQuery, useGetLatestArticlesQuery, useGetPopularArticlesQuery} from "../../features/article/articleApi";
 import CardSkeletonLoader from "../ui/CardSkeletonLoader";
 import Error from "../ui/Error";
+import SidebarArticleCard from "./SidebarArticleCard";
 import SingeArticles from "./SingeArticles";
 
 const Articles = () => {
+  const [active, setActive] = useState("latest");
   const {data: articlesData, isError, error, isLoading} = useGetArticlesQuery();
+  const {data: latestArticles} = useGetLatestArticlesQuery();
+  const {data: popularArticles} = useGetPopularArticlesQuery();
   console.log(articlesData);
 
   let content = null;
@@ -60,70 +64,19 @@ const Articles = () => {
 
           <div className="hidden py-2 xl:col-span-3 lg:col-span-4 md:hidden lg:block text-primary">
             <div className="mb-8 space-x-5 border-b-2 border-opacity-10 border-blue-600">
-              <button type="button" className="pb-5 text-xs font-bold uppercase border-b-2 border-blue-600">
+              <button type="button" className={`pb-5 text-xs font-bold uppercase border-b-2   ${active === "latest" ? "text-primary border-second" : "border-transparent text-gray-400"}`} onClick={() => setActive("latest")}>
                 Latest
               </button>
-              <button type="button" className="pb-5 text-xs font-bold uppercase border-b-2 border-transparent text-placeholder">
+              <button type="button" className={`pb-5 text-xs font-bold uppercase border-b-2   ${active === "popular" ? "text-primary border-second" : "border-transparent text-gray-400"}`} onClick={() => setActive("popular")}>
                 Popular
               </button>
             </div>
+            {/* //sidebar latest and popular articles  */}
             <div className="flex flex-col divide-y divide-gray-300">
-              <div className="flex px-1 py-4">
-                <img alt="" className="flex-shrink-0 object-cover w-20 h-20 mr-4 bg-gray-500" src="https://source.unsplash.com/random/244x324" />
-                <div className="flex flex-col flex-grow ">
-                  <a rel="noopener noreferrer" href="#" className="font-serif hover:underline">
-                    Aenean ac tristique lorem, ut mollis dui.
-                  </a>
-                  <p className="mt-auto text-xs text-placeholder">
-                    5 minutes ago
-                    <a rel="noopener noreferrer" href="#" className="block text-blue-400 lg:ml-2 lg:inline hover:underline">
-                      Politics
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div className="flex px-1 py-4">
-                <img alt="" className="flex-shrink-0 object-cover w-20 h-20 mr-4 bg-gray-500" src="https://source.unsplash.com/random/245x325" />
-                <div className="flex flex-col flex-grow">
-                  <a rel="noopener noreferrer" href="#" className="font-serif hover:underline">
-                    Nulla consectetur efficitur.
-                  </a>
-                  <p className="mt-auto text-xs text-placeholder">
-                    14 minutes ago
-                    <a rel="noopener noreferrer" href="#" className="block text-blue-400 lg:ml-2 lg:inline hover:underline">
-                      Sports
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div className="flex px-1 py-4">
-                <img alt="" className="flex-shrink-0 object-cover w-20 h-20 mr-4 bg-gray-500" src="https://source.unsplash.com/random/246x326" />
-                <div className="flex flex-col flex-grow">
-                  <a rel="noopener noreferrer" href="#" className="font-serif hover:underline">
-                    Vitae semper augue purus tincidunt libero.
-                  </a>
-                  <p className="mt-auto text-xs text-placeholder">
-                    22 minutes ago
-                    <a rel="noopener noreferrer" href="#" className="block text-blue-400 lg:ml-2 lg:inline hover:underline">
-                      World
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div className="flex px-1 py-4">
-                <img alt="" className="flex-shrink-0 object-cover w-20 h-20 mr-4 bg-gray-500" src="https://source.unsplash.com/random/247x327" />
-                <div className="flex flex-col flex-grow">
-                  <a rel="noopener noreferrer" href="#" className="font-serif hover:underline">
-                    Suspendisse potenti.
-                  </a>
-                  <p className="mt-auto text-xs text-placeholder">
-                    37 minutes ago
-                    <a rel="noopener noreferrer" href="#" className="block text-blue-400 lg:ml-2 lg:inline hover:underline">
-                      Business
-                    </a>
-                  </p>
-                </div>
-              </div>
+              {/* // */}
+              {active === "latest" ? latestArticles?.articles?.map((a, i) => <SidebarArticleCard key={i} article={a} />) : null}
+              {/* // */}
+              {active === "popular" ? popularArticles?.articles?.map((a, i) => <SidebarArticleCard key={i} article={a} />) : null}
             </div>
           </div>
         </div>

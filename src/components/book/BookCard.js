@@ -2,15 +2,13 @@ import React from "react";
 import Moment from "react-moment";
 import bookImg from "../../assets/images/book.jpg";
 
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useAddBorrowedBookMutation } from "../../features/boorowedBook/borrowedBookApi";
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {useAddBorrowedBookMutation} from "../../features/boorowedBook/borrowedBookApi";
 
-
-const BookCard = ({ book }) => {
+const BookCard = ({book}) => {
   const dispatch = useDispatch();
-  const { name, bookId, category, description, createdAt } = book || {};
-
+  const {name, bookId, category, description, createdAt} = book || {};
 
   return (
     <div>
@@ -19,9 +17,9 @@ const BookCard = ({ book }) => {
           <div>
             <img src={bookImg} className="w-full" alt="book mark" />
             <div className="px-6 pt-2">
-              <h2 className="font-bold text-xl mb-2">{name}</h2>
+              <h2 className="font-bold text-xl mb-2 capitalize">{name}</h2>
             </div>
-            <div className="px-6 ">
+            <div className="px-6 capitalize">
               {" "}
               <p>{category}</p>
             </div>
@@ -62,7 +60,6 @@ const BookCard = ({ book }) => {
         </div> */}
           <div>
             {" "}
-
             <button className="inline-block bg-main rounded px-3 py-1 text-sm font-semibold text-primary mr-2 mb-2 text-white">
               <Moment format="D MMM YYYY" withTitle>
                 {createdAt}

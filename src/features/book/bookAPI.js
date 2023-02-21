@@ -112,6 +112,13 @@ export const bookApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getSearchedBooks: builder.query({
+      query: (data) => ({
+        url: `book/searchedBooks`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     addRequestedBook: builder.mutation({
       query: (data) => ({
         url: `requestedBook/addRequestedBook`,
@@ -126,13 +133,13 @@ export const bookApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-      getMonthCount: builder.query({
-        query: () => ({
-          url: `/month/getAllMonth/`,
-          method: "GET",
-        }),
+    getMonthCount: builder.query({
+      query: () => ({
+        url: `/month/getAllMonth/`,
+        method: "GET",
       }),
+    }),
   }),
 });
 
-export const {useGetBooksQuery, useGetBookDetailsQuery, useGetRequestedBooksQuery, useAddBookMutation, useGetFilteredBooksQuery, useGetFilteredRequestedBooksQuery, useGetTopBooksQuery, useGetTopRequestedBooksQuery, useAddRequestedBookMutation, useUpdateRequestCountMutation,useGetMonthCountQuery} = bookApi;
+export const {useGetBooksQuery, useGetBookDetailsQuery, useGetRequestedBooksQuery, useAddBookMutation, useGetFilteredBooksQuery, useGetFilteredRequestedBooksQuery, useGetTopBooksQuery, useGetTopRequestedBooksQuery, useAddRequestedBookMutation, useUpdateRequestCountMutation, useGetMonthCountQuery, useGetSearchedBooksQuery} = bookApi;
