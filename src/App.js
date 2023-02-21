@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Index from "./pages/Index";
-import { useAuthCheck } from "./hooks/useAuthCheck";
+import {useAuthCheck} from "./hooks/useAuthCheck";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
-// import ShowSearchedCard from "./components/common/ShowSearchedCard";
+import ShowSearchedCard from "./components/common/ShowSearchedCard";
 import Book from "./components/book/Book";
 import BookDetails from "./components/book/BookDetails";
 import Analytics from "./components/analytics/Analytics";
@@ -197,14 +197,14 @@ const router = createBrowserRouter([
       //     </PrivateRoute>
       //   ),
       // },
-      // {
-      //   path: "/dashboard/search",
-      //   element: (
-      //     <PrivateRoute>
-      //       <ShowSearchedCard />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "/dashboard/search",
+        element: (
+          <PrivateRoute>
+            <ShowSearchedCard />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -214,11 +214,7 @@ const router = createBrowserRouter([
 ]);
 function App() {
   const authChecked = useAuthCheck();
-  return !authChecked ? (
-    <div>Checking Authentication....</div>
-  ) : (
-    <RouterProvider router={router} />
-  );
+  return !authChecked ? <div>Checking Authentication....</div> : <RouterProvider router={router} />;
 }
 
 export default App;

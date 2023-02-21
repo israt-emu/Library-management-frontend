@@ -1,11 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import libraryImg from "../../assets/images/image.jpg";
 import bookIcon from "../../assets/images/icons8-open-book-100.png";
-import {FaWindowRestore} from "react-icons/fa";
-import {BiPaint} from "react-icons/bi";
 import {useSelector} from "react-redux";
 import Error from "../ui/Error";
-
 import {useNavigate} from "react-router-dom";
 import {useGetBooksQuery} from "../../features/book/bookAPI";
 import CardSkeletonLoader from "../ui/CardSkeletonLoader";
@@ -48,24 +45,7 @@ const Book = () => {
   if (!isError && !isLoading && booksData?.books?.length === 0) {
     content = <div className="grid grid-cols-1 justify-center items-center gap-4 mt-8 pb-8 w-11/12 mx-auto">No Books Found!</div>;
   }
-  // if (!bookmarkData?.isError && !bookmarkData?.isLoading && bookmarksByState?.length > 0 && bookmarkView === "list") {
-  //   content = groupData?.groups?.map((group, i) => (
-  //     ////filtering by group
-  //     <div className="" key={i}>
-  //       <h1 className="border-b-2 pb-2 w-1/6">{group.toUpperCase()}</h1>
-  //       {/* // */}
-  //       <div className="grid grid-cols-1 justify-center items-center gap-3 mt-8 pb-8">{bookmarksByState?.map((b) => (b?.group === group ? <BookmarkFlatCard key={b?._id} bookmark={b} currentState="normal" setShowModal={setShowModal} showModal={showModal} /> : null))}</div>
-  //     </div>
-  //   ));
-  // }
 
-  // if (!bookmarkData?.isError && !bookmarkData?.isLoading && bookmarksByState?.length === 0) {
-  //   content = (
-  //     <div className="grid grid-cols-3 justify-center items-center gap-4 mt-12 ">
-  //       <h1>No bookmark Found</h1>
-  //     </div>
-  //   );
-  // }
   console.log(booksData?.books);
   return (
     <section className="overflow-y-scroll no-scrollbar h-full">

@@ -23,8 +23,21 @@ export const articleApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-
+    getLatestArticles: builder.query({
+      query: (data) => ({
+        url: `/article/latestArticles`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
+    getPopularArticles: builder.query({
+      query: (data) => ({
+        url: `/article/popularArticles`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
   }),
 });
 
-export const {useAddArticleMutation,useGetArticlesQuery,useGetArticleDetailsQuery} = articleApi;
+export const {useAddArticleMutation, useGetArticlesQuery, useGetArticleDetailsQuery, useGetLatestArticlesQuery, useGetPopularArticlesQuery} = articleApi;
