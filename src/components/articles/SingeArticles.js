@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
+import {MdDelete} from "react-icons/md";
 import Moment from "react-moment";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import articleImg from "../../assets/images/article.jpg";
+import DeleteArticleModal from "../modals/DeleteArticleModal";
 
 const SinleArticles = ({data}) => {
   console.log(data);
+  const {admin} = useSelector((state) => state?.auth?.user);
   const {title, category, description, image, createdAt, _id, views} = data || {};
+  const [deleteArti, setDeleteArti] = useState(false);
 
   return (
     <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800">
@@ -34,7 +39,13 @@ const SinleArticles = ({data}) => {
             <p className="leading-snug text-gray-600 capitalize">{description}</p>
           </div>
         </Link>
+        {admin && (
+          <div className="flex justify-end">
+            <MdDelete className="w-6 h-6 text-red-400" title="Delete Article!" onClick={() => setDeleteArti(true)} />
+          </div>
+        )}
       </div>
+      {deleteArti && <DeleteArticleModal deleteArti={deleteArti} setDeleteArti={setDeleteArti} id={_id} />}
     </div>
   );
 };

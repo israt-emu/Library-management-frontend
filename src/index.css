@@ -5,17 +5,18 @@
 @layer base {
   :root {
     --sidebar-text-color: rgb(228, 242, 240);
+    --secondary-color: rgb(68, 147, 66);
   }
   .theme-dark {
     --text-color: rgb(228, 242, 240);
     --main-color: rgb(40, 42, 58);
-    --secondary-color: rgb(68, 147, 66);
+    --link-active-color: rgb(29, 31, 41);
     --background-color: rgba(0, 0, 0, 1);
     --border-color: rgb(118, 119, 121);
     --outline-color: rgb(58, 160, 97);
     --grey-color: rgb(82, 83, 85);
     --link-icon-color: rgb(154, 160, 166);
-    --link-hover-color: rgb(55 65 81);
+    --link-hover-color: rgb(56, 58, 78);
     --placeholder-text-color: rgb(229 231 235);
     --modal-bg-color: rgb(17 24 39);
     --nav-icon-hover: rgb(82, 83, 85);
@@ -25,7 +26,7 @@
   .theme-light {
     --text-color: rgb(32, 33, 36);
     --main-color: rgb(2, 55, 60);
-    --secondary-color: rgb(68, 147, 66);
+    --link-active-color: rgb(1, 34, 37);
     --background-color: rgb(228, 242, 240);
     --border-color: rgb(218, 220, 224);
     --outline-color: rgb(174, 221, 191);
@@ -57,7 +58,7 @@
     @apply bg-link_hover;
   }
   .link-active {
-    @apply bg-main rounded-r;
+    @apply bg-link_active;
   }
   .nav-icon {
     @apply hover:bg-nav_hover rounded-full flex justify-center items-center md:w-10 md:h-10 w-5 h-5 mr-2;
