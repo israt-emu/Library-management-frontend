@@ -14,6 +14,7 @@ module.exports = {
         grey: "var(--grey-color)",
         link: "var(--link-icon-color)",
         link_hover: "var(--link-hover-color)",
+        link_active: "var(--link-active-color)",
         placeholder: "var(--placeholder-text-color)",
         modalBg: "var(--modal-bg-color)",
         sidebar_text: "var(--sidebar-text-color)",

@@ -23,6 +23,13 @@ export const articleApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteArticle: builder.mutation({
+      query: (id) => ({
+        url: `/article/deleteArticle/${id}`,
+        method: "DELETE",
+        // body: data,
+      }),
+    }),
     getLatestArticles: builder.query({
       query: (data) => ({
         url: `/article/latestArticles`,
@@ -40,4 +47,4 @@ export const articleApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useAddArticleMutation, useGetArticlesQuery, useGetArticleDetailsQuery, useGetLatestArticlesQuery, useGetPopularArticlesQuery} = articleApi;
+export const {useAddArticleMutation, useGetArticlesQuery, useGetArticleDetailsQuery, useGetLatestArticlesQuery, useGetPopularArticlesQuery, useDeleteArticleMutation} = articleApi;
