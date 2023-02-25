@@ -202,14 +202,7 @@ const UserTable = ({ data }) => {
                       >
                         <MdDelete />
                       </button>
-                      <button
-                        type="button"
-                        className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
-                        title="Notification"
-                        onClick={() => setNotificationModal(true)}
-                      >
-                        <MdCircleNotifications />
-                      </button>
+                  
                     </td>
                   </tr>
                 ))}

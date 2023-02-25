@@ -264,7 +264,7 @@ const SingleUserDashboard = () => {
         </div>
       </div>
       <AddNotificationModal
-        user={user}
+        user={user?.users}
         notificationModal={addNotificationModal}
         setNotificationModal={setAddNotificationModal}
       />

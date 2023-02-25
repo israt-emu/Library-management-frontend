@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useAddNoticeMutation,
   useAddNotificationMutation,
@@ -11,15 +11,20 @@ const AddNotificationModal = ({
 }) => {
   const [addNotification, { data, error, isLoading, isSuccess }] =
     useAddNotificationMutation();
-console.log(user);
+  console.log(user);
+  const [notiFicationData, setNotificationData] = useState({});
   const handleAddNotification = () => {
-    addNotification({
-      title: "Account",
-      user: user?.users?._id,
-      message: "your account is activate",
-    });
+    addNotification(notiFicationData);
+    if(isSuccess){
+        setNotificationModal(false)
+    } 
   };
   console.log(data);
+  const handleOnchange = (e) => {
+    notiFicationData[e.target.name] = e.target.value;
+    setNotificationData({ ...notiFicationData });
+  };
+
   return (
     <div>
       {notificationModal ? (
@@ -42,13 +47,27 @@ console.log(user);
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p>
+                  <label className="block mb-1">
+                    <span className="my-2">Title</span>
+                    <input
+                      onChange={handleOnchange}
+                      name="title"
+                      type="text"
+                      placeholder="Title"
+                      className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
+                    />
+                  </label>
+
+                  <label className="block mb-1">
+                    <span className="my-2">Message</span>
+                    <input
+                      onChange={handleOnchange}
+                      name="message"
+                      type="text"
+                      placeholder="Category"
+                      className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
+                    />
+                  </label>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
