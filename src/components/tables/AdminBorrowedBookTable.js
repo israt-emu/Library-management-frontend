@@ -121,7 +121,7 @@ const AdminBorrowedBookTable = ({ data }) => {
                       <p
                         className={`${
                           d?.status === "borrowed" &&
-                          d?.dueDate < new Date().toISOString()
+                          d?.dueDate > new Date().toISOString()
                             ? "bg-red-100 text-red-500"
                             : "bg-green-100 text-second"
                         } p-1 rounded-full  text-sm `}
@@ -135,9 +135,11 @@ const AdminBorrowedBookTable = ({ data }) => {
 
                     <td className="px-3 py-2 text-center">
                       <p>
-                        <Moment format="D MMM YYYY" withTitle>
-                          {d?.returnDate}
-                        </Moment>
+                      {
+                        d?.returnDate ?   <Moment format="D MMM YYYY" withTitle>
+                        {d?.returnDate}
+                      </Moment> : "Not returened"
+                      }
                       </p>
                     </td>
                     <td className="px-3 py-2 text-center">

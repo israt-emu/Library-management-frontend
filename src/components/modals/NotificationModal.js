@@ -7,14 +7,22 @@ import {
 } from "../../features/notice/noticeApi";
 
 import { MdClose } from "react-icons/md";
+import { useSelector } from "react-redux";
 export default function NotificationModal({
   setNotificationModal,
   notificationModal,
 }) {
+  const { user } = useSelector((state) => state?.auth);
+  const { _id: id } = user || {};
   const [updateStatus, { isLoading, isError }] =
     useUpdateNotificationStatusMutation();
   const { data: notificationData } = useGetNotificationsQuery();
   console.log(notificationData);
+  const filterUserNotification = notificationData?.notification?.filter(
+    (d) => d?.user==id || d?.user=="all"
+  );
+  console.log(filterUserNotification);
+  console.log(notificationData?.notification);
   return (
     <>
       {notificationModal ? (
@@ -31,13 +39,13 @@ export default function NotificationModal({
                     onClick={() => setNotificationModal(false)}
                   >
                     <span className=" outline-none focus:outline-none ">
-                     <MdClose className="text-white w-5 h-5"/>
+                      <MdClose className="text-white w-5 h-5" />
                     </span>
                   </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  {notificationData?.notification?.map((d) => (
+                  {filterUserNotification?.map((d) => (
                     <div className="mt-2 px-6 py-4 bg-white rounded-lg shadow w-full">
                       <div className="inline-flex items-center justify-between w-full">
                         <div className="inline-flex items-center">
@@ -58,7 +66,9 @@ export default function NotificationModal({
                       <button
                         disabled={isLoading || d?.read}
                         onClick={() => updateStatus(d?._id)}
-                        className={`mt-2 text-sm ml-8 ${d?.read?"bg-gray-300":"bg-green-300"} px-3 py-1 flex justify-center items-center`}
+                        className={`mt-2 text-sm ml-8 ${
+                          d?.read ? "bg-gray-300" : "bg-green-300"
+                        } px-3 py-1 flex justify-center items-center`}
                       >
                         {" "}
                         Mark as Read
@@ -75,7 +85,6 @@ export default function NotificationModal({
                   >
                     Close
                   </button>
-            
                 </div>
               </div>
             </div>

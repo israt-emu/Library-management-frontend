@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import { useSelector } from "react-redux";
 import Chart from "react-apexcharts";
@@ -6,8 +6,11 @@ import UserBorrowedBookTable from "../tables/UserBorrowedBookTable";
 import { useFindBorrowedBookByUserIdQuery } from "../../features/boorowedBook/borrowedBookApi";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleUserQuery } from "../../features/auth/authApi";
+import { MdCircleNotifications } from "react-icons/md";
+import AddNotificationModal from "../modals/AddNotificationModal";
 
 const SingleUserDashboard = () => {
+  const [addNotificationModal, setAddNotificationModal] = useState(false);
   const params = useParams();
   const { email: userEmail } = params || {};
   console.log(userEmail);
@@ -36,7 +39,17 @@ const SingleUserDashboard = () => {
 
   return (
     <div className="my-5">
-      <h1 className="font-medium">{name}'s Dashboard</h1>
+      <div className="flex items-center space-x-2">
+        <h1 className="font-medium">{name}'s Dashboard</h1>
+        <button
+          type="button"
+          className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
+          title="Notification"
+          onClick={() => setAddNotificationModal(true)}
+        >
+          <MdCircleNotifications className="w-8 h-8" />
+        </button>
+      </div>
 
       <div className="container mx-auto py-5">
         <div className="md:flex no-wrap md:-mx-2">
@@ -250,6 +263,11 @@ const SingleUserDashboard = () => {
           <UserBorrowedBookTable data={borrowedBooks?.borrowedBooks} id={id} />
         </div>
       </div>
+      <AddNotificationModal
+        user={user}
+        notificationModal={addNotificationModal}
+        setNotificationModal={setAddNotificationModal}
+      />
     </div>
   );
 };
