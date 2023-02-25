@@ -14,10 +14,11 @@ const AddNotificationModal = ({
   console.log(user);
   const [notiFicationData, setNotificationData] = useState({});
   const handleAddNotification = () => {
+    notiFicationData.user = user?._id;
     addNotification(notiFicationData);
-    if(isSuccess){
-        setNotificationModal(false)
-    } 
+    if (isSuccess) {
+      setNotificationModal(false);
+    }
   };
   console.log(data);
   const handleOnchange = (e) => {
