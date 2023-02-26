@@ -6,6 +6,7 @@ import activeLinkReducer from "../features/activeLink/activeLinkSlice";
 import filterReducer from "../features/filter/filterSlice";
 import borrowedBookReducer from "../features/boorowedBook/borrowedBookSlice";
 import paginationReducer from "../features/pagination/paginationSlice";
+import noticeReducer from "../features/notice/noticeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     filter: filterReducer,
     borrowedBook: borrowedBookReducer,
     pagination: paginationReducer,
+    notice:noticeReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddlewares) => getDefaultMiddlewares().concat(apiSlice.middleware),

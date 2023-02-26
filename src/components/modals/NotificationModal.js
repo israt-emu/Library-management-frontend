@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Moment from "react-moment";
 import {
   useGetNoticesQuery,
@@ -7,20 +7,40 @@ import {
 } from "../../features/notice/noticeApi";
 
 import { MdClose } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { newNotification } from "../../features/notice/noticeSlice";
 export default function NotificationModal({
   setNotificationModal,
   notificationModal,
 }) {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state?.auth);
   const { _id: id } = user || {};
-  const [updateStatus, { isLoading, isError }] =
+  const [updateStatus, { isLoading, isError, isSuccess }] =
     useUpdateNotificationStatusMutation();
   const { data: notificationData } = useGetNotificationsQuery();
   console.log(notificationData);
   const filterUserNotification = notificationData?.notification?.filter(
-    (d) => d?.user==id || d?.user=="all"
+    (d) => d?.user == id || d?.user == "all"
   );
+
+  useEffect(() => {
+    // check if any unread notification remain
+    const read =
+      filterUserNotification?.filter((n) => {
+        if (!n?.read) {
+          return true;
+        }
+      }) || {};
+
+    if (read.length > 0) {
+      dispatch(newNotification(true));
+    } 
+    if(read.length==0){
+      dispatch(newNotification(false));
+    }
+    console.log(read);
+  }, [filterUserNotification, dispatch, isSuccess]);
   console.log(filterUserNotification);
   console.log(notificationData?.notification);
   return (
