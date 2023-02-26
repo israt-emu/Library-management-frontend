@@ -4,7 +4,7 @@ import {useGetArticlesQuery, useGetLatestArticlesQuery, useGetPopularArticlesQue
 import CardSkeletonLoader from "../ui/CardSkeletonLoader";
 import Error from "../ui/Error";
 import SidebarArticleCard from "./SidebarArticleCard";
-import SingeArticles from "./SingeArticles";
+import SingleArticles from "./SingleArticles";
 
 const Articles = () => {
   const [active, setActive] = useState("latest");
@@ -34,7 +34,7 @@ const Articles = () => {
       <div>
         <div className="grid grid-cols-2 space-y-3 space-x-2">
           {articlesData?.article?.map((b) => (
-            <SingeArticles data={b} />
+            <SingleArticles data={b} />
           ))}
         </div>
       </div>

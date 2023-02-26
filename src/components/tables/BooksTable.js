@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import TablePagination from "../ui/TablePagination";
-import {MdDelete} from "react-icons/md";
+import {MdDelete, MdEdit} from "react-icons/md";
 import {Link} from "react-router-dom";
 import {useGetFilteredBooksQuery} from "../../features/book/bookAPI";
+import DeleteBookModal from "../modals/DeleteBookModal";
 
 const BooksTable = ({data}) => {
   const limit = 5;
@@ -11,7 +12,9 @@ const BooksTable = ({data}) => {
   //filtering data by search and stATE
   const [search, setSearch] = useState("");
   const [skip, setSkip] = useState(true);
+  const [removeBook, setRemoveBook] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [deleteData, setDeleteData] = useState({});
   const [status, setStatus] = useState("");
   const {data: newData} = useGetFilteredBooksQuery({status, search}, {skip: skip}) || {};
   useEffect(() => {
@@ -40,6 +43,10 @@ const BooksTable = ({data}) => {
     });
     setBooksData(dataPerPage);
   }, [currentPage, filteredData, limit]);
+  const removeBookModal = (d) => {
+    setRemoveBook(true);
+    setDeleteData(d);
+  };
   return (
     <div>
       <div className="mt-4">
@@ -64,10 +71,11 @@ const BooksTable = ({data}) => {
               <thead>
                 <tr className="bg-main text-white">
                   <th className="p-3">Name</th>
-                  <th className="p-3">Category</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Total Views</th>
-                  <th className="p-3 text-center">Action</th>
+                  <th className="p-3 text-center">Category</th>
+                  <th className="p-3 text-center">Status</th>
+                  <th className="p-3 text-center">Total Views</th>
+                  <th className="p-3 text-center">Edit</th>
+                  <th className="p-3 text-center">Delete</th>
                 </tr>
               </thead>
               <tbody className="border-b bg-gray-50 border-gray-300">
@@ -76,19 +84,26 @@ const BooksTable = ({data}) => {
                     <td className="px-3 py-2">
                       <p>{d?.name}</p>
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 text-center">
                       <p className="text-gray-600">{d?.category}</p>
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 text-center">
                       <p>{d?.status}</p>
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2  text-center">
                       <p>{d?.views}</p>
                     </td>
-
                     <td className="px-3 py-2 text-center">
                       {" "}
                       <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete">
+                        <Link to={`/dashboard/editBook/${d?.bookId}`}>
+                          <MdEdit />
+                        </Link>
+                      </button>
+                    </td>
+                    <td className="px-3 py-2 text-center">
+                      {" "}
+                      <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete" onClick={() => removeBookModal(d)}>
                         <MdDelete />
                       </button>
                     </td>
@@ -105,6 +120,7 @@ const BooksTable = ({data}) => {
           <TablePagination currentPage={currentPage} totalPage={totalPage} setCurrentPage={setCurrentPage} />
         </div>
       ) : null}
+      {removeBook && <DeleteBookModal removeBook={removeBook} setRemoveBook={setRemoveBook} data={deleteData} />}
     </div>
   );
 };

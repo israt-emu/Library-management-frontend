@@ -1,4 +1,4 @@
-import { apiSlice } from "../api/apiSlice";
+import {apiSlice} from "../api/apiSlice";
 
 export const noticeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,13 +16,13 @@ export const noticeApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
-    // getDetails: builder.query({
-    //   query: ({id}) => ({
-    //     url: `/borrowedBook/getSingleBorrowedBook/${id}`,
-    //     method: "GET",
-    //     // body: data,
-    //   }),
-    // }),
+    getNoticeDetails: builder.query({
+      query: ({id}) => ({
+        url: `/notice/getSingleNotice/${id}`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
     updateNotificationStatus: builder.mutation({
       query: (data) => ({
         url: `/notification/changeNotificationStatus/${data}`,
@@ -37,6 +37,13 @@ export const noticeApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateNotice: builder.mutation({
+      query: ({id, data}) => ({
+        url: `/notice/editNotice/${id}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     deleteNotice: builder.mutation({
       query: (data) => ({
         url: `/notice/deleteNotice/${data}`,
@@ -46,10 +53,4 @@ export const noticeApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {
-  useAddNoticeMutation,
-  useGetNoticesQuery,
-  useDeleteNoticeMutation,
-  useGetNotificationsQuery,
-  useUpdateNotificationStatusMutation
-} = noticeApi;
+export const {useAddNoticeMutation, useGetNoticesQuery, useDeleteNoticeMutation, useGetNotificationsQuery, useUpdateNotificationStatusMutation, useUpdateNoticeMutation, useGetNoticeDetailsQuery} = noticeApi;

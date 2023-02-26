@@ -30,6 +30,15 @@ export const articleApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
+
+    updateArticle: builder.mutation({
+      query: ({id, data}) => ({
+        url: `/article/editArticle/${id}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     getLatestArticles: builder.query({
       query: (data) => ({
         url: `/article/latestArticles`,
@@ -47,4 +56,4 @@ export const articleApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useAddArticleMutation, useGetArticlesQuery, useGetArticleDetailsQuery, useGetLatestArticlesQuery, useGetPopularArticlesQuery, useDeleteArticleMutation} = articleApi;
+export const {useAddArticleMutation, useGetArticlesQuery, useGetArticleDetailsQuery, useGetLatestArticlesQuery, useGetPopularArticlesQuery, useDeleteArticleMutation, useUpdateArticleMutation} = articleApi;

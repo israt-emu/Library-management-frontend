@@ -42,34 +42,41 @@ export const bookApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
+    updateBook: builder.mutation({
+      query: ({id, data}) => ({
+        url: `/book/editBook/${id}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
 
-    // deleteBookmark: builder.mutation({
-    //   query: ({id, userId}) => ({
-    //     url: `/bookmark/deletebookmark/${id}`,
-    //     method: "POST",
-    //   }),
-    //   async onQueryStarted({id, userId}, {queryFulfilled, dispatch}) {
-    //     try {
-    //       const result = await queryFulfilled;
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/book/deleteBook/${id}`,
+        method: "DELETE",
+      }),
+      //   async onQueryStarted({id, userId}, {queryFulfilled, dispatch}) {
+      //     try {
+      //       const result = await queryFulfilled;
 
-    //       // update bookmark cache
-    //       if (result?.data?.status === "success") {
-    //         dispatch(
-    //           apiSlice.util.updateQueryData("getBookmarks", {userId: userId}, (draft) => {
-    //             const filterDraft = draft?.bookmarks?.filter((d) => d._id !== id);
-    //             return {
-    //               ...draft,
-    //               bookmarks: filterDraft,
-    //             };
-    //           })
-    //         );
-    //       }
-    //     } catch (err) {
-    //       //nothing to do
-    //       console.log(err);
-    //     }
-    //   },
-    // }),
+      //       // update bookmark cache
+      //       if (result?.data?.status === "success") {
+      //         dispatch(
+      //           apiSlice.util.updateQueryData("getBookmarks", {userId: userId}, (draft) => {
+      //             const filterDraft = draft?.bookmarks?.filter((d) => d._id !== id);
+      //             return {
+      //               ...draft,
+      //               bookmarks: filterDraft,
+      //             };
+      //           })
+      //         );
+      //       }
+      //     } catch (err) {
+      //       //nothing to do
+      //       console.log(err);
+      //     }
+      //   },
+    }),
     addBook: builder.mutation({
       query: (data) => ({
         url: `book/addBook`,
@@ -126,9 +133,29 @@ export const bookApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteRequestedBook: builder.mutation({
+      query: (id) => ({
+        url: `/requestedBook/deleteRequestedBook/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    getRequestedBookDetails: builder.query({
+      query: ({id}) => ({
+        url: `/requestedBook/getSingleRequestedBook/${id}`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
     updateRequestCount: builder.mutation({
       query: (data) => ({
         url: `requestedBook/requesteCount`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    updateRequestedBook: builder.mutation({
+      query: ({id, data}) => ({
+        url: `/requestedBook/editRequestedBook/${id}`,
         method: "POST",
         body: data,
       }),
@@ -142,4 +169,22 @@ export const bookApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useGetBooksQuery, useGetBookDetailsQuery, useGetRequestedBooksQuery, useAddBookMutation, useGetFilteredBooksQuery, useGetFilteredRequestedBooksQuery, useGetTopBooksQuery, useGetTopRequestedBooksQuery, useAddRequestedBookMutation, useUpdateRequestCountMutation, useGetMonthCountQuery, useGetSearchedBooksQuery} = bookApi;
+export const {
+  useGetBooksQuery,
+  useGetBookDetailsQuery,
+  useGetRequestedBooksQuery,
+  useAddBookMutation,
+  useGetFilteredBooksQuery,
+  useGetFilteredRequestedBooksQuery,
+  useGetTopBooksQuery,
+  useGetTopRequestedBooksQuery,
+  useAddRequestedBookMutation,
+  useUpdateRequestCountMutation,
+  useGetMonthCountQuery,
+  useGetSearchedBooksQuery,
+  useUpdateBookMutation,
+  useUpdateRequestedBookMutation,
+  useDeleteBookMutation,
+  useDeleteRequestedBookMutation,
+  useGetRequestedBookDetailsQuery,
+} = bookApi;

@@ -1,17 +1,16 @@
 import React, {useState} from "react";
-import {MdDelete} from "react-icons/md";
+import {MdDelete, MdEdit} from "react-icons/md";
 import Moment from "react-moment";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import articleImg from "../../assets/images/article.jpg";
 import DeleteArticleModal from "../modals/DeleteArticleModal";
 
-const SinleArticles = ({data}) => {
-  console.log(data);
-  const {admin} = useSelector((state) => state?.auth?.user);
-  const {title, category, description, image, createdAt, _id, views} = data || {};
+const SingleArticles = ({data}) => {
+  const {admin, _id: id} = useSelector((state) => state?.auth?.user);
+  const {title, category, description, image, createdAt, _id, views, authorId} = data || {};
   const [deleteArti, setDeleteArti] = useState(false);
-
+  console.log(authorId, id);
   return (
     <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800">
       <div className="flex justify-between pb-4 border-bottom">
@@ -39,15 +38,18 @@ const SinleArticles = ({data}) => {
             <p className="leading-snug text-gray-600 capitalize">{description}</p>
           </div>
         </Link>
-        {admin && (
-          <div className="flex justify-end">
-            <MdDelete className="w-6 h-6 text-red-400" title="Delete Article!" onClick={() => setDeleteArti(true)} />
-          </div>
-        )}
+        <div className="flex justify-end items-center">
+          {authorId === id && (
+            <Link to={`/dashboard/editArticle/${_id}`}>
+              <MdEdit className="w-5 h-5 mr-2" title="Edit Article!" />
+            </Link>
+          )}
+          {admin && <MdDelete className="w-6 h-6 text-red-400" title="Delete Article!" onClick={() => setDeleteArti(true)} />}
+        </div>
       </div>
       {deleteArti && <DeleteArticleModal deleteArti={deleteArti} setDeleteArti={setDeleteArti} id={_id} />}
     </div>
   );
 };
 
-export default SinleArticles;
+export default SingleArticles;
