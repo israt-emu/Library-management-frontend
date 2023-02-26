@@ -37,9 +37,18 @@ export const noticeApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+
     updateNotice: builder.mutation({
       query: ({id, data}) => ({
         url: `/notice/editNotice/${id}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    addNotification: builder.mutation({
+      query: (data) => ({
+        url: `/notification/addNotification`,
         method: "POST",
         body: data,
       }),
@@ -53,4 +62,5 @@ export const noticeApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useAddNoticeMutation, useGetNoticesQuery, useDeleteNoticeMutation, useGetNotificationsQuery, useUpdateNotificationStatusMutation, useUpdateNoticeMutation, useGetNoticeDetailsQuery} = noticeApi;
+export const {useAddNoticeMutation, useGetNoticesQuery, useDeleteNoticeMutation, useGetNotificationsQuery, useUpdateNotificationStatusMutation,useAddNotificationMutation, useUpdateNoticeMutation, useGetNoticeDetailsQuery} = noticeApi;
+

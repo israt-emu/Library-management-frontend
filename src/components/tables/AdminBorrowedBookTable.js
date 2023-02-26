@@ -6,8 +6,14 @@ import { TbAlertCircle } from "react-icons/tb";
 import { TbBookDownload } from "react-icons/tb";
 import { useGetFilteredBorrowedBooksQuery } from "../../features/boorowedBook/borrowedBookApi";
 import ReturnBookModal from "../modals/ReturnBookModal";
+import { MdCircleNotifications } from "react-icons/md";
+import AddNotificationModal from "../modals/AddNotificationModal";
+import { useGetSingleUserQuery } from "../../features/auth/authApi";
+import { useSelector } from "react-redux";
 
 const AdminBorrowedBookTable = ({ data }) => {
+  const { user } = useSelector((state) => state?.auth);
+  const [addNotificationModal, setAddNotificationModal] = useState(false);
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -16,6 +22,7 @@ const AdminBorrowedBookTable = ({ data }) => {
   const [skip, setSkip] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
   const [status, setStatus] = useState("");
+  const [userId, setUserId] = useState("");
   const [returnBook, setReturnBook] = useState(false);
   const [returnData, setReturnData] = useState({});
   const { data: newData } =
@@ -53,6 +60,7 @@ const AdminBorrowedBookTable = ({ data }) => {
     setReturnBook(true);
     setReturnData(d);
   };
+  console.log(data);
   return (
     <div>
       <div className="mt-6">
@@ -93,6 +101,7 @@ const AdminBorrowedBookTable = ({ data }) => {
                   <th className="p-3 text-center">Due Date</th>
                   <th className="p-3 text-center">Return Date</th>
                   <th className="p-3 text-center">Return Status</th>
+                  <th className="p-3 text-center">Notify</th>
                 </tr>
               </thead>
               <tbody className="border-b bg-gray-50 border-gray-300">
@@ -121,7 +130,7 @@ const AdminBorrowedBookTable = ({ data }) => {
                       <p
                         className={`${
                           d?.status === "borrowed" &&
-                          d?.dueDate < new Date().toISOString()
+                          d?.dueDate > new Date().toISOString()
                             ? "bg-red-100 text-red-500"
                             : "bg-green-100 text-second"
                         } p-1 rounded-full  text-sm `}
@@ -135,9 +144,13 @@ const AdminBorrowedBookTable = ({ data }) => {
 
                     <td className="px-3 py-2 text-center">
                       <p>
-                        <Moment format="D MMM YYYY" withTitle>
-                          {d?.returnDate}
-                        </Moment>
+                        {d?.returnDate ? (
+                          <Moment format="D MMM YYYY" withTitle>
+                            {d?.returnDate}
+                          </Moment>
+                        ) : (
+                          "Not returened"
+                        )}
                       </p>
                     </td>
                     <td className="px-3 py-2 text-center">
@@ -186,6 +199,19 @@ const AdminBorrowedBookTable = ({ data }) => {
                         </button>
                       )}
                     </td>
+                    <td className="px-3 py-2 text-center">
+                      <button
+                        type="button"
+                        className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
+                        title="Notification"
+                        onClick={() => {
+                          setUserId(d?.borrowerId);
+                          setAddNotificationModal(true);
+                        }}
+                      >
+                        <MdCircleNotifications />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -211,6 +237,11 @@ const AdminBorrowedBookTable = ({ data }) => {
           data={returnData}
         />
       )}
+      <AddNotificationModal
+        user={userId}
+        notificationModal={addNotificationModal}
+        setNotificationModal={setAddNotificationModal}
+      />
     </div>
   );
 };
