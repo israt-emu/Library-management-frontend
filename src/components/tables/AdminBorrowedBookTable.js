@@ -22,6 +22,7 @@ const AdminBorrowedBookTable = ({ data }) => {
   const [skip, setSkip] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
   const [status, setStatus] = useState("");
+  const [userId, setUserId] = useState("");
   const [returnBook, setReturnBook] = useState(false);
   const [returnData, setReturnData] = useState({});
   const { data: newData } =
@@ -59,6 +60,7 @@ const AdminBorrowedBookTable = ({ data }) => {
     setReturnBook(true);
     setReturnData(d);
   };
+  console.log(data);
   return (
     <div>
       <div className="mt-6">
@@ -202,7 +204,10 @@ const AdminBorrowedBookTable = ({ data }) => {
                         type="button"
                         className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
                         title="Notification"
-                        onClick={() => setAddNotificationModal(true)}
+                        onClick={() => {
+                          setUserId(d?.borrowerId);
+                          setAddNotificationModal(true);
+                        }}
                       >
                         <MdCircleNotifications />
                       </button>
@@ -233,7 +238,7 @@ const AdminBorrowedBookTable = ({ data }) => {
         />
       )}
       <AddNotificationModal
-        user={user}
+        user={userId}
         notificationModal={addNotificationModal}
         setNotificationModal={setAddNotificationModal}
       />

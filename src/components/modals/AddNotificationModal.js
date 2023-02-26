@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAddNoticeMutation,
   useAddNotificationMutation,
@@ -14,18 +14,22 @@ const AddNotificationModal = ({
   console.log(user);
   const [notiFicationData, setNotificationData] = useState({});
   const handleAddNotification = () => {
-    notiFicationData.user = user?._id;
+    notiFicationData.user = user;
     addNotification(notiFicationData);
+  
+  };
+  useEffect(()=>{
     if (isSuccess) {
       setNotificationModal(false);
     }
-  };
+  },[isSuccess])
   console.log(data);
   const handleOnchange = (e) => {
     notiFicationData[e.target.name] = e.target.value;
     setNotificationData({ ...notiFicationData });
   };
 
+  console.log(user);
   return (
     <div>
       {notificationModal ? (
