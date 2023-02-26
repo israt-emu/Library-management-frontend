@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import {useState} from "react";
+import {MdArrowBack} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
-import {Outlet, useLocation} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import Navbar from "../components/common/Navbar";
 import Sidebar from "../components/common/Sidebar";
 import {userLoggedOut} from "../features/auth/authSlice";
@@ -14,41 +15,8 @@ const Dashboard = () => {
   const theme = useSelector((state) => state?.theme?.themeMode);
   // const {_id: id} = useSelector((state) => state?.auth?.user);
   const dispatch = useDispatch();
-  //load bookmarks
-  // const {data, isLoading, isError} = useGetBookmarksQuery({userId: id});
-  // useEffect(() => {
-  //   if (isLoading && !isError) {
-  //     dispatch(loadingBookmarks());
-  //   }
-  //   if (!isLoading && isError) {
-  //     dispatch(settingError("There was an error occured!"));
-  //   }
-  //   if (!isLoading && !isError) {
-  //     if (data?.bookmarks?.length > 0) {
-  //       dispatch(settingBookmarks(data?.bookmarks));
-  //     } else if (data?.bookmarks?.length === 0) {
-  //       dispatch(settingBookmarks([]));
-  //     }
-  //   }
-  // }, [data, isLoading, isError, dispatch]);
-  //load stores
-  // const {data: storeData, isLoading: storeLoading, isError: storeError} = useGetStoresQuery({userId: id});
-  // useEffect(() => {
-  //   if (storeLoading && !storeError) {
-  //     dispatch(loadingStores());
-  //   }
-  //   if (!storeLoading && storeError) {
-  //     dispatch(settingStoreError("There was an error occured!"));
-  //   }
-  //   if (!storeLoading && !storeError) {
-  //     if (storeData?.stores?.length > 0) {
-  //       dispatch(settingStores(storeData?.stores));
-  //     } else if (storeData?.stores?.length === 0) {
-  //       dispatch(settingStores([]));
-  //     }
-  //   }
-  // }, [storeData, storeLoading, storeError, dispatch]);
-  ///
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(pathChange(location?.pathname));
     if (location?.pathname !== "/dashboard/search") {
@@ -87,6 +55,10 @@ const Dashboard = () => {
           <Sidebar toggle={toggle} setToggle={setToggle} />
         </div>
         <div className={`text-primary  ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 pr-8"} col-end-13 h-full mt-20 z-0`}>
+          <button className="flex items-center px-2 py-1 bg-second text-white rounded mb-3" onClick={() => navigate(-1)}>
+            <MdArrowBack className="mr-1" />
+            Back
+          </button>
           <Outlet />
         </div>
       </div>

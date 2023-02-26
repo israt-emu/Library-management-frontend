@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import TablePagination from "../ui/TablePagination";
-import {MdBookmarkAdded, MdDelete} from "react-icons/md";
+import {MdBookmarkAdded, MdDelete, MdEdit} from "react-icons/md";
 import {Link} from "react-router-dom";
 import {useGetFilteredRequestedBooksQuery} from "../../features/book/bookAPI";
 import RequestCountModal from "../modals/RequestCountModal";
+import DeleteRequestedBookModal from "../modals/DeleteRequestedBookModal";
 
 const RequestedBookTable = ({data}) => {
   const limit = 4;
@@ -11,10 +12,17 @@ const RequestedBookTable = ({data}) => {
   const [totalPage, setTotalPage] = useState(0);
   const [requestCount, setRequestCount] = useState(false);
   const [reqData, setReqData] = useState({});
+  const [removeReqBook, setRemoveReqBook] = useState(false);
+  const [delData, setDelData] = useState({});
   //onClicking request button
   const handleRequest = (d) => {
     setRequestCount(true);
     setReqData(d);
+  };
+  //onClicking delete button
+  const handleRemoveModal = (d) => {
+    setRemoveReqBook(true);
+    setDelData(d);
   };
 
   //filtering data by search and status
@@ -80,7 +88,8 @@ const RequestedBookTable = ({data}) => {
                   <th className="p-3">Status</th>
                   <th className="p-3 text-center">Request Count</th>
                   <th className="p-3 text-center">Request</th>
-                  <th className="p-3 text-center">Action</th>
+                  <th className="p-3 text-center">Edit</th>
+                  <th className="p-3 text-center">Delete</th>
                 </tr>
               </thead>
               <tbody className="border-b bg-gray-50 border-gray-300">
@@ -106,10 +115,18 @@ const RequestedBookTable = ({data}) => {
                         <MdBookmarkAdded />
                       </button>
                     </td>
-
                     <td className="px-3 py-2 text-center">
                       {" "}
-                      <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete">
+                      <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Edit">
+                        <Link to={`/dashboard/editRequestedBook/${d?._id}`}>
+                          {" "}
+                          <MdEdit />
+                        </Link>
+                      </button>
+                    </td>
+                    <td className="px-3 py-2 text-center">
+                      {" "}
+                      <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete" onClick={() => handleRemoveModal(d)}>
                         <MdDelete />
                       </button>
                     </td>
@@ -120,6 +137,7 @@ const RequestedBookTable = ({data}) => {
           </div>
         </div>
         {requestCount && <RequestCountModal setRequestCount={setRequestCount} requestCount={requestCount} data={reqData} />}
+        {removeReqBook && <DeleteRequestedBookModal setRemoveBook={setRemoveReqBook} removeBook={removeReqBook} data={delData} />}
       </div>
 
       {data?.length > 0 ? (

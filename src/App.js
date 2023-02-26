@@ -25,6 +25,10 @@ import AddArticle from "./components/articles/AddArticle";
 import AddNotice from "./components/notice/AddNotice";
 import UpdateUser from "./components/user/UpdateUser";
 import SingleUserDashboard from "./components/user/SingleUserDashboard";
+import EditBook from "./components/book/EditBook";
+import EditArticle from "./components/articles/EditArticle";
+import EditNotice from "./components/notice/EditNotice";
+import EditRequestedBook from "./components/book/EditRequestedBook";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +76,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/editBook/:editBookId",
+        element: (
+          <PrivateRoute>
+            <EditBook />
           </PrivateRoute>
         ),
       },
@@ -157,6 +169,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/editRequestedBook/:editRequestId",
+        element: (
+          <PrivateRoute>
+            <EditRequestedBook />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/articles",
         element: (
           <PrivateRoute>
@@ -173,10 +193,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/editArticle/:editArticleId",
+        element: (
+          <PrivateRoute>
+            <EditArticle />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/notice",
         element: (
           <PrivateRoute>
             <Notice />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/editNotice/:editNoticeId",
+        element: (
+          <PrivateRoute>
+            <EditNotice />
           </PrivateRoute>
         ),
       },

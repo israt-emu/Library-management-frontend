@@ -1,3 +1,4 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   newNotification: false,
@@ -12,4 +13,5 @@ export const noticeSlice = createSlice({
   },
 });
 export const { newNotification } = noticeSlice.actions;
+
 export default noticeSlice.reducer;
