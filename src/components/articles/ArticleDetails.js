@@ -13,7 +13,7 @@ const ArticleDetails = () => {
         <div className="flex flex-col  mx-auto overflow-hidden rounded">
           <img
             src={image}
-            alt=""
+            alt="not available"
             className="w-full h-60 sm:h-96 bg-gray-500"
           />
           <div className="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6  sm:px-10 sm:mx-12 lg:rounded-md bg-gray-50">
