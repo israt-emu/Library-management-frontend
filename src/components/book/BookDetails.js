@@ -17,26 +17,6 @@ const BookDetails = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [borrowed, setBorrowed] = useState(false);
-  const images = [
-    {
-      original:
-        "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386748153l/282035.jpg",
-      thumbnail:
-        "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386748153l/282035.jpg",
-    },
-    {
-      original:
-        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
-      thumbnail:
-        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
-    },
-    {
-      original:
-        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
-      thumbnail:
-        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
-    },
-  ];
   const { data: bookDetails } = useGetBookDetailsQuery({ id: id });
   const {
     name,
@@ -55,7 +35,27 @@ const BookDetails = () => {
     createdAt,
     totalBorrowed,
     addedBy,
+    image,
   } = bookDetails?.book || {};
+
+  const images = [
+    {
+      original: image,
+      thumbnail: image,
+    },
+    {
+      original:
+        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
+      thumbnail:
+        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
+    },
+    {
+      original:
+        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
+      thumbnail:
+        "https://media.wiley.com/product_data/coverImage300/6X/11190152/111901526X.jpg",
+    },
+  ];
 
   console.log(id, bookDetails);
 

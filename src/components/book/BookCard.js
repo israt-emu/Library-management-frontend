@@ -2,20 +2,24 @@ import React from "react";
 import Moment from "react-moment";
 import bookImg from "../../assets/images/book.jpg";
 
-import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
-import {useAddBorrowedBookMutation} from "../../features/boorowedBook/borrowedBookApi";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useAddBorrowedBookMutation } from "../../features/boorowedBook/borrowedBookApi";
 
-const BookCard = ({book}) => {
+const BookCard = ({ book }) => {
   const dispatch = useDispatch();
-  const {name, bookId, category, description, createdAt} = book || {};
+  const { name, bookId, category, description, createdAt, image } = book || {};
 
   return (
     <div>
       <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border ">
         <Link to={`/dashboard/books/${bookId}`}>
           <div>
-            <img src={bookImg} className="w-full" alt="book mark" />
+            <img
+              src={image ? image : bookImg}
+              className="w-full"
+              alt="book mark"
+            />
             <div className="px-6 pt-2">
               <h2 className="font-bold text-xl mb-2 capitalize">{name}</h2>
             </div>
