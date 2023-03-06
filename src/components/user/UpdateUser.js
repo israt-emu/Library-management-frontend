@@ -3,9 +3,72 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../../features/auth/authApi";
 import Error from "../ui/Error";
+// admin
+// :
+// false
+// contactNumber
+// :
+// "3205839"
+// createdAt
+// :
+// "2023-02-02T14:02:54.818Z"
+// currentAddress
+// :
+// "Noakhali"
+// email
+// :
+// "israt@gmail.com"
+// hashedPassword
+// :
+// "079a26e5322c980658c7f18ae7c0b1810c5bbe1ad07560dc0acc12679698b501"
+// name
+// :
+// "Israt Jahan"
+// permanantAddress
+// :
+// "Noakhali"
+// role
+// :
+// "student"
 
+// :
+// "2017-18"
+// status
+// :
+// "active"
+// studentId
+// :
+// "ASH1806047M"
+// term
+// :
+// 2
+// updatedAt
+// :
+// "2023-02-25T05:21:55.576Z"
+// year
+// :
+// 4
+// __v
+// :
+// 0
+// _id
+// :
+// "63dbc28e061ff309247a3948"
 const UpdateUser = () => {
   const { user } = useSelector((state) => state.auth);
+  const {
+    role,
+    session,
+    year,
+    term,
+    studentId,
+    designation,
+    educationalQualification,
+    permanantAddress,
+    currentAddress,
+    experience,
+    contactNumber,
+  } = user || {};
   const [updateUser, { data, isSuccess, isError }] = useUpdateUserMutation();
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
@@ -35,46 +98,33 @@ const UpdateUser = () => {
         <div className="grid max-w-6xl grid-cols-1 px-6 mx-auto lg:px-8 md:grid-cols-2 md:divide-x mb-8">
           <div className="py-6 md:py-0 md:px-6">
             <div className="">
-              <label className="block mb-1">
-                <span className="my-2">Student Id</span>
-                <input
-                  onChange={handleOnchange}
-                  name="studentId"
-                  type="text"
-                  placeholder="ASH1806***"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
-              </label>
-              <label className="block mb-1">
-                <span className="my-2">Session</span>
-                <input
-                  onChange={handleOnchange}
-                  type="text"
-                  name="session"
-                  placeholder="Session"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
-              </label>
-              <label className="block mb-1">
-                <span className="my-2">Year</span>
-                <input
-                  onChange={handleOnchange}
-                  name="year"
-                  type="number"
-                  placeholder="Year"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
-              </label>
-              <label className="block mb-1">
-                <span className="my-2">Term</span>
-                <textarea
-                  onChange={handleOnchange}
-                  name="term"
-                  type="number"
-                  placeholder="Tern"
-                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-                />
-              </label>
+              {role != "teacher" && (
+                <label className="block mb-1">
+                  <span className="my-2">Session</span>
+                  <input
+                    onChange={handleOnchange}
+                    type="text"
+                    name="session"
+                    placeholder="Session"
+                    defaultValue={session}
+                    className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
+                  />
+                </label>
+              )}
+
+              {role != "teacher" && (
+                <label className="block mb-1">
+                  <span className="my-2">Term</span>
+                  <textarea
+                    onChange={handleOnchange}
+                    name="term"
+                    type="number"
+                    placeholder="Term"
+                    defaultValue={term}
+                    className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
+                  />
+                </label>
+              )}
 
               <label className="block mb-1">
                 <span className="my-2">Designation</span>
@@ -83,6 +133,7 @@ const UpdateUser = () => {
                   name="designation"
                   type="text"
                   placeholder=""
+                  defaultValue={designation}
                   className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
                 />
               </label>
@@ -92,29 +143,44 @@ const UpdateUser = () => {
                   onChange={handleOnchange}
                   name="educationalQualification"
                   type="text"
-                  placeholder="Book Location"
+                  defaultValue={educationalQualification}
+                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
+                />
+              </label>
+              <label className="block mb-1">
+                <span className="my-2">Contact Number</span>
+                <input
+                  onChange={handleOnchange}
+                  name="contactNumber"
+                  type="text"
+                  placeholder="01____"
+                  defaultValue={contactNumber}
                   className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
                 />
               </label>
             </div>
           </div>
           <div className="py-6 md:py-0 md:px-6">
-            <label className="block mb-1">
-              <span className="my-2">Contact Number</span>
-              <input
-                onChange={handleOnchange}
-                name="contactNumber"
-                type="text"
-                placeholder="01____"
-                className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
-              />
-            </label>
+            {role != "teacher" && (
+              <label className="block mb-1">
+                <span className="my-2">Year</span>
+                <input
+                  onChange={handleOnchange}
+                  name="year"
+                  type="number"
+                  placeholder="Year"
+                  defaultValue={year}
+                  className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
+                />
+              </label>
+            )}
             <label className="block mb-1">
               <span className="my-2">Experience</span>
               <input
                 onChange={handleOnchange}
                 name="experience"
                 type="text"
+                defaultValue={experience}
                 placeholder="Experience"
                 className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
               />
@@ -125,6 +191,7 @@ const UpdateUser = () => {
                 onChange={handleOnchange}
                 name="permanantAddress"
                 type="text"
+                defaultValue={permanantAddress}
                 placeholder="Parmanent address"
                 className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
               />
@@ -135,6 +202,7 @@ const UpdateUser = () => {
                 onChange={handleOnchange}
                 name="currentAddress"
                 type="text"
+                defaultValue={currentAddress}
                 placeholder="Current Address"
                 className="block w-full rounded-md shadow-sm bg-white py-2 px-2"
               />
