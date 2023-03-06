@@ -12,12 +12,12 @@ const BookCard = ({ book }) => {
 
   return (
     <div>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border ">
+      <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border max-h-[600px]">
         <Link to={`/dashboard/books/${bookId}`}>
           <div>
             <img
               src={image ? image : bookImg}
-              className="w-full"
+              className="w-full rounded-md"
               alt="book mark"
             />
             <div className="px-6 pt-2">
