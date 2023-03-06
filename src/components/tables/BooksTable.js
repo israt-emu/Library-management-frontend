@@ -6,6 +6,7 @@ import {useGetFilteredBooksQuery} from "../../features/book/bookAPI";
 import DeleteBookModal from "../modals/DeleteBookModal";
 
 const BooksTable = ({data}) => {
+  // why nothing is here 
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
