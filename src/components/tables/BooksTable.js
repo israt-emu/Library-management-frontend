@@ -6,7 +6,7 @@ import {useGetFilteredBooksQuery} from "../../features/book/bookAPI";
 import DeleteBookModal from "../modals/DeleteBookModal";
 
 const BooksTable = ({data}) => {
-  // why nothing is here 
+  // why nothing is here
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -97,7 +97,7 @@ const BooksTable = ({data}) => {
                     <td className="px-3 py-2 text-center">
                       {" "}
                       <button type="button" className="p-1 rounded-full hover:bg-gray-300 text-lg text-black" title="Delete">
-                        <Link to={`/dashboard/editBook/${d?.bookId}`}>
+                        <Link to={`/dashboard/editBook/${d?._id}`}>
                           <MdEdit />
                         </Link>
                       </button>

@@ -5,7 +5,7 @@ import Error from "../ui/Error";
 
 const EditArticle = () => {
   const {editArticleId} = useParams();
-  const {data: article} = useGetArticleDetailsQuery({id: editArticleId});
+  const {data: article} = useGetArticleDetailsQuery({id: editArticleId, edit: true});
   const {title, authorName, description, image, _id, category} = article?.article || {};
   const [updateArticle, {data, isSuccess, isError}] = useUpdateArticleMutation();
   const [articleData, setArticleData] = useState({});
