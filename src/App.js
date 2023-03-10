@@ -29,7 +29,12 @@ import EditBook from "./components/book/EditBook";
 import EditArticle from "./components/articles/EditArticle";
 import EditNotice from "./components/notice/EditNotice";
 import EditRequestedBook from "./components/book/EditRequestedBook";
-
+import {io} from "socket.io-client";
+const socket = io.connect("http://localhost:8000/");
+// socket.on("connection");
+socket.on("connect", () => {
+  console.log(socket.disconnected); // false
+});
 const router = createBrowserRouter([
   {
     path: "/",
