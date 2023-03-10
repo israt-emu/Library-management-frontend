@@ -1,5 +1,5 @@
-import { apiSlice } from "../api/apiSlice";
-import { getUpdatedUser, userLoggedIn } from "./authSlice";
+import {apiSlice} from "../api/apiSlice";
+import {getUpdatedUser, userLoggedIn} from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +9,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
           localStorage.setItem(
@@ -37,10 +37,17 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
-          console.log(result);
+          const data = result?.data?.user;
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getAllUsers", undefined, (draft) => {
+                draft?.users?.unshift(data);
+              })
+            );
+          }
         } catch (err) {
           //nothing to do
           console.log(err);
@@ -48,12 +55,12 @@ export const authApi = apiSlice.injectEndpoints({
       },
     }),
     updateUser: builder.mutation({
-      query: ({ email, data }) => ({
+      query: ({email, data}) => ({
         url: `/user/updateUser/${email}`,
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
           console.log(result);
@@ -93,12 +100,54 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+          // update user cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getAllUsers", undefined, (draft) => {
+                const user = draft?.users?.find((d) => d?.email === arg?.email);
+                if (arg?.status === "active") {
+                  user.status = "block";
+                } else {
+                  user.status = "active";
+                }
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     deleteUser: builder.mutation({
       query: (email) => ({
         url: `/user/deleteUser/${email}`,
         method: "DELETE",
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+
+          // update user cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getAllUsers", undefined, (draft) => {
+                const filterDraft = draft?.users?.filter((d) => d?.email !== arg);
+                return {
+                  ...draft,
+                  users: filterDraft,
+                };
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     changeAdmin: builder.mutation({
       query: (data) => ({
@@ -106,9 +155,30 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+          // update user cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getAllUsers", undefined, (draft) => {
+                const user = draft?.users?.find((d) => d?.email === arg?.email);
+                if (arg?.admin) {
+                  user.admin = false;
+                } else {
+                  user.admin = true;
+                }
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     getSingleUser: builder.query({
-      query: (email ) => ({
+      query: (email) => ({
         url: `/user/getSingleUser/${email}`,
         method: "GET",
       }),
@@ -116,14 +186,4 @@ export const authApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {
-  useSignUpMutation,
-  useLoginMutation,
-  useGetAllUsersQuery,
-  useDeleteUserMutation,
-  useUpdateStatusMutation,
-  useChangeAdminMutation,
-  useGetFilteredUsersQuery,
-  useUpdateUserMutation,
-  useGetSingleUserQuery,
-} = authApi;
+export const {useSignUpMutation, useLoginMutation, useGetAllUsersQuery, useDeleteUserMutation, useUpdateStatusMutation, useChangeAdminMutation, useGetFilteredUsersQuery, useUpdateUserMutation, useGetSingleUserQuery} = authApi;

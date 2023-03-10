@@ -17,7 +17,7 @@ import BookRequest from "./components/book/BookRequest";
 import Articles from "./components/articles/Articles";
 import ArticleDetails from "./components/articles/ArticleDetails";
 import Notice from "./components/notice/Notice";
-import TopBooks from "./components/topBooks/TopBooks";
+
 import AdminDashboard from "./components/user/AdminDashboard";
 import AddBook from "./components/book/AddBook";
 import AddRequestedBook from "./components/book/AddRequestedBook";
@@ -60,14 +60,6 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Book />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/topBooks",
-        element: (
-          <PrivateRoute>
-            <TopBooks />
           </PrivateRoute>
         ),
       },

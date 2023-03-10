@@ -9,26 +9,7 @@ export const bookApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
-    getRequestedBooks: builder.query({
-      query: () => ({
-        url: `/requestedBook/getAllRequestedBooks`,
-        method: "GET",
-        // body: data,
-      }),
-    }),
-    getFilteredRequestedBooks: builder.query({
-      query: (data) => ({
-        url: `/requestedBook/filteredRequestedBook`,
-        method: "POST",
-        body: data,
-      }),
-    }),
-    getTopRequestedBooks: builder.query({
-      query: () => ({
-        url: `/requestedBook/topRequestedBooks`,
-        method: "GET",
-      }),
-    }),
+
     getTopBooks: builder.query({
       query: () => ({
         url: `/book/topBooks`,
@@ -42,12 +23,59 @@ export const bookApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
+    getSingleBookById: builder.query({
+      query: ({id}) => ({
+        url: `/book/getSingleBookById/${id}`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
     updateBook: builder.mutation({
       query: ({id, data}) => ({
         url: `/book/editBook/${id}`,
         method: "POST",
-        body: data,
+        body: data?.bookData,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const id = arg?.data?.id;
+          const result = await queryFulfilled;
+          const updatedBook = result?.data?.book;
+          // update book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getBooks", undefined, (draft) => {
+                const book = draft?.books?.find((d) => d?._id === arg?.id);
+                book.name = updatedBook?.name;
+                book.category = updatedBook?.category;
+                book.status = updatedBook?.status;
+                book.totalViews = updatedBook?.totalViews;
+              })
+            );
+            dispatch(
+              apiSlice.util.updateQueryData("getBookDetails", id, (draft) => {
+                console.log(draft);
+                // book.name = updatedBook?.name;
+                // book.category = updatedBook?.category;
+                // book.status = updatedBook?.status;
+                // book.totalViews = updatedBook?.totalViews;
+              })
+            );
+            dispatch(
+              apiSlice.util.updateQueryData("getSingleBookById", arg?.id, (draft) => {
+                console.log(draft);
+                // book.name = updatedBook?.name;
+                // book.category = updatedBook?.category;
+                // book.status = updatedBook?.status;
+                // book.totalViews = updatedBook?.totalViews;
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
 
     deleteBook: builder.mutation({
@@ -55,27 +83,28 @@ export const bookApi = apiSlice.injectEndpoints({
         url: `/book/deleteBook/${id}`,
         method: "DELETE",
       }),
-      //   async onQueryStarted({id, userId}, {queryFulfilled, dispatch}) {
-      //     try {
-      //       const result = await queryFulfilled;
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
 
-      //       // update bookmark cache
-      //       if (result?.data?.status === "success") {
-      //         dispatch(
-      //           apiSlice.util.updateQueryData("getBookmarks", {userId: userId}, (draft) => {
-      //             const filterDraft = draft?.bookmarks?.filter((d) => d._id !== id);
-      //             return {
-      //               ...draft,
-      //               bookmarks: filterDraft,
-      //             };
-      //           })
-      //         );
-      //       }
-      //     } catch (err) {
-      //       //nothing to do
-      //       console.log(err);
-      //     }
-      //   },
+          // update book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getBooks", undefined, (draft) => {
+                console.log(arg);
+                const filterDraft = draft?.books?.filter((d) => d?._id !== arg);
+                return {
+                  ...draft,
+                  books: filterDraft,
+                };
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     addBook: builder.mutation({
       query: (data) => ({
@@ -87,22 +116,13 @@ export const bookApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           console.log(result);
-          const data = result?.data;
+          const data = result?.data?.book;
 
-          // update bookmark cache
+          // update book cache
           if (result?.data?.status === "success") {
-            //updating groups
             dispatch(
-              apiSlice.util.updateQueryData("getBooks", null, (draft) => {
-                if (!draft?.groups?.includes(arg?.group)) {
-                  draft?.groups?.push(arg?.group);
-                }
-              })
-            );
-            //updating bookmarks
-            dispatch(
-              apiSlice.util.updateQueryData("getBooks", {userId: arg?.userId}, (draft) => {
-                draft?.bookmarks?.push(data);
+              apiSlice.util.updateQueryData("getBooks", undefined, (draft) => {
+                draft?.books?.unshift(data);
               })
             );
           }
@@ -126,18 +146,78 @@ export const bookApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getRequestedBooks: builder.query({
+      query: () => ({
+        url: `/requestedBook/getAllRequestedBooks`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
+    getFilteredRequestedBooks: builder.query({
+      query: (data) => ({
+        url: `/requestedBook/filteredRequestedBook`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getTopRequestedBooks: builder.query({
+      query: () => ({
+        url: `/requestedBook/topRequestedBooks`,
+        method: "GET",
+      }),
+    }),
     addRequestedBook: builder.mutation({
       query: (data) => ({
         url: `requestedBook/addRequestedBook`,
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+          const data = result?.data?.book;
+
+          // update requested book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
+                draft?.books?.unshift(data);
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     deleteRequestedBook: builder.mutation({
       query: (id) => ({
         url: `/requestedBook/deleteRequestedBook/${id}`,
         method: "DELETE",
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+
+          // update requested book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
+                console.log(arg);
+                const filterDraft = draft?.books?.filter((d) => d?._id !== arg);
+                return {
+                  ...draft,
+                  books: filterDraft,
+                };
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     getRequestedBookDetails: builder.query({
       query: ({id}) => ({
@@ -152,6 +232,24 @@ export const bookApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+          const updatedBook = result?.data?.updatedBook;
+          // update requested book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
+                const book = draft?.books?.find((d) => d?._id === arg?.id);
+                book.requestCount = updatedBook?.requestCount;
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     updateRequestedBook: builder.mutation({
       query: ({id, data}) => ({
@@ -159,6 +257,27 @@ export const bookApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+          const updatedBook = result?.data?.book;
+          // update requested book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
+                const book = draft?.books?.find((d) => d?._id === arg?.id);
+                book.name = updatedBook?.name;
+                book.category = updatedBook?.category;
+                book.status = updatedBook?.status;
+                book.writer = updatedBook?.writer;
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     getMonthCount: builder.query({
       query: () => ({
@@ -187,4 +306,5 @@ export const {
   useDeleteBookMutation,
   useDeleteRequestedBookMutation,
   useGetRequestedBookDetailsQuery,
+  useGetSingleBookByIdQuery,
 } = bookApi;

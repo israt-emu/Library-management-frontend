@@ -22,6 +22,29 @@ export const borrowedBookApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+          const data = result?.data?.borrowedBook;
+
+          // update book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getBorrwedBooks", undefined, (draft) => {
+                draft?.borrowedBooks?.unshift(data);
+              })
+            );
+            dispatch(
+              apiSlice.util.updateQueryData("findBorrowedBookByUserId", arg?.borrowerId, (draft) => {
+                draft?.borrowedBooks?.unshift(data);
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
 
     returnBorrowedBook: builder.mutation({
@@ -30,27 +53,32 @@ export const borrowedBookApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      //   async onQueryStarted({id, userId}, {queryFulfilled, dispatch}) {
-      //     try {
-      //       const result = await queryFulfilled;
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
 
-      //       // update bookmark cache
-      //       if (result?.data?.status === "success") {
-      //         dispatch(
-      //           apiSlice.util.updateQueryData("getBookmarks", {userId: userId}, (draft) => {
-      //             const filterDraft = draft?.bookmarks?.filter((d) => d._id !== id);
-      //             return {
-      //               ...draft,
-      //               bookmarks: filterDraft,
-      //             };
-      //           })
-      //         );
-      //       }
-      //     } catch (err) {
-      //       //nothing to do
-      //       console.log(err);
-      //     }
-      //   },
+          // update book cache
+          if (result?.data?.status === "success") {
+            dispatch(
+              apiSlice.util.updateQueryData("getBorrwedBooks", undefined, (draft) => {
+                const borrowedBook = draft?.borrowedBooks?.find((d) => d?._id === arg?.id);
+                borrowedBook.status = "returned";
+                borrowedBook.returnDate = new Date();
+              })
+            );
+            dispatch(
+              apiSlice.util.updateQueryData("findBorrowedBookByUserId", arg?.borrowerId, (draft) => {
+                const borrowedBook = draft?.borrowedBooks?.find((d) => d?._id === arg?.id);
+                borrowedBook.status = "returned";
+                borrowedBook.returnDate = new Date();
+              })
+            );
+          }
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     findBorrowedBookByUserId: builder.query({
       query: (id) => ({

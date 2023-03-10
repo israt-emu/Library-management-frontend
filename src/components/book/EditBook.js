@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useUpdateBookMutation, useGetBookDetailsQuery} from "../../features/book/bookAPI";
+import {useUpdateBookMutation, useGetBookDetailsQuery, useGetSingleBookByIdQuery} from "../../features/book/bookAPI";
 import Error from "../ui/Error";
 
 const EditBook = () => {
   const {editBookId} = useParams();
-  const {data: singleBook} = useGetBookDetailsQuery({id: editBookId});
+  const {data: singleBook} = useGetSingleBookByIdQuery({id: editBookId});
   const {name, writer, publications, pdfLink, status, edition, bookId, category, description, totalStock, bookLocation, image, _id} = singleBook?.book || {};
   const [bookData, setBookData] = useState({});
   const [updateBook, {data, isSuccess, isError}] = useUpdateBookMutation();
@@ -17,7 +17,7 @@ const EditBook = () => {
   };
   const handleSubmit = () => {
     console.log(bookData);
-    updateBook({id: _id, data: bookData});
+    updateBook({id: _id, data: {bookData, id: bookId}});
   };
   useEffect(() => {
     if (data?.status === "success" && isSuccess) {

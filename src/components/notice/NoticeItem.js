@@ -7,7 +7,7 @@ import {useDeleteNoticeMutation} from "../../features/notice/noticeApi";
 const NoticeItem = ({data}) => {
   const {user} = useSelector((state) => state?.auth);
   const {admin} = user || {};
-  const [deleteNotice, {isError, isLoading, error}] = useDeleteNoticeMutation();
+  const [deleteNotice, {isError, isLoading, isSuccess}] = useDeleteNoticeMutation();
   const [collapse, setCollapse] = useState(false);
   const {title, description, createdAt, _id} = data || {};
   // console.log(createdAt);
@@ -27,7 +27,7 @@ const NoticeItem = ({data}) => {
             </button>
           </div>
         )}
-        {dateCreated == todayDate && (
+        {dateCreated === todayDate && (
           <span onClick={() => setCollapse(!collapse)} className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
             New
           </span>
