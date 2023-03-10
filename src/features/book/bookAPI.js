@@ -9,26 +9,7 @@ export const bookApi = apiSlice.injectEndpoints({
         // body: data,
       }),
     }),
-    getRequestedBooks: builder.query({
-      query: () => ({
-        url: `/requestedBook/getAllRequestedBooks`,
-        method: "GET",
-        // body: data,
-      }),
-    }),
-    getFilteredRequestedBooks: builder.query({
-      query: (data) => ({
-        url: `/requestedBook/filteredRequestedBook`,
-        method: "POST",
-        body: data,
-      }),
-    }),
-    getTopRequestedBooks: builder.query({
-      query: () => ({
-        url: `/requestedBook/topRequestedBooks`,
-        method: "GET",
-      }),
-    }),
+
     getTopBooks: builder.query({
       query: () => ({
         url: `/book/topBooks`,
@@ -165,6 +146,26 @@ export const bookApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getRequestedBooks: builder.query({
+      query: () => ({
+        url: `/requestedBook/getAllRequestedBooks`,
+        method: "GET",
+        // body: data,
+      }),
+    }),
+    getFilteredRequestedBooks: builder.query({
+      query: (data) => ({
+        url: `/requestedBook/filteredRequestedBook`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getTopRequestedBooks: builder.query({
+      query: () => ({
+        url: `/requestedBook/topRequestedBooks`,
+        method: "GET",
+      }),
+    }),
     addRequestedBook: builder.mutation({
       query: (data) => ({
         url: `requestedBook/addRequestedBook`,
@@ -176,7 +177,7 @@ export const bookApi = apiSlice.injectEndpoints({
           const result = await queryFulfilled;
           const data = result?.data?.book;
 
-          // update book cache
+          // update requested book cache
           if (result?.data?.status === "success") {
             dispatch(
               apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
@@ -199,7 +200,7 @@ export const bookApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
 
-          // update book cache
+          // update requested book cache
           if (result?.data?.status === "success") {
             dispatch(
               apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
@@ -235,7 +236,7 @@ export const bookApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           const updatedBook = result?.data?.updatedBook;
-          // update book cache
+          // update requested book cache
           if (result?.data?.status === "success") {
             dispatch(
               apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
@@ -260,7 +261,7 @@ export const bookApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           const updatedBook = result?.data?.book;
-          // update book cache
+          // update requested book cache
           if (result?.data?.status === "success") {
             dispatch(
               apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {

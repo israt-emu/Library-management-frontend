@@ -47,7 +47,7 @@ const Articles = () => {
     <div>
       <section className="px-5 py-10  text-gray-800">
         <div className="flex justify-between items-center">
-          <h1 className="font-bold my-4 text-primary">Article</h1>
+          <h1 className="font-bold my-4 text-primary">Articles</h1>
           <div>
             <Link to={"/dashboard/addarticle"}>
               <button

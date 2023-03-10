@@ -12,7 +12,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
   const [updateStatus, {isLoading, isError, isSuccess}] = useUpdateNotificationStatusMutation();
   const {data: notificationData} = useGetNotificationsQuery();
   // console.log(notificationData);
-  const filterUserNotification = notificationData?.notification?.filter((d) => d?.user == id || d?.user == "all");
+  const filterUserNotification = notificationData?.notification?.filter((d) => d?.user === id || d?.user === "all");
 
   useEffect(() => {
     // check if any unread notification remain
@@ -26,7 +26,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
     if (read.length > 0) {
       dispatch(newNotification(true));
     }
-    if (read.length == 0) {
+    if (read.length === 0) {
       dispatch(newNotification(false));
     }
     // console.log(read);

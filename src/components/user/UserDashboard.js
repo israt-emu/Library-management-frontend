@@ -67,7 +67,7 @@ const UserDashboard = () => {
                   <h3 className="text-gray-600 font-lg text-semibold leading-6">{role.toUpperCase()}</h3>
                 </div>
                 <div className="image overflow-hidden">
-                  <img className="h-12 w-12 rounded-full " src={imageURL ? imageURL : null} alt="" />
+                  <img className="h-12 w-12 rounded-full border border-gray-500" src={imageURL ? imageURL : null} alt="" />
                 </div>
               </div>
 
@@ -75,7 +75,7 @@ const UserDashboard = () => {
                 <li className="flex items-center py-3">
                   <span>Status</span>
                   <span className="ml-auto">
-                    <span className={`${status == "active" ? "bg-green-500" : "bg-red-500"} py-1 px-2 rounded text-white text-sm`}>{status.toUpperCase()}</span>
+                    <span className={`${status === "active" ? "bg-green-500" : "bg-red-500"} py-1 px-2 rounded text-white text-sm`}>{status.toUpperCase()}</span>
                   </span>
                 </li>
                 <li className="flex items-center py-3">

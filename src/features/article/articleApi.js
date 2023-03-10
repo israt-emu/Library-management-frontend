@@ -19,7 +19,7 @@ export const articleApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
 
-          // update book cache
+          // update article cache
           if (result?.data?.status === "success" && !arg?.edit) {
             dispatch(
               apiSlice.util.updateQueryData("getArticles", undefined, (draft) => {
@@ -134,7 +134,7 @@ export const articleApi = apiSlice.injectEndpoints({
           const result = await queryFulfilled;
           console.log(result);
           const updatedarticle = result?.data?.article;
-          // update book cache
+          // update article cache
           if (result?.data?.status === "success") {
             dispatch(
               apiSlice.util.updateQueryData("getArticles", undefined, (draft) => {

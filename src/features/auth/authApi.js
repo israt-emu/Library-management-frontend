@@ -131,7 +131,7 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
 
-          // update book cache
+          // update user cache
           if (result?.data?.status === "success") {
             dispatch(
               apiSlice.util.updateQueryData("getAllUsers", undefined, (draft) => {
