@@ -126,7 +126,7 @@ const AdminBorrowedBookTable = ({data}) => {
                             {d?.returnDate}
                           </Moment>
                         ) : (
-                          "Not returened"
+                          "Not returned"
                         )}
                       </p>
                     </td>

@@ -27,7 +27,7 @@ const TopBorrowedBooksTable = ({data}) => {
                   <tr key={i}>
                     <td className="px-3 py-2">
                       <Link to={`/dashboard/books/${d?.bookId}`}>
-                        <div className="flex justify-center items-center space-x-1">
+                        <div className="flex items-center space-x-1">
                           <p>{d?.name}</p> <MdOutlineRemoveRedEye />
                         </div>
                       </Link>

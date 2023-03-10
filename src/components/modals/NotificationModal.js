@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import Moment from "react-moment";
-import {useGetNoticesQuery, useGetNotificationsQuery, useUpdateNotificationStatusMutation} from "../../features/notice/noticeApi";
+import {useGetNotificationsQuery, useUpdateNotificationStatusMutation} from "../../features/notice/noticeApi";
 
 import {MdClose} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
@@ -29,7 +29,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
     if (read.length == 0) {
       dispatch(newNotification(false));
     }
-    console.log(read);
+    // console.log(read);
   }, [filterUserNotification, dispatch, isSuccess]);
   // console.log(filterUserNotification);
   // console.log(notificationData?.notification);
@@ -53,7 +53,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   {filterUserNotification?.map((d) => (
-                    <div className="mt-2 px-6 py-4 bg-white rounded-lg shadow w-full">
+                    <div className={`mt-2 px-6 py-4 ${d?.read ? "bg-white" : "bg-green-200"} rounded-lg shadow w-full`}>
                       <div className="inline-flex items-center justify-between w-full">
                         <div className="inline-flex items-center">
                           <img src="https://cdn-icons-png.flaticon.com/128/763/763812.png" alt="Training Icon" className="w-6 h-6 mr-3" />
@@ -64,9 +64,9 @@ export default function NotificationModal({setNotificationModal, notificationMod
                         <Moment fromNow>{d?.createdAt}</Moment>
                       </p>
                       <p className="mt-1 text-sm pl-8">{d?.message}</p>
-                      <button disabled={isLoading || d?.read} onClick={() => updateStatus(d?._id)} className={`mt-2 text-sm ml-8 ${d?.read ? "bg-gray-300" : "bg-green-300"} px-3 py-1 flex justify-center items-center`}>
+                      <button disabled={isLoading || d?.read} onClick={() => updateStatus(d?._id)} className={`mt-2 text-sm ml-8 ${d?.read ? "" : "bg-second"} px-3 py-1 flex justify-center items-center text-white`}>
                         {" "}
-                        Mark as Read
+                        {d?.read ? "" : "Mark as Read"}
                       </button>
                     </div>
                   ))}

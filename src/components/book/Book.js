@@ -40,7 +40,7 @@ const Book = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-4 mt-8 pb-8 mx-auto">
           {booksData?.books?.map((b) => (
-            <BookCard book={b} />
+            <BookCard key={b?._id} book={b} />
           ))}
         </div>
       </div>

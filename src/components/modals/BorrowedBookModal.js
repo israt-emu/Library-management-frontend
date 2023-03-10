@@ -29,7 +29,7 @@ const BorrowedBookModal = ({borrowed, setBorrowed, setSuccess, setError, data}) 
       setBorrowed(false);
       setSuccess("");
     }
-  }, [isSuccess, isError, addData, setBorrowed]);
+  }, [isSuccess, isError, addData, setBorrowed, setError, setSuccess]);
   return (
     borrowed && (
       <>

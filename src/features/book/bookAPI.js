@@ -59,7 +59,6 @@ export const bookApi = apiSlice.injectEndpoints({
         try {
           const id = arg?.data?.id;
           const result = await queryFulfilled;
-          console.log(result);
           const updatedBook = result?.data?.book;
           // update book cache
           if (result?.data?.status === "success") {
@@ -73,7 +72,16 @@ export const bookApi = apiSlice.injectEndpoints({
               })
             );
             dispatch(
-              apiSlice.util.updateQueryData("getBookDetails", {id}, (draft) => {
+              apiSlice.util.updateQueryData("getBookDetails", id, (draft) => {
+                console.log(draft);
+                // book.name = updatedBook?.name;
+                // book.category = updatedBook?.category;
+                // book.status = updatedBook?.status;
+                // book.totalViews = updatedBook?.totalViews;
+              })
+            );
+            dispatch(
+              apiSlice.util.updateQueryData("getSingleBookById", arg?.id, (draft) => {
                 console.log(draft);
                 // book.name = updatedBook?.name;
                 // book.category = updatedBook?.category;

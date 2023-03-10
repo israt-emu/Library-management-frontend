@@ -57,7 +57,7 @@ const RequestedBookTable = ({data}) => {
     });
     setBooksData(dataPerPage);
   }, [currentPage, filteredData, limit]);
-  console.log(data);
+  // console.log(data);
   return (
     <div>
       <div className="mt-4">

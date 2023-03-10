@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {useAddNoticeMutation, useAddNotificationMutation} from "../../features/notice/noticeApi";
+import {useAddNotificationMutation} from "../../features/notice/noticeApi";
+import Error from "../ui/Error";
 
 const AddNotificationModal = ({notificationModal, setNotificationModal, user}) => {
-  const [addNotification, {data, error, isLoading, isSuccess}] = useAddNotificationMutation();
+  const [addNotification, {isError, isLoading, isSuccess}] = useAddNotificationMutation();
   // console.log(user);
   const [notiFicationData, setNotificationData] = useState({});
+  const [err, setErr] = useState("");
   const handleAddNotification = () => {
     notiFicationData.user = user;
     addNotification(notiFicationData);
@@ -12,8 +14,11 @@ const AddNotificationModal = ({notificationModal, setNotificationModal, user}) =
   useEffect(() => {
     if (isSuccess) {
       setNotificationModal(false);
+      setErr("");
+    } else if (isError && !isSuccess) {
+      setErr("There was an error occured!");
     }
-  }, [isSuccess]);
+  }, [isSuccess, setNotificationModal, isError]);
   // console.log(data);
   const handleOnchange = (e) => {
     notiFicationData[e.target.name] = e.target.value;
@@ -57,6 +62,7 @@ const AddNotificationModal = ({notificationModal, setNotificationModal, user}) =
                     Send
                   </button>
                 </div>
+                <div className="mb-2">{err && <Error message={err} />}</div>
               </div>
             </div>
           </div>
