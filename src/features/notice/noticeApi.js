@@ -1,4 +1,15 @@
-import {apiSlice} from "../api/apiSlice";
+import { io } from "socket.io-client";
+import { apiSlice } from "../api/apiSlice";
+
+export const socket = io("http://localhost:8000/", {
+  reconnectionDelay: 1000,
+  reconnection: true,
+  reconnectionAttempts: 10,
+  transports: ["websocket"],
+  agent: false,
+  upgrade: false,
+  rejectUnauthorized: false,
+});
 
 export const noticeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,7 +22,7 @@ export const noticeApi = apiSlice.injectEndpoints({
     }),
 
     getNoticeDetails: builder.query({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `/notice/getSingleNotice/${id}`,
         method: "GET",
         // body: data,
@@ -24,7 +35,7 @@ export const noticeApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
           const data = result?.data?.notice;
@@ -32,9 +43,13 @@ export const noticeApi = apiSlice.injectEndpoints({
           // update notice cache
           if (result?.data?.status === "success") {
             dispatch(
-              apiSlice.util.updateQueryData("getNotices", undefined, (draft) => {
-                draft?.notice?.unshift(data);
-              })
+              apiSlice.util.updateQueryData(
+                "getNotices",
+                undefined,
+                (draft) => {
+                  draft?.notice?.unshift(data);
+                }
+              )
             );
           }
         } catch (err) {
@@ -45,24 +60,28 @@ export const noticeApi = apiSlice.injectEndpoints({
     }),
 
     updateNotice: builder.mutation({
-      query: ({id, data}) => ({
+      query: ({ id, data }) => ({
         url: `/notice/editNotice/${id}`,
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
           const updatedNotice = result?.data?.notice;
           // update notice cache
           if (result?.data?.status === "success") {
             dispatch(
-              apiSlice.util.updateQueryData("getNotices", undefined, (draft) => {
-                const notice = draft?.notice?.find((d) => d?._id === arg?.id);
-                notice.title = updatedNotice?.title;
-                notice.category = updatedNotice?.category;
-                notice.description = updatedNotice?.description;
-              })
+              apiSlice.util.updateQueryData(
+                "getNotices",
+                undefined,
+                (draft) => {
+                  const notice = draft?.notice?.find((d) => d?._id === arg?.id);
+                  notice.title = updatedNotice?.title;
+                  notice.category = updatedNotice?.category;
+                  notice.description = updatedNotice?.description;
+                }
+              )
             );
           }
         } catch (err) {
@@ -76,20 +95,26 @@ export const noticeApi = apiSlice.injectEndpoints({
         url: `/notice/deleteNotice/${data}`,
         method: "DELETE",
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
 
           // update notice cache
           if (result?.data?.status === "success") {
             dispatch(
-              apiSlice.util.updateQueryData("getNotices", undefined, (draft) => {
-                const filterDraft = draft?.notice?.filter((d) => d?._id !== arg);
-                return {
-                  ...draft,
-                  notice: filterDraft,
-                };
-              })
+              apiSlice.util.updateQueryData(
+                "getNotices",
+                undefined,
+                (draft) => {
+                  const filterDraft = draft?.notice?.filter(
+                    (d) => d?._id !== arg
+                  );
+                  return {
+                    ...draft,
+                    notice: filterDraft,
+                  };
+                }
+              )
             );
           }
         } catch (err) {
@@ -104,6 +129,16 @@ export const noticeApi = apiSlice.injectEndpoints({
         method: "GET",
         // body: data,
       }),
+      async onQueryStarted() {
+        try {
+          socket.on("getNotification", (data) => {
+            console.log(data);
+          });
+        } catch (err) {
+          //nothing to do
+          console.log(err);
+        }
+      },
     }),
     addNotification: builder.mutation({
       query: (data) => ({
@@ -111,7 +146,13 @@ export const noticeApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+
+        socket.emit("newNotification", {
+          message: "Tushar Imran is connected",
+          data: arg,
+        });
+
         try {
           const result = await queryFulfilled;
           const data = result?.data?.notification;
@@ -119,9 +160,13 @@ export const noticeApi = apiSlice.injectEndpoints({
           // update notification cache
           if (result?.data?.status === "success") {
             dispatch(
-              apiSlice.util.updateQueryData("getNotifications", undefined, (draft) => {
-                draft?.notification?.unshift(data);
-              })
+              apiSlice.util.updateQueryData(
+                "getNotifications",
+                undefined,
+                (draft) => {
+                  draft?.notification?.unshift(data);
+                }
+              )
             );
           }
         } catch (err) {
@@ -136,16 +181,22 @@ export const noticeApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
           // update notification cache
           if (result?.data?.status === "success") {
             dispatch(
-              apiSlice.util.updateQueryData("getNotifications", undefined, (draft) => {
-                const notification = draft?.notification?.find((d) => d?._id === arg);
-                notification.read = true;
-              })
+              apiSlice.util.updateQueryData(
+                "getNotifications",
+                undefined,
+                (draft) => {
+                  const notification = draft?.notification?.find(
+                    (d) => d?._id === arg
+                  );
+                  notification.read = true;
+                }
+              )
             );
           }
         } catch (err) {
@@ -157,4 +208,13 @@ export const noticeApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useAddNoticeMutation, useGetNoticesQuery, useDeleteNoticeMutation, useGetNotificationsQuery, useUpdateNotificationStatusMutation, useAddNotificationMutation, useUpdateNoticeMutation, useGetNoticeDetailsQuery} = noticeApi;
+export const {
+  useAddNoticeMutation,
+  useGetNoticesQuery,
+  useDeleteNoticeMutation,
+  useGetNotificationsQuery,
+  useUpdateNotificationStatusMutation,
+  useAddNotificationMutation,
+  useUpdateNoticeMutation,
+  useGetNoticeDetailsQuery,
+} = noticeApi;

@@ -32,7 +32,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
     // console.log(read);
   }, [filterUserNotification, dispatch, isSuccess]);
   // console.log(filterUserNotification);
-  // console.log(notificationData?.notification);
+  console.log(notificationData?.notification);
   return (
     <>
       {notificationModal ? (

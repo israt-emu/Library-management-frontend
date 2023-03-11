@@ -29,6 +29,7 @@ import EditBook from "./components/book/EditBook";
 import EditArticle from "./components/articles/EditArticle";
 import EditNotice from "./components/notice/EditNotice";
 import EditRequestedBook from "./components/book/EditRequestedBook";
+import { io } from "socket.io-client";
 
 const router = createBrowserRouter([
   {
@@ -241,6 +242,23 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  // const socket = io("http://localhost:8000/", {
+  //   reconnectionDelay: 1000,
+  //   reconnection: true,
+  //   reconnectionAttempts: 10,
+  //   transports: ["websocket"],
+  //   agent: false,
+  //   upgrade: false,
+  //   rejectUnauthorized: false,
+  // });
+
+  // socket.on("connection",(data)=>{
+  //   console.log(data)
+  // })
+  // socket.emit("setup",{userId:"Tushar Imran is connected"});
+  // socket.on("connected",(data)=>{
+  //   console.log(data)
+  // })
   const authChecked = useAuthCheck();
   return !authChecked ? <div>Checking Authentication....</div> : <RouterProvider router={router} />;
 }
