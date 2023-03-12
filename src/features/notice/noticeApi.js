@@ -1,5 +1,14 @@
 import {apiSlice} from "../api/apiSlice";
-
+import {io} from "socket.io-client";
+export const socket = io("http://localhost:8000", {
+  reconnectionDelay: 1000,
+  reconnection: true,
+  reconnectionAttempts: 10,
+  transports: ["websocket"],
+  agent: false,
+  upgrade: false,
+  rejectUnauthorized: false,
+});
 export const noticeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNotices: builder.query({
@@ -34,6 +43,13 @@ export const noticeApi = apiSlice.injectEndpoints({
             dispatch(
               apiSlice.util.updateQueryData("getNotices", undefined, (draft) => {
                 draft?.notice?.unshift(data);
+              })
+            );
+            dispatch(
+              noticeApi.endpoints.addNotification.initiate({
+                title: "Notice",
+                user: "all",
+                message: "A notice have been added by Admin",
               })
             );
           }
@@ -104,6 +120,20 @@ export const noticeApi = apiSlice.injectEndpoints({
         method: "GET",
         // body: data,
       }),
+      async onCacheEntryAdded(arg, {updateCachedData, cacheDataLoaded, cacheEntryRemoved}) {
+        try {
+          await cacheDataLoaded;
+          socket.on("getNotification", (data) => {
+            updateCachedData((draft) => {
+              if (data?.data?._id) {
+                draft?.notification?.unshift(data?.data);
+              }
+            });
+          });
+        } catch (err) {}
+        await cacheEntryRemoved;
+        socket.close();
+      },
     }),
     addNotification: builder.mutation({
       query: (data) => ({
@@ -118,11 +148,15 @@ export const noticeApi = apiSlice.injectEndpoints({
 
           // update notification cache
           if (result?.data?.status === "success") {
-            dispatch(
-              apiSlice.util.updateQueryData("getNotifications", undefined, (draft) => {
-                draft?.notification?.unshift(data);
-              })
-            );
+            socket.emit("addNotification", {
+              message: `${arg?.user} sends a notification`,
+              data: data,
+            });
+            // dispatch(
+            //   apiSlice.util.updateQueryData("getNotifications", undefined, (draft) => {
+            //     draft?.notification?.unshift(data);
+            //   })
+            // );
           }
         } catch (err) {
           //nothing to do

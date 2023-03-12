@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import {useAddNotificationMutation} from "../../features/notice/noticeApi";
 import Error from "../ui/Error";
 
 const AddNotificationModal = ({notificationModal, setNotificationModal, user}) => {
   const [addNotification, {isError, isLoading, isSuccess}] = useAddNotificationMutation();
+  const {admin} = useSelector((state) => state?.auth?.user);
   // console.log(user);
   const [notiFicationData, setNotificationData] = useState({});
   const [err, setErr] = useState("");

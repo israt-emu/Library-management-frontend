@@ -1,4 +1,5 @@
 import {apiSlice} from "../api/apiSlice";
+import {noticeApi} from "../notice/noticeApi";
 
 export const borrowedBookApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -37,6 +38,13 @@ export const borrowedBookApi = apiSlice.injectEndpoints({
             dispatch(
               apiSlice.util.updateQueryData("findBorrowedBookByUserId", arg?.borrowerId, (draft) => {
                 draft?.borrowedBooks?.unshift(data);
+              })
+            );
+            dispatch(
+              noticeApi.endpoints.addNotification.initiate({
+                title: "Borrow Book",
+                user: "admin",
+                message: `${arg?.borrowerName} borrowed a book`,
               })
             );
           }

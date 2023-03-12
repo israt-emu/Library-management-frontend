@@ -32,7 +32,7 @@ const Notice = () => {
       <div>
         <div className="  py-4 lg:px-4 flex flex-col space-y-3">
           {noticeData?.notice?.map((b) => (
-            <NoticeItem data={b} />
+            <NoticeItem key={b?._id} data={b} />
           ))}
         </div>
       </div>
