@@ -1,4 +1,5 @@
 import {apiSlice} from "../api/apiSlice";
+import {noticeApi} from "../notice/noticeApi";
 
 export const bookApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -112,6 +113,7 @@ export const bookApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+
       async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
@@ -123,6 +125,13 @@ export const bookApi = apiSlice.injectEndpoints({
             dispatch(
               apiSlice.util.updateQueryData("getBooks", undefined, (draft) => {
                 draft?.books?.unshift(data);
+              })
+            );
+            dispatch(
+              noticeApi.endpoints.addNotification.initiate({
+                title: "Add Book",
+                user: "all",
+                message: `A book titled ${arg?.name} is added`,
               })
             );
           }
@@ -182,6 +191,13 @@ export const bookApi = apiSlice.injectEndpoints({
             dispatch(
               apiSlice.util.updateQueryData("getRequestedBooks", undefined, (draft) => {
                 draft?.books?.unshift(data);
+              })
+            );
+            dispatch(
+              noticeApi.endpoints.addNotification.initiate({
+                title: "Request Book",
+                user: "admin",
+                message: `A book titled ${arg?.name} is requested`,
               })
             );
           }

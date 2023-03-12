@@ -12,7 +12,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
   const [updateStatus, {isLoading, isError, isSuccess}] = useUpdateNotificationStatusMutation();
   const {data: notificationData} = useGetNotificationsQuery();
   // console.log(notificationData);
-  const filterUserNotification = notificationData?.notification?.filter((d) => d?.user === id || d?.user === "all");
+  const filterUserNotification = user?.admin ? notificationData?.notification?.filter((d) => d?.user === "admin" || d?.user === "all") : notificationData?.notification?.filter((d) => d?.user === id || d?.user === "all");
 
   useEffect(() => {
     // check if any unread notification remain
@@ -53,7 +53,7 @@ export default function NotificationModal({setNotificationModal, notificationMod
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   {filterUserNotification?.map((d) => (
-                    <div className={`mt-2 px-6 py-4 ${d?.read ? "bg-white" : "bg-green-200"} rounded-lg shadow w-full`}>
+                    <div key={d?._id} className={`mt-2 px-6 py-4 ${d?.read ? "bg-white" : "bg-green-200"} rounded-lg shadow w-full`}>
                       <div className="inline-flex items-center justify-between w-full">
                         <div className="inline-flex items-center">
                           <img src="https://cdn-icons-png.flaticon.com/128/763/763812.png" alt="Training Icon" className="w-6 h-6 mr-3" />
