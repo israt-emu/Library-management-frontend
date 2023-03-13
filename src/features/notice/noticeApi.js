@@ -1,6 +1,6 @@
 import {apiSlice} from "../api/apiSlice";
 import {io} from "socket.io-client";
-export const socket = io("http://localhost:8000", {
+export const socket = io(`https://library-management-rhsk.onrender.com`, {
   reconnectionDelay: 1000,
   reconnection: true,
   reconnectionAttempts: 10,
