@@ -10,7 +10,7 @@ const BookCard = ({book}) => {
     <div className="max-w-sm rounded overflow-hidden shadow-lg border border-border h-full">
       <Link to={`/dashboard/books/${bookId}`}>
         <div>
-          <img src={image ? image : bookImg} className="w-full rounded-md" alt="book mark" />
+          <img src={image ? image : bookImg} className="w-full h-48 rounded-md" alt="book mark" />
           <div className="px-6 pt-2">
             <h2 className="font-bold text-xl mb-2 capitalize">{name}</h2>
           </div>

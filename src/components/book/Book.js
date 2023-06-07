@@ -1,6 +1,5 @@
 import React from "react";
 import bookIcon from "../../assets/images/icons8-open-book-100.png";
-// import { useSelector } from "react-redux";
 import Error from "../ui/Error";
 import {Link} from "react-router-dom";
 import {useGetBooksQuery} from "../../features/book/bookAPI";
@@ -39,7 +38,7 @@ const Book = () => {
             <button className="bg-second px-3 py-1 text-sm font-medium rounded text-sidebar_text">Add Book</button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-4 mt-8 pb-8 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-4 mt-8 pb-8 mx-auto">
           {booksData?.books?.map((b) => (
             <BookCard key={b?._id} book={b} />
           ))}
@@ -61,8 +60,6 @@ const Book = () => {
       </div>
 
       {content}
-
-      {/* <BookMarkModal showModal={showModal} setShowModal={setShowModal} /> */}
     </section>
   );
 };

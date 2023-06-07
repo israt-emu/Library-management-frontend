@@ -75,7 +75,7 @@ const Navbar = ({setToggle, toggle}) => {
       <header className={` border-b border-border fixed w-full ${theme === "dark" ? "bg-fill" : "bg-white"} z-10`}>
         <div className=" flex">
           <div className={`flex items-center justify-start text-sidebar_text  w-44 bg-second p-2`}>
-            <button onClick={() => setToggle(!toggle)} className="nav-icon p-2 w-8 h-8" title="Main Menu">
+            <button onClick={() => setToggle(!toggle)} className="p-2 w-8 h-8" title="Main Menu">
               <FaBars className={`text-lg transition-all duration-100 ${!toggle ? "hidden" : "block"}`} />
               <MdDisabledByDefault className={`text-lg  transition-all duration-100 ${toggle ? "hidden" : "block"}`} />
             </button>

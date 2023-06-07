@@ -67,7 +67,7 @@ const AdminDashboard = () => {
           <p className="p-2 text-sm font-medium tracking-wider uppercase text-black">Management team</p>
           <h1 className="font-bold leading-none sm:text-2xl md:text-3xl text-black">Admin's</h1>
           <hr className="mx-auto w-12 h-[3px] mt-2 bg-gray-800" />
-          <div className="grid grid-cols-3 gap-4 items-center justify-center mt-8 p-4  mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center mt-8 p-4  mx-auto">
             {data?.users
               ?.filter((u) => u?.admin === true)
               ?.map((s, i) => (
