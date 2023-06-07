@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
 import {useAddNotificationMutation} from "../../features/notice/noticeApi";
 import Error from "../ui/Error";
 
 const AddNotificationModal = ({notificationModal, setNotificationModal, user}) => {
   const [addNotification, {isError, isLoading, isSuccess}] = useAddNotificationMutation();
-  const {admin} = useSelector((state) => state?.auth?.user);
-  // console.log(user);
   const [notiFicationData, setNotificationData] = useState({});
   const [err, setErr] = useState("");
+  //add notification
   const handleAddNotification = () => {
     notiFicationData.user = user;
     addNotification(notiFicationData);
@@ -21,13 +19,11 @@ const AddNotificationModal = ({notificationModal, setNotificationModal, user}) =
       setErr("There was an error occured!");
     }
   }, [isSuccess, setNotificationModal, isError]);
-  // console.log(data);
   const handleOnchange = (e) => {
     notiFicationData[e.target.name] = e.target.value;
     setNotificationData({...notiFicationData});
   };
 
-  // console.log(user);
   return (
     <div>
       {notificationModal ? (

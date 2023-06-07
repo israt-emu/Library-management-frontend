@@ -5,6 +5,7 @@ import {useGetNoticesQuery} from "../../features/notice/noticeApi";
 import CardSkeletonLoader from "../ui/CardSkeletonLoader";
 import Error from "../ui/Error";
 import NoticeItem from "./NoticeItem";
+import Loader from "../ui/Loader";
 
 const Notice = () => {
   const {user} = useSelector((state) => state?.auth);
@@ -22,8 +23,8 @@ const Notice = () => {
   }
   if (!isError && isLoading) {
     content = (
-      <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
-        <CardSkeletonLoader />
+      <div className="w-full mx-auto mt-4">
+        <Loader />
       </div>
     );
   }

@@ -13,15 +13,14 @@ const AddArticle = () => {
     articleData[e.target.name] = e.target.value;
     setArticleData({...articleData});
   };
+  //add article
   const handleSubmit = () => {
-    console.log(articleData);
     articleData.authorName = user?.name;
     articleData.authorId = user?._id;
-    console.log(articleData);
     addArticle(articleData);
   };
   const navigate = useNavigate();
-
+//
   useEffect(() => {
     if (data?.status === "success" && isSuccess) {
       navigate("/dashboard/articles");

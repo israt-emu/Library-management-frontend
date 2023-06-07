@@ -4,12 +4,11 @@ import {TbBookUpload} from "react-icons/tb";
 import {TbBookDownload} from "react-icons/tb";
 import {GoAlert} from "react-icons/go";
 import {useGetAllUsersQuery} from "../../features/auth/authApi";
-import {useGetBooksQuery, useGetRequestedBooksQuery} from "../../features/book/bookAPI";
+import {useGetRequestedBooksQuery} from "../../features/book/bookAPI";
 import {useGetBorrwedBooksQuery} from "../../features/boorowedBook/borrowedBookApi";
 
 const QuickAnalytics = () => {
   const {data} = useGetAllUsersQuery();
-  const {data: bookData} = useGetBooksQuery();
   const {data: borrowedBookData} = useGetBorrwedBooksQuery();
   const {data: requestedBooks} = useGetRequestedBooksQuery();
   console.log(requestedBooks);

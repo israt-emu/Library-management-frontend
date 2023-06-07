@@ -4,10 +4,7 @@ import { useParams } from "react-router-dom";
 import { useGetBookDetailsQuery } from "../../features/book/bookAPI";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Moment from "react-moment";
-// import {useSelector} from "react-redux";
 import { useState } from "react";
-// import {useId} from "react";
-// import {useEffect} from "react";
 import Error from "../ui/Error";
 import Success from "../ui/Success";
 import BorrowedBookModal from "../modals/BorrowedBookModal";
@@ -57,17 +54,8 @@ const BookDetails = () => {
     },
   ];
 
-  console.log(id, bookDetails);
 
-  // useEffect(() => {
-  //   if (data?.status !== "success" && !isSuccess && isError) {
-  //     setError("Sorry! we are having a trouble..");
-  //     setSuccess("");
-  //   } else if (data?.status === "success" && isSuccess) {
-  //     setSuccess("You Borrowed this book successfully..");
-  //     setError("");
-  //   }
-  // }, [data, isSuccess, isError]);
+ 
   return (
     <div className=" mx-auto space-y-12 grid grid-cols-5">
       <article className="space-y-8 text-gray-900 col-span-2">

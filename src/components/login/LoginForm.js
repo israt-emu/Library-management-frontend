@@ -19,7 +19,6 @@ const LoginForm = () => {
       setError(responseError?.data?.message);
     }
     if (data?.token && data?.user) {
-
       navigate("/dashboard/books");
     }
   }, [data, responseError, navigate]);
@@ -83,8 +82,9 @@ const LoginForm = () => {
           </div>
           <div className="space-y-2 w-4/6 mx-auto">
             <div>
-              <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-main text-fill mt-8" disabled={isLoading}>
-                Login
+              <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-main text-fill mt-8 flex justify-center items-center" disabled={isLoading}>
+                {isLoading && <svg class="animate-spin h-5 w-5 mr-3 text-white rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" viewBox="0 0 24 24"></svg>}
+                <span>Login</span>
               </button>
             </div>
           </div>

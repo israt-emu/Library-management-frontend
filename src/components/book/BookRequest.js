@@ -4,7 +4,6 @@ import RequestedBookTable from "../tables/RequestedBookTable";
 
 const BookRequest = () => {
   const {data: requestedBookData} = useGetRequestedBooksQuery();
-  // console.log(requestedBookData);
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 text-gray-800">

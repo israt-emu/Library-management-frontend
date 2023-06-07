@@ -56,7 +56,7 @@ const SignUp = () => {
       signUp(data);
     }
   };
-  //bg-green-400/[0.8] backdrop-blur-sm
+
   return (
     <div
       className={`${theme === "dark" ? "theme-dark" : "theme-light"} bg-fill h-screen flex`}
@@ -139,7 +139,9 @@ const SignUp = () => {
               <div className="">
                 <div>
                   <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-main text-fill mt-8" disabled={isLoading}>
-                    Sing Up
+                    {isLoading && <svg class="animate-spin h-5 w-5 mr-3 text-white rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" viewBox="0 0 24 24"></svg>}
+                    <span>Login</span>
+                    Sign Up
                   </button>
                 </div>
               </div>

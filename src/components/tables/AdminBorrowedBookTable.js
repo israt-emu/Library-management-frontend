@@ -2,17 +2,14 @@ import React, {useEffect, useState} from "react";
 import Moment from "react-moment";
 import TablePagination from "../ui/TablePagination";
 import {BsCheckCircleFill} from "react-icons/bs";
-import {TbAlertCircle} from "react-icons/tb";
 import {TbBookDownload} from "react-icons/tb";
 import {useGetFilteredBorrowedBooksQuery} from "../../features/boorowedBook/borrowedBookApi";
 import ReturnBookModal from "../modals/ReturnBookModal";
 import {MdCircleNotifications} from "react-icons/md";
 import AddNotificationModal from "../modals/AddNotificationModal";
-import {useGetSingleUserQuery} from "../../features/auth/authApi";
-import {useSelector} from "react-redux";
+
 
 const AdminBorrowedBookTable = ({data}) => {
-  const {user} = useSelector((state) => state?.auth);
   const [addNotificationModal, setAddNotificationModal] = useState(false);
   const limit = 5;
   const [currentPage, setCurrentPage] = useState(1);

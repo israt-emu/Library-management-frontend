@@ -7,7 +7,6 @@ export const borrowedBookApi = apiSlice.injectEndpoints({
       query: () => ({
         url: `/borrowedBook/getAllBorrowedBooks`,
         method: "GET",
-        // body: data,
       }),
     }),
     getBorrowedBookDetails: builder.query({

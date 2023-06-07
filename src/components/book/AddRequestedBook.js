@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {useAddBookMutation, useAddRequestedBookMutation} from "../../features/book/bookAPI";
+import { useAddRequestedBookMutation} from "../../features/book/bookAPI";
 import Error from "../ui/Error";
 
 const AddRequestedBook = () => {
@@ -14,11 +14,12 @@ const AddRequestedBook = () => {
     bookData[e.target.name] = e.target.value;
     setBookData({...bookData});
   };
+  // request book
   const handleSubmit = () => {
     bookData.requestedBy = user?._id;
     addRequestedBook(bookData);
   };
-  console.log(data);
+ //
   useEffect(() => {
     if (data?.status === "success" && isSuccess) {
       navigate("/dashboard/bookRequest");

@@ -32,20 +32,6 @@ const Dashboard = () => {
     }
   }, [location, dispatch]);
 
-  // // closing navigation on clicking outside
-  // const ref = useRef();
-  // const btnRef = useRef();
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       !ref?.current?.contains(event.target) &&
-  //       !btnRef?.current?.contains(event.target)
-  //     ) {
-  //       setDropModal(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  // }, [ref, btnRef]);
   return (
     <div className={`${theme === "dark" ? "theme-dark" : "theme-light"} bg-fill`}>
       <Navbar setToggle={setToggle} toggle={toggle} />
@@ -54,7 +40,7 @@ const Dashboard = () => {
           {" "}
           <Sidebar toggle={toggle} setToggle={setToggle} />
         </div>
-        <div className={`text-primary  ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 pr-8"} col-end-13 h-full mt-20 z-0`}>
+        <div className={`text-primary overflow-y-scroll no-scrollbar ${toggle ? "col-start-2 px-4 transition-all duration-300" : "col-start-3 transition-all duration-300 pr-8"} col-end-13 h-screen mt-20 z-0`}>
           <button className="flex items-center px-2 py-1 bg-second text-white rounded mb-3" onClick={() => navigate(-1)}>
             <MdArrowBack className="mr-1" />
             Back

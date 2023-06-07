@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useAddNoticeMutation} from "../../features/notice/noticeApi";
 
 const AddNotice = () => {
-  const {user} = useSelector((state) => state.auth);
   const [error, setError] = useState("");
   const [addNotice, {data, isSuccess, isError}] = useAddNoticeMutation();
   const [noticeData, setNoticeData] = useState({});
@@ -12,6 +10,7 @@ const AddNotice = () => {
     noticeData[e.target.name] = e.target.value;
     setNoticeData({...noticeData});
   };
+  //add notice
   const handleSubmit = () => {
     addNotice(noticeData);
   };

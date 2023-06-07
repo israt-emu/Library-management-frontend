@@ -159,7 +159,6 @@ export const bookApi = apiSlice.injectEndpoints({
       query: () => ({
         url: `/requestedBook/getAllRequestedBooks`,
         method: "GET",
-        // body: data,
       }),
     }),
     getFilteredRequestedBooks: builder.query({

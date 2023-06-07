@@ -9,8 +9,6 @@ import BookCard from "./BookCard";
 
 const Book = () => {
   const {data: booksData, isError, error, isLoading} = useGetBooksQuery();
-  // const {_id: id} = useSelector((state) => state?.auth?.user);
-  // const navigate = useNavigate();
 
   // decide what to render
   let content = null;
@@ -25,6 +23,9 @@ const Book = () => {
   if (!isError && isLoading) {
     content = (
       <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
+        <CardSkeletonLoader />
+        <CardSkeletonLoader />
+        <CardSkeletonLoader />
         <CardSkeletonLoader />
       </div>
     );

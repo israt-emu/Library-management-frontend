@@ -15,10 +15,10 @@ export default function NotificationModal({
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state?.auth);
   const { _id: id } = user || {};
-  const [updateStatus, { isLoading, isError, isSuccess }] =
+  const [updateStatus, { isLoading, isSuccess }] =
     useUpdateNotificationStatusMutation();
   const { data: notificationData } = useGetNotificationsQuery();
-  // console.log(notificationData);
+
   const filterUserNotification = user?.admin
     ? notificationData?.notification?.filter(
         (d) => d?.user === "admin" || d?.user === "all"
@@ -42,10 +42,9 @@ export default function NotificationModal({
     if (read.length === 0) {
       dispatch(newNotification(false));
     }
-    // console.log(read);
+    
   }, [filterUserNotification, dispatch, isSuccess]);
-  // console.log(filterUserNotification);
-  // console.log(notificationData?.notification);
+ 
   return (
     <>
       {notificationModal ? (

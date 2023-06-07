@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useUpdateBookMutation, useGetBookDetailsQuery, useGetSingleBookByIdQuery} from "../../features/book/bookAPI";
+import {useUpdateBookMutation, useGetSingleBookByIdQuery} from "../../features/book/bookAPI";
 import Error from "../ui/Error";
 
 const EditBook = () => {
@@ -11,10 +11,12 @@ const EditBook = () => {
   const [updateBook, {data, isSuccess, isError}] = useUpdateBookMutation();
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  //
   const handleOnchange = (e) => {
     bookData[e.target.name] = e.target.value;
     setBookData({...bookData});
   };
+  //updating book
   const handleSubmit = () => {
     console.log(bookData);
     updateBook({id: _id, data: {bookData, id: bookId}});

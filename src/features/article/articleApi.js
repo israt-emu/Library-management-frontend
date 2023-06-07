@@ -6,7 +6,7 @@ export const articleApi = apiSlice.injectEndpoints({
       query: () => ({
         url: `/article/getAllArticle`,
         method: "GET",
-        // body: data,
+       
       }),
     }),
     getArticleDetails: builder.query({
@@ -80,7 +80,7 @@ export const articleApi = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/article/deleteArticle/${id}`,
         method: "DELETE",
-        // body: data,
+        
       }),
       async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
@@ -178,14 +178,12 @@ export const articleApi = apiSlice.injectEndpoints({
       query: () => ({
         url: `/article/latestArticles`,
         method: "GET",
-        // body: data,
       }),
     }),
     getPopularArticles: builder.query({
       query: () => ({
         url: `/article/popularArticles`,
         method: "GET",
-        // body: data,
       }),
     }),
   }),

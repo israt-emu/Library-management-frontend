@@ -1,4 +1,4 @@
-import {data} from "autoprefixer";
+
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -15,15 +15,14 @@ const AddBook = () => {
     bookData[e.target.name] = e.target.value;
     setBookData({...bookData});
   };
+  //add book
   const handleSubmit = () => {
-    console.log(bookData);
     bookData.addedBy = user?._id;
     bookData.totalViews = 0;
     bookData.totalBorrowed = 0;
-    console.log(bookData);
     addBook(bookData);
   };
-  console.log(data);
+  
   useEffect(() => {
     if (data?.status === "success" && isSuccess) {
       navigate("/dashboard/books");

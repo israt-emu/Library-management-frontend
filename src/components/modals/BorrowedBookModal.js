@@ -42,7 +42,6 @@ const BorrowedBookModal = ({borrowed, setBorrowed, setSuccess, setError, data}) 
                 <button className="text-lg text-green-600 bg-green-200 rounded-md p-2 mr-3">
                   <TbBookDownload />
                 </button>
-                {/* {!admin && <h2 className="text-lg font-medium">Are you sure you want to make this user admin?</h2>} */}
                 <h2 className="text-lg font-medium">Are you sure you want to borrow this book?</h2>
               </div>
 

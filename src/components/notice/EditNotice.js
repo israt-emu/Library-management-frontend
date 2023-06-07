@@ -13,6 +13,7 @@ const EditNotice = () => {
     noticeData[e.target.name] = e.target.value;
     setNoticeData({...noticeData});
   };
+  //edit notice
   const handleSubmit = () => {
     updateNotice({id: editNoticeId, data: noticeData});
   };

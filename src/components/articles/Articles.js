@@ -24,7 +24,8 @@ const Articles = () => {
   }
   if (!isError && isLoading) {
     content = (
-      <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-4">
+        <CardSkeletonLoader />
         <CardSkeletonLoader />
       </div>
     );
@@ -50,12 +51,7 @@ const Articles = () => {
           <h1 className="font-bold my-4 text-primary">Articles</h1>
           <div>
             <Link to={"/dashboard/addarticle"}>
-              <button
-                className="inline-block bg-second rounded px-3 py-1 text-sm font-semibold mr-2 mb-2 text-sidebar_text"
-                //   onClick={() => handleBorrowBook()}
-              >
-                Add Article
-              </button>
+              <button className="inline-block bg-second rounded px-3 py-1 text-sm font-semibold mr-2 mb-2 text-sidebar_text">Add Article</button>
             </Link>
           </div>
         </div>
