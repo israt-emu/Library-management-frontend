@@ -136,8 +136,9 @@ const RequestedBookTable = ({ data }) => {
                         <MdBookmarkAdded />
                       </button>
                     </td>
-                    <td className="px-3 py-2 text-center">
-                      {user?.admin && (
+
+                    {user?.admin && (
+                      <td className="px-3 py-2 text-center">
                         <button
                           disable={true}
                           type="button"
@@ -148,10 +149,11 @@ const RequestedBookTable = ({ data }) => {
                             <MdEdit />
                           </Link>
                         </button>
-                      )}
-                    </td>
-                    <td className="px-3 py-2 text-center">
-                      {user?.admin && (
+                      </td>
+                    )}
+
+                    {user?.admin && (
+                      <td className="px-3 py-2 text-center">
                         <button
                           type="button"
                           className="p-1 rounded-full hover:bg-gray-300 text-lg text-black"
@@ -160,8 +162,8 @@ const RequestedBookTable = ({ data }) => {
                         >
                           <MdDelete />
                         </button>
-                      )}
-                    </td>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
