@@ -138,8 +138,8 @@ const SignUp = () => {
               </div>
               <div className="">
                 <div>
-                  <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-main text-fill mt-8" disabled={isLoading}>
-                    {isLoading && <svg class="animate-spin h-5 w-5 mr-3 text-white rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" viewBox="0 0 24 24"></svg>}
+                  <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-main text-fill mt-8  flex justify-center items-center" disabled={isLoading}>
+                  {isLoading && <svg class="animate-spin h-5 w-5 mr-3 text-white rounded-full border-4 border-solid border-r-transparent s motion-reduce:animate-[spin_1.5s_linear_infinite]" viewBox="0 0 24 24"></svg>}
                     <span> Sign Up</span>
                   </button>
                 </div>
